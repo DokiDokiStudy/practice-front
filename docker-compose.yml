@@ -15,11 +15,14 @@ services:
       - backend  # (원한다면, 프론트엔드에서 백엔드 API 호출 시 네트워크 연결을 위해)
 
   backend:
-    build:
-      context: ./Backend/Common
-      dockerfile: Dockerfile
+    image: youngjinjin/practice-back
     ports:
-      - "8080:80"
+      - "3000:3000"
+    # build:
+    #   context: ./Backend/Common
+    #   dockerfile: Dockerfile
+    # ports:
+    #   - "8080:80"
     env_file:
       - ./Backend/Common/.env
     networks:
