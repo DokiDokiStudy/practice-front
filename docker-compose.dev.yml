@@ -1,0 +1,16 @@
+# 프론트 페이지 핫 리로딩을 위해서 오버라이드 사용해야 합니다.
+# 일반 build 사용 시 빌드 시에 코드 적용
+
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./Front/Web
+      target: build
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./Front/Web:/app
+      - /app/node_modules
+    command: npm run dev
