@@ -9,7 +9,7 @@ interface BoardFormProps {
   onContentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   buttonText?: string;
-  buttonProps?: React.ComponentProps<typeof Button>;
+  buttonProps?: Partial<Omit<ButtonProps, 'children'>>;
 }
 
 function BoardForm({

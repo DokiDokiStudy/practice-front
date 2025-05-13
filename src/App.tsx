@@ -9,6 +9,12 @@ import Board from './pages/board/Board';
 import BoardWrite from './pages/board/BoardWrite';
 import BoardDetail from './pages/board/BoardDetail';
 import BoardEdit from './pages/board/BoardEdit';
+import DockerDocsOverview from './pages/dockerDocs/DockerDocsOverview';
+import DockerDocsDetail from './pages/dockerDocs/DockerDocsDetail';
+import ThreadList from './pages/threads/ThreadList';
+import ThreadDetail from './pages/threads/ThreadDetail';
+import ThreadWrite from './pages/threads/ThreadWrite';
+import ThreadEdit from './pages/threads/ThreadEdit';
 import '../index.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // 토스트메시지 라이브러리
@@ -29,6 +35,12 @@ function App() {
           <Route path="/board/write" element={<BoardWrite />} />
           <Route path="/board/:id" element={<BoardDetail />} />
           <Route path="/board/:id/edit" element={<BoardEdit />} />
+          <Route path="/docker-docs" element={<DockerDocsOverview />} />
+          <Route path="/docs/:chapterId/:stepId?" element={<DockerDocsDetail />} />
+          <Route path="/thread" element={<ThreadList />} />
+          <Route path="/thread/:threadId" element={<ThreadDetail />} />
+          <Route path="/thread/:threadId/edit" element={<ThreadEdit />} />
+          <Route path="/thread/write" element={<ThreadWrite />} />
         </Routes>
       </Router>
       <ToastContainer position="top-center" autoClose={3000}
