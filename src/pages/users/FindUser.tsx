@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import TopNav from '../../components/common/TopNav';
+import api from '../../lib/api';
 
 function FindUser() {
   const [email, setEmail] = useState('');
@@ -10,27 +11,32 @@ function FindUser() {
 
   const navigate = useNavigate();
 
-  // DB 조회 필요
-  const chekckEmailExists = (email) => {
-    const dummyEmails = ['test@example.com', 'user@doky.com'];
-    return dummyEmails.includes(email);
+  const checkEmailExists = async (email: string): Promise<boolean> => {
+    try {
+      const res = await api.get('/users/check-email', {
+        params: { email },
+      });
+
+      return res.data.message !== '사용가능한 이메일입니다.';
+    } catch (err) {
+      console.error('이메일 중복 확인 실패:', err);
+      return false;
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    const exists = chekckEmailExists(email);
+    // 음.. 일단 임시로 이 라우트 사용
+    const exists = await checkEmailExists(email);
 
     if (exists) {
-      console.log('아이디 찾기 이메일 전송:', email);
       setSubmitted(true);
+      // 나중에 메일 전송하는 라우트도 태워야 함
     } else {
       toast.error('입력하신 이메일로 가입된 계정을 찾을 수 없습니다.');
     }
-
     setIsLoading(false);
   };
 

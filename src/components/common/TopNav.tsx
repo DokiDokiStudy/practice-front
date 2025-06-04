@@ -1,6 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function TopNav() {
+  const navigate = useNavigate();
+  const [nickName, setNickName] = useState('');
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    const storedNick = localStorage.getItem('nickName');
+    if (storedToken && storedNick) {
+      setNickName(storedNick);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('nickName');
+    setNickName('');
+    navigate('/login');
+  };
+
   return (
     <nav className="w-full p-4 flex justify-between items-center z-10 bg-cyan-950 bg-opacity-20 backdrop-blur-md">
       <Link to="/main" className="hover:underline">
@@ -13,12 +32,23 @@ function TopNav() {
         <li>
           <Link to="/board" className="hover:underline">게시판</Link>
         </li>
-        <li>
-          <Link to="/login" className="hover:underline">로그인</Link>
-        </li>
-        <li>
-          <Link to="/register" className="hover:underline">회원가입</Link>
-        </li>
+
+        {nickName ? (
+          <li>
+            <button onClick={handleLogout} className="hover:underline">
+              {nickName} (로그아웃)
+            </button>
+          </li>
+        ) : (
+          <>
+            <li>
+              <Link to="/login" className="hover:underline">로그인</Link>
+            </li>
+            <li>
+              <Link to="/register" className="hover:underline">회원가입</Link>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );

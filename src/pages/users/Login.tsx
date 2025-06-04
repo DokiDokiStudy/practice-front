@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import TopNav from '../../components/common/TopNav';
+import api from '../../lib/api';
 
 function Login() {
-  const [id, setId] = useState('');
-  // const [email, setEmail] = useState('');
+  // const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -14,19 +16,29 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    // 로딩 나중에는 셋타임 대신 실제 통신 붙이고 프로미스 객체 반환된 이후 풀도록 구현 예정
-    if (id !== 'admin' || password !== '1234') {
-      setError('아이디 또는 비밀번호를 다시 확인해주세요.');
-    } else {
-      sessionStorage.setItem('isLoggedIn', 'true');
-      setError('');
-      navigate('/main');
-      console.log('로그인 성공:', { id, password });
+    try {
+      const res = await api.post('/auth/login', {
+        email,
+        password,
+      });
+      // res.data.config는 뭐에여???
+      if (res.data) {
+        const token = res.data.token.replace(/^Bearer\s/, '');
+        localStorage.setItem('nickName', res.data.nickName);
+        localStorage.setItem('token', token);
+        toast.success('로그인 성공!');
+        navigate('/main');
+      } else {
+        setError('로그인 실패 다시 시도 해주세요.');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || '아이디 또는 비밀번호를 다시 확인해주세요.');
+      toast.error('로그인 실패');
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
@@ -42,11 +54,11 @@ function Login() {
           </h2>
 
           <label className="block mb-4">
-            <span className="text-gray-700">아이디</span>
+            <span className="text-gray-700">이메일</span>
             <input
               type="text"
-              value={id}
-              onChange={(e) => setId(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:border-blue-400"
               required
             />

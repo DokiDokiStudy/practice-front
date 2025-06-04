@@ -3,12 +3,14 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import TopNav from '../../components/common/TopNav';
+import api from '../../lib/api'
 
 function Register() {
   const [id, setId] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [nickName, setNickName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -28,17 +30,35 @@ function Register() {
       return;
     }
 
-    await handleRegister();
+    const result = await handleRegister();
 
-    toast.success('회원가입 성공!');
-    navigate('/login');
+    if (result) {
+      toast.success('회원가입 성공!');
+      navigate('/login');
+    } else {
+      toast.error('회원가입 실패');
+    }
   };
 
   const handleRegister = async () => {
-    setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsLoading(false);
-    console.log('회원가입 시도:', { id, email, password });
+    try {
+      setIsLoading(true);
+
+      const response = await api.post('/users', {
+        email,
+        password,
+        name: id,
+        nickName,
+      });
+
+      // status 200
+      return true;
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -52,6 +72,17 @@ function Register() {
           <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">
             회원가입
           </h2>
+
+          <div className="mb-4">
+            <label className="text-gray-700 block mb-1">닉네임</label>
+            <input
+              type="text"
+              value={nickName}
+              onChange={(e) => setNickName(e.target.value)}
+              className="w-full border border-gray-300 rounded-xl px-4 py-2"
+              required
+            />
+          </div>
 
           <div className="mb-4">
             <label className="text-gray-700 block mb-1">아이디</label>

@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import TopNav from '../../components/common/TopNav';
+import api from '../../lib/api';
 
 function FindPwd() {
   const [id, setId] = useState('');
@@ -11,22 +12,34 @@ function FindPwd() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const checkValidate = (id, email) => {
-    const dummy = { id: 'doky123', email: 'doky@doky.com' };
-    return dummy.id == id && dummy.email == email;
-  };
+  // const checkValidate = (id, email) => {
+  //   const dummy = { id: 'doky123', email: 'doky@doky.com' };
+  //   return dummy.id == id && dummy.email == email;
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    await new Promise((res) => setTimeout(res, 1500));
+    try {
+      const res = await api.post('/auth/find-password', {
+        email,
+        name: id,
+      });
 
-    if (checkValidate(id, email)) {
-      console.log('비밀번호 찾기 요청:', { id, email });
-      setSubmitted(true);
-    } else {
-      toast.error('입력한 정보로 등록된 계정을 찾을 수 없습니다.');
+      console.log(res);
+      // 아, 이거 비밀번호 암호화된 채로 내려주는거 좋지 않습니다.
+      // 일단 이메일로 보냈다는 메시지는 유지할게요
+
+      if (res.status === 201 || res.data?.statusCode === 201) {
+        setSubmitted(true);
+      } else {
+        toast.error(res.data?.message || '비밀번호 재설정 요청에 실패했습니다.');
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || '입력한 정보로 등록된 계정을 찾을 수 없습니다.'
+      );
     }
 
     setIsLoading(false);
