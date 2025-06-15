@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import TopNav from '../../components/common/TopNav';
-import api from '../../lib/api';
+import TopNav from '@/components/common/TopNav';
+import api from '@/lib/api';
 
 function FindUser() {
   const [email, setEmail] = useState('');
