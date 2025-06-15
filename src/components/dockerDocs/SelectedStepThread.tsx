@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { X } from "lucide-react";
+import { X } from 'lucide-react';
 import ThreadCard from './ThreadCard';
+import api from '@/lib/api';
 
 const dummyThreads = [
   {
@@ -26,29 +28,86 @@ interface Props {
   onClose: () => void;
 }
 
+interface Thread {
+  id?: number;
+  threadId?: string; // 더미용
+  title: string;
+  summary: string;
+  likes: number;
+  dislikes: number;
+  comments: string[];
+}
+
 const SelectedStepThread = ({ stepId, onClose }: Props) => {
-    return (
-      <motion.div
-        initial={{ x: 400 }}
-        animate={{ x: 0 }}
-        exit={{ x: 400 }}
-        transition={{ duration: 0.3 }}
-        className="fixed top-0 right-0 h-full w-[400px] bg-white border-l shadow-lg z-50 p-6 overflow-y-auto"
-      >
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold">🧵 {stepId} 토론</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-black text-xl">
-            <X />
-          </button>
-        </div>
-  
-        <div className="mb-4 text-sm text-gray-600">이 스텝에 대한 게시글입니다.</div>
-  
-        {dummyThreads.map((t) => (
-          <ThreadCard key={t.threadId} {...t} />
-        ))}
-      </motion.div>
-    );
-  };
+  const [threads, setThreads] = useState<Thread[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchThreads = async () => {
+      try {
+        setLoading(true);
+        const res = await api.get('/post', { params: { categoryId: stepId } });
+
+        const data = res.data;
+
+        if (!Array.isArray(data) || data.length === 0) {
+          setThreads(dummyThreads);
+          return;
+        }
+
+        const normalized = data.map((post) => ({
+          id: post.id,
+          title: post.title,
+          summary: post.content.slice(0, 60),
+          likes: post.likes ?? 0,
+          dislikes: post.dislikes ?? 0,
+          comments: [],
+        }));
+
+        setThreads(normalized);
+      } catch (err) {
+        setThreads(dummyThreads);
+        setError('API 요청 실패 - 더미 데이터 사용');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchThreads();
+  }, [stepId]);
+
+  return (
+    <motion.div
+      initial={{ x: 400 }}
+      animate={{ x: 0 }}
+      exit={{ x: 400 }}
+      transition={{ duration: 0.3 }}
+      className="fixed top-0 right-0 h-full w-[400px] bg-white border-l shadow-lg z-50 p-6 overflow-y-auto"
+    >
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-bold">🧵 {stepId} 토론</h2>
+        <button onClick={onClose} className="text-gray-500 hover:text-black text-xl">
+          <X />
+        </button>
+      </div>
+
+      {loading && <div className="text-sm text-gray-400">로딩 중...</div>}
+      {error && <div className="text-sm text-red-500 mb-2">{error}</div>}
+
+      {threads.map((t) => (
+        <ThreadCard
+          key={t.id ?? t.threadId}
+          threadId={t.threadId ?? `post-${t.id}`}
+          title={t.title}
+          summary={t.summary}
+          likes={t.likes}
+          dislikes={t.dislikes}
+          comments={t.comments}
+        />
+      ))}
+    </motion.div>
+  );
+};
 
 export default SelectedStepThread;
