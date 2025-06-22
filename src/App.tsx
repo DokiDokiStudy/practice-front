@@ -36,7 +36,7 @@ function App() {
           <Route path="/board/:id" element={<BoardDetail />} />
           <Route path="/board/:id/edit" element={<BoardEdit />} />
           <Route path="/docker-docs" element={<DockerDocsOverview />} />
-          <Route path="/docs/:chapterId/:stepId?" element={<DockerDocsDetail />} />
+          <Route path="/docs/:projectId/:chapterId" element={<DockerDocsDetail />} />
           <Route path="/thread" element={<ThreadList />} />
           <Route path="/thread/:threadId" element={<ThreadDetail />} />
           <Route path="/thread/:threadId/edit" element={<ThreadEdit />} />
