@@ -23,11 +23,17 @@ function Login() {
         email,
         password,
       });
-      // res.data.config는 뭐에여???
-      if (res.data) {
-        const token = res.data.token.replace(/^Bearer\s/, '');
-        localStorage.setItem('nickName', res.data.nickName);
+      // 쿠키에 넣어야 하는지 생각을 좀 해보자
+      const token = res.data.data.token;
+      const nickName = res.data.data.nickName;
+      const user_email = res.data.data.email;
+      const user_role = res.data.data.role;
+
+      if (token && nickName && user_email) {
         localStorage.setItem('token', token);
+        localStorage.setItem('nickName', nickName);
+        localStorage.setItem('email', user_email);
+        localStorage.setItem('role', user_role);
         toast.success('로그인 성공!');
         navigate('/main');
       } else {
