@@ -1,18 +1,19 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
-import BoardLayout from '../../components/layout/BoardLayout';
-import BoardView from '../../components/board/BoardView';
-import TopNav from '../../components/common/TopNav';
-import Button from '../../components/common/Button';
+import BoardLayout from '@/components/layout/BoardLayout';
+import BoardView from '@/components/board/BoardView';
+import TopNav from '@/components/common/TopNav';
+import Button from '@/components/common/Button';
 import { toast } from 'react-toastify';
+import { usePost } from '@/hooks/usePosts';
 
 function BoardDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [post, setPost] = useState(null);
+  const { data: post, isLoading, isError, error } = usePost(Number(id));
 
-  sessionStorage.setItem('isLoggedIn', 'true');
-  sessionStorage.setItem('userId', '관리자');
+  if (isLoading) return <p>로딩 중…</p>;
+  if (isError)  return <p>에러 발생 </p>;
 
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') == 'true';
   const currentUser = sessionStorage.getItem('userId');
@@ -24,45 +25,48 @@ function BoardDetail() {
     { id: 3, title: '이벤트 안내', author: '운영자', date: '2025-04-15', content: '이벤트 내용입니다.' },
   ];
 
-  const hasRunRef = useRef(false);
+  // const hasRunRef = useRef(false);
 
-  useEffect(() => {
-    if (hasRunRef.current) return;
-    hasRunRef.current = true;
+  // useEffect(() => {
+  //   if (hasRunRef.current) return;
+  //   hasRunRef.current = true;
   
-    const found = dummyPosts.find((p) => String(p.id) == id);
-    if (found) {
-      setPost(found);
-    } else {
-      toast.error('게시글을 찾을 수 없습니다.');
-      navigate('/board');
-    }
-  }, [id, navigate]);
+  //   const found = dummyPosts.find((p) => String(p.id) == id);
+  //   if (found) {
+  //     setPost(found);
+  //   } else {
+  //     toast.error('게시글을 찾을 수 없습니다.');
+  //     navigate('/board');
+  //   }
+  // }, [id, navigate]);
 
-  if (!post) return null; // 아직 로딩 중
+  // if (!post) return null; // 아직 로딩 중
 
   return (
     <>
       <TopNav />
-      <BoardLayout className="max-w-7xl">
-        <h2 className="text-2xl font-bold text-black-900 mb-6 text-center">📄 게시글 상세</h2>
-        <BoardView
-          title={post.title}
-          author={post.author}
-          date={post.date}
-          content={post.content}
-        />
-      </BoardLayout>
-      <div className="mt-6 flex gap-4 justify-center">
-        <Link to="/board">
-          <Button color="gray" size="md">목록으로</Button>
-        </Link>
-        {isLoggedIn && currentUser == post.author && (
-          <Link to={`/board/${post.id}/edit`}>
-            <Button color="teal" size="md">수정하기</Button>
+      <BoardLayout>
+        <h2 className="text-2xl font-bold mb-4">{post.title}</h2>
+        <p className="text-sm text-gray-500 mb-6">
+          작성자: {post.author} · 조회수: {post.views}
+        </p>
+        <div className="prose mb-8">{post.content}</div>
+
+        <div className="flex space-x-2">
+          <Link
+            to={`/board/edit/${post.id}`}
+            className="px-4 py-2 bg-green-500 text-white rounded"
+          >
+            수정
           </Link>
-        )}
-      </div>
+          <Link
+            to="/board"
+            className="px-4 py-2 bg-gray-300 rounded"
+          >
+            목록으로
+          </Link>
+        </div>
+      </BoardLayout>
     </>
   );
 }

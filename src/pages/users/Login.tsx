@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import TopNav from '../../components/common/TopNav';
-import api from '../../lib/api';
+import TopNav from '@/components/common/TopNav';
+import api from '@/lib/api';
 
 function Login() {
   // const [id, setId] = useState('');
@@ -30,10 +30,15 @@ function Login() {
       const user_role = res.data.data.role;
 
       if (token && nickName && user_email) {
-        localStorage.setItem('token', token);
-        localStorage.setItem('nickName', nickName);
-        localStorage.setItem('email', user_email);
-        localStorage.setItem('role', user_role);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            token: token,
+            nickName: nickName,
+            email: user_email,
+            role: user_role,
+          })
+        );
         toast.success('로그인 성공!');
         navigate('/main');
       } else {

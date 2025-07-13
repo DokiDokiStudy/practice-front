@@ -1,22 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 function TopNav() {
   const navigate = useNavigate();
-  const [nickName, setNickName] = useState('');
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    const storedNick = localStorage.getItem('nickName');
-    if (storedToken && storedNick) {
-      setNickName(storedNick);
-    }
-  }, []);
+  const { user, isLoading } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('nickName');
-    setNickName('');
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
@@ -25,31 +16,34 @@ function TopNav() {
       <Link to="/main" className="hover:underline">
         <h1 className="text-black text-2xl font-bold tracking-widest">DOKYDOKY</h1>
       </Link>
-      <ul className="flex space-x-6 text-black font-medium">
-        <li>
-          <Link to="/main" className="hover:underline">메인</Link>
-        </li>
-        <li>
-          <Link to="/board" className="hover:underline">게시판</Link>
-        </li>
 
-        {nickName ? (
+      {!isLoading && (
+        <ul className="flex space-x-6 text-black font-medium">
           <li>
-            <button onClick={handleLogout} className="hover:underline">
-              {nickName} (로그아웃)
-            </button>
+            <Link to="/main" className="hover:underline">메인</Link>
           </li>
-        ) : (
-          <>
+          <li>
+            <Link to="/board" className="hover:underline">게시판</Link>
+          </li>
+
+          {user ? (
             <li>
-              <Link to="/login" className="hover:underline">로그인</Link>
+              <button onClick={handleLogout} className="hover:underline">
+                {user.nickName} (로그아웃)
+              </button>
             </li>
-            <li>
-              <Link to="/register" className="hover:underline">회원가입</Link>
-            </li>
-          </>
-        )}
-      </ul>
+          ) : (
+            <>
+              <li>
+                <Link to="/login" className="hover:underline">로그인</Link>
+              </li>
+              <li>
+                <Link to="/register" className="hover:underline">회원가입</Link>
+              </li>
+            </>
+          )}
+        </ul>
+      )}
     </nav>
   );
 }
