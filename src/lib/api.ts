@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+// 공통 통신부.. 실제 통신은 여기서 일어나지면 데이터 핸들링은 해당 스크립트를 호출한 곳에서 이루어져야 한다.
+// EX) 리소스 컨버터 등등
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
   withCredentials: true,
@@ -9,22 +12,17 @@ const api = axios.create({
 // 로컬스토리지의 토큰 헤더 등록
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    const userJson = localStorage.getItem('user');
+    if (userJson && config.headers) {
+      try {
+        const { token } = JSON.parse(userJson);
+        config.headers.Authorization = `Bearer ${token}`;
+      } catch {
+      }
     }
     return config;
   },
   (error) => Promise.reject(error)
 );
-
-api.interceptors.response.use(
-  res => res,
-  err => Promise.reject(err)
-);
-
-// 이 페이지를 직접 호출 하지 말고 호출부 생성하여 거기서 관리 필요
-// 호출부에서 응답을 컨버팅해서 주는 패턴으로
-// 마치 Controller처럼 해야함
 
 export default api;
