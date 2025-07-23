@@ -20,6 +20,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // 토스트메시지 라이브러리
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Layout from "./components/layout/Layout";
+import { ROUTES } from "./constants/routes";
 
 // 라우팅 명시는 여기서 하자
 function App() {
@@ -32,27 +33,36 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path="main" element={<Main />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="find-user" element={<FindUser />} />
-              <Route path="find-pwd" element={<FindPwd />} />
+              <Route path={ROUTES.MAIN} element={<Main />} />
+              <Route path={ROUTES.LOGIN} element={<Login />} />
+              <Route path={ROUTES.REGISTER} element={<Register />} />
+              <Route path={ROUTES.FIND_USER} element={<FindUser />} />
+              <Route path={ROUTES.FIND_PWD} element={<FindPwd />} />
 
-              <Route path="board" element={<Board />} />
-              <Route path="board/write" element={<BoardWrite />} />
-              <Route path="board/:id" element={<BoardDetail />} />
-              <Route path="board/:id/edit" element={<BoardEdit />} />
-
-              <Route path="docker-docs" element={<DockerDocsOverview />} />
+              <Route path={ROUTES.BOARD.LIST} element={<Board />} />
+              <Route path={ROUTES.BOARD.WRITE} element={<BoardWrite />} />
               <Route
-                path="docs/:projectId/:chapterId"
+                path={ROUTES.BOARD.DETAIL.PATH}
+                element={<BoardDetail />}
+              />
+              <Route path={ROUTES.BOARD.EDIT.PATH} element={<BoardEdit />} />
+
+              <Route
+                path={ROUTES.DOCKER_DOCS}
+                element={<DockerDocsOverview />}
+              />
+              <Route
+                path={ROUTES.DOCS_DETAIL.PATH}
                 element={<DockerDocsDetail />}
               />
 
-              <Route path="thread" element={<ThreadList />} />
-              <Route path="thread/write" element={<ThreadWrite />} />
-              <Route path="thread/:threadId" element={<ThreadDetail />} />
-              <Route path="thread/:threadId/edit" element={<ThreadEdit />} />
+              <Route path={ROUTES.THREAD.LIST} element={<ThreadList />} />
+              <Route path={ROUTES.THREAD.WRITE} element={<ThreadWrite />} />
+              <Route
+                path={ROUTES.THREAD.DETAIL.PATH}
+                element={<ThreadDetail />}
+              />
+              <Route path={ROUTES.THREAD.EDIT.PATH} element={<ThreadEdit />} />
             </Route>
           </Routes>
         </Router>
