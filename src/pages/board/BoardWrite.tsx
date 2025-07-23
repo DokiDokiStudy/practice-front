@@ -1,34 +1,34 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import TopNav from '../../components/common/TopNav';
-import BoardLayout from '../../components/layout/BoardLayout';
-import BoardForm from '../../components/board/BoardForm';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import BoardLayout from "../../components/layout/BoardLayout";
+import BoardForm from "../../components/board/BoardForm";
 
 function BoardWrite() {
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   useEffect(() => {
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
     if (!isLoggedIn) {
-      toast.warn('로그인 후 글쓰기가 가능합니다.');
-      navigate('/login');
+      toast.warn("로그인 후 글쓰기가 가능합니다.");
+      navigate("/login");
     }
   }, [navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('작성 완료:', { title, content });
-    toast.success('게시글이 작성되었습니다!');
-    navigate('/board');
+    console.log("작성 완료:", { title, content });
+    toast.success("게시글이 작성되었습니다!");
+    navigate("/board");
   };
   return (
     <>
-      <TopNav />
       <BoardLayout>
-        <h2 className="text-2xl font-bold text-black-900 mb-6 text-center">✍️ 게시글 작성</h2>
+        <h2 className="text-2xl font-bold text-black-900 mb-6 text-center">
+          ✍️ 게시글 작성
+        </h2>
 
         <BoardForm
           titleValue={title}
@@ -37,7 +37,7 @@ function BoardWrite() {
           onContentChange={(e) => setContent(e.target.value)}
           onSubmit={handleSubmit}
           buttonText="작성 완료"
-          buttonProps={{ color: 'green', size: 'md', loading: false }}
+          buttonProps={{ color: "green", size: "md", loading: false }}
         />
       </BoardLayout>
     </>

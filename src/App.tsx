@@ -19,6 +19,7 @@ import "../index.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // 토스트메시지 라이브러리
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Layout from "./components/layout/Layout";
 
 // 라우팅 명시는 여기서 하자
 function App() {
@@ -29,25 +30,30 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Router>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/main" element={<Main />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/find-user" element={<FindUser />} />
-            <Route path="/find-pwd" element={<FindPwd />} />
-            <Route path="/board" element={<Board />} />
-            <Route path="/board/write" element={<BoardWrite />} />
-            <Route path="/board/:id" element={<BoardDetail />} />
-            <Route path="/board/:id/edit" element={<BoardEdit />} />
-            <Route path="/docker-docs" element={<DockerDocsOverview />} />
-            <Route
-              path="/docs/:projectId/:chapterId"
-              element={<DockerDocsDetail />}
-            />
-            <Route path="/thread" element={<ThreadList />} />
-            <Route path="/thread/:threadId" element={<ThreadDetail />} />
-            <Route path="/thread/:threadId/edit" element={<ThreadEdit />} />
-            <Route path="/thread/write" element={<ThreadWrite />} />
+            <Route element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="main" element={<Main />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="find-user" element={<FindUser />} />
+              <Route path="find-pwd" element={<FindPwd />} />
+
+              <Route path="board" element={<Board />} />
+              <Route path="board/write" element={<BoardWrite />} />
+              <Route path="board/:id" element={<BoardDetail />} />
+              <Route path="board/:id/edit" element={<BoardEdit />} />
+
+              <Route path="docker-docs" element={<DockerDocsOverview />} />
+              <Route
+                path="docs/:projectId/:chapterId"
+                element={<DockerDocsDetail />}
+              />
+
+              <Route path="thread" element={<ThreadList />} />
+              <Route path="thread/write" element={<ThreadWrite />} />
+              <Route path="thread/:threadId" element={<ThreadDetail />} />
+              <Route path="thread/:threadId/edit" element={<ThreadEdit />} />
+            </Route>
           </Routes>
         </Router>
         <ToastContainer

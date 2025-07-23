@@ -1,11 +1,10 @@
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import TopNav from '@/components/common/TopNav';
-import api from '@/lib/api';
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import api from "@/lib/api";
 
 function FindUser() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -13,13 +12,13 @@ function FindUser() {
 
   const checkEmailExists = async (email: string): Promise<boolean> => {
     try {
-      const res = await api.get('/users/check-email', {
+      const res = await api.get("/users/check-email", {
         params: { email },
       });
 
-      return res.data.message !== '사용가능한 이메일입니다.';
+      return res.data.message !== "사용가능한 이메일입니다.";
     } catch (err) {
-      console.error('이메일 중복 확인 실패:', err);
+      console.error("이메일 중복 확인 실패:", err);
       return false;
     }
   };
@@ -35,14 +34,13 @@ function FindUser() {
       setSubmitted(true);
       // 나중에 메일 전송하는 라우트도 태워야 함
     } else {
-      toast.error('입력하신 이메일로 가입된 계정을 찾을 수 없습니다.');
+      toast.error("입력하신 이메일로 가입된 계정을 찾을 수 없습니다.");
     }
     setIsLoading(false);
   };
 
   return (
     <>
-      <TopNav />
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <form
           onSubmit={handleSubmit}
@@ -55,7 +53,9 @@ function FindUser() {
           {!submitted ? (
             <>
               <div className="mb-6">
-                <label className="text-gray-700 block mb-1">가입된 이메일</label>
+                <label className="text-gray-700 block mb-1">
+                  가입된 이메일
+                </label>
                 <input
                   type="email"
                   value={email}
@@ -70,11 +70,11 @@ function FindUser() {
                 disabled={isLoading}
                 className={`w-full py-2 rounded-xl transition font-semibold ${
                   isLoading
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-600 text-white hover:bg-blue-700"
                 }`}
               >
-                {isLoading ? '처리 중...' : '아이디 찾기'}
+                {isLoading ? "처리 중..." : "아이디 찾기"}
               </button>
             </>
           ) : (
@@ -84,7 +84,7 @@ function FindUser() {
               </p>
               <button
                 type="button"
-                onClick={() => navigate('/login')}
+                onClick={() => navigate("/login")}
                 className="bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition"
               >
                 로그인 페이지로 이동

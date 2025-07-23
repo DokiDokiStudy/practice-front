@@ -1,25 +1,24 @@
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useDocsData } from '@/hooks/useDocsData';
-import TopNav from '@/components/common/TopNav';
-import SelectedStepThread from '@/components/dockerDocs/SelectedStepThread';
-import { AnimatePresence } from 'framer-motion';
-import NestedSidebar from '@/components/common/NestedSidebar';
-import { docsData as fallbackDocsData } from '@/data/docsData';
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDocsData } from "@/hooks/useDocsData";
+import SelectedStepThread from "@/components/dockerDocs/SelectedStepThread";
+import { AnimatePresence } from "framer-motion";
+import NestedSidebar from "@/components/common/NestedSidebar";
+import { docsData as fallbackDocsData } from "@/data/docsData";
 
 export default function DockerDocsDetail() {
-  const { projectId = 'docker', chapterId = '1' } = useParams();
+  const { projectId = "docker", chapterId = "1" } = useParams();
   const navigate = useNavigate();
   const [selectedStepId, setSelectedStepId] = useState<string | null>(null);
 
   const docs = useDocsData();
   const activeDocs = docs.length > 0 ? docs : fallbackDocsData;
 
-  const project = activeDocs.find(p => p.id === projectId);
-  const chapter = project?.chapters.find(c => c.id === chapterId);
+  const project = activeDocs.find((p) => p.id === projectId);
+  const chapter = project?.chapters.find((c) => c.id === chapterId);
 
   const flatChapters = project?.chapters ?? [];
-  const currentIndex = flatChapters.findIndex(c => c.id === chapterId);
+  const currentIndex = flatChapters.findIndex((c) => c.id === chapterId);
 
   const location = useLocation();
 
@@ -27,7 +26,7 @@ export default function DockerDocsDetail() {
     if (location.hash) {
       const target = document.getElementById(location.hash.substring(1));
       if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
+        target.scrollIntoView({ behavior: "smooth" });
       }
     }
   }, [location]);
@@ -46,7 +45,6 @@ export default function DockerDocsDetail() {
 
   return (
     <>
-      <TopNav />
       <div className="flex min-h-screen bg-white">
         <NestedSidebar data={activeDocs} />
 
@@ -87,7 +85,9 @@ export default function DockerDocsDetail() {
               </div>
             </>
           ) : (
-            <p className="text-blue-500 text-center mt-20">해당 챕터를 찾을 수 없습니다.</p>
+            <p className="text-blue-500 text-center mt-20">
+              해당 챕터를 찾을 수 없습니다.
+            </p>
           )}
 
           <AnimatePresence>

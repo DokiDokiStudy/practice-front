@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
-import TopNav from '@/components/common/TopNav';
-import api from '@/lib/api';
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import api from "@/lib/api";
 
 function FindPwd() {
-  const [id, setId] = useState('');
-  const [email, setEmail] = useState('');
+  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -22,7 +21,7 @@ function FindPwd() {
     setIsLoading(true);
 
     try {
-      const res = await api.post('/auth/find-password', {
+      const res = await api.post("/auth/find-password", {
         email,
         name: id,
       });
@@ -34,11 +33,14 @@ function FindPwd() {
       if (res.status === 201 || res.data?.statusCode === 201) {
         setSubmitted(true);
       } else {
-        toast.error(res.data?.message || '비밀번호 재설정 요청에 실패했습니다.');
+        toast.error(
+          res.data?.message || "비밀번호 재설정 요청에 실패했습니다."
+        );
       }
     } catch (error) {
       toast.error(
-        error.response?.data?.message || '입력한 정보로 등록된 계정을 찾을 수 없습니다.'
+        error.response?.data?.message ||
+          "입력한 정보로 등록된 계정을 찾을 수 없습니다."
       );
     }
 
@@ -47,7 +49,6 @@ function FindPwd() {
 
   return (
     <>
-      <TopNav />
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <form
           onSubmit={handleSubmit}
@@ -71,7 +72,9 @@ function FindPwd() {
               </div>
 
               <div className="mb-6">
-                <label className="text-gray-700 block mb-1">가입된 이메일</label>
+                <label className="text-gray-700 block mb-1">
+                  가입된 이메일
+                </label>
                 <input
                   type="email"
                   value={email}
@@ -86,11 +89,11 @@ function FindPwd() {
                 disabled={isLoading}
                 className={`w-full py-2 rounded-xl font-semibold transition ${
                   isLoading
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-600 text-white hover:bg-blue-700"
                 }`}
               >
-                {isLoading ? '처리 중...' : '비밀번호 찾기'}
+                {isLoading ? "처리 중..." : "비밀번호 찾기"}
               </button>
             </>
           ) : (
@@ -100,7 +103,7 @@ function FindPwd() {
               </p>
               <button
                 type="button"
-                onClick={() => navigate('/login')}
+                onClick={() => navigate("/login")}
                 className="bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition"
               >
                 로그인 페이지로 이동

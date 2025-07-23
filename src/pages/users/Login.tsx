@@ -1,25 +1,24 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import TopNav from '../../components/common/TopNav';
-import api from '../../lib/api';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import api from "../../lib/api";
 
 function Login() {
   // const [id, setId] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
-      const res = await api.post('/auth/login', {
+      const res = await api.post("/auth/login", {
         email,
         password,
       });
@@ -30,18 +29,21 @@ function Login() {
       const user_role = res.data.data.role;
 
       if (token && nickName && user_email) {
-        localStorage.setItem('token', token);
-        localStorage.setItem('nickName', nickName);
-        localStorage.setItem('email', user_email);
-        localStorage.setItem('role', user_role);
-        toast.success('로그인 성공!');
-        navigate('/main');
+        localStorage.setItem("token", token);
+        localStorage.setItem("nickName", nickName);
+        localStorage.setItem("email", user_email);
+        localStorage.setItem("role", user_role);
+        toast.success("로그인 성공!");
+        navigate("/main");
       } else {
-        setError('로그인 실패 다시 시도 해주세요.');
+        setError("로그인 실패 다시 시도 해주세요.");
       }
     } catch (err) {
-      setError(err.response?.data?.message || '아이디 또는 비밀번호를 다시 확인해주세요.');
-      toast.error('로그인 실패');
+      setError(
+        err.response?.data?.message ||
+          "아이디 또는 비밀번호를 다시 확인해주세요."
+      );
+      toast.error("로그인 실패");
     } finally {
       setIsLoading(false);
     }
@@ -49,7 +51,6 @@ function Login() {
 
   return (
     <>
-      <TopNav />
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <form
           onSubmit={handleLogin}
@@ -115,7 +116,7 @@ function Login() {
                 <span>로그인 중...</span>
               </div>
             ) : (
-              '로그인'
+              "로그인"
             )}
           </button>
           <div className="mt-4 text-center text-sm text-gray-600 space-y-1">
@@ -125,11 +126,17 @@ function Login() {
               </Link>
             </p>
             <p>
-              <Link to="/find-user" className="text-blue-600 hover:underline mr-2">
+              <Link
+                to="/find-user"
+                className="text-blue-600 hover:underline mr-2"
+              >
                 아이디 찾기
               </Link>
               <span className="text-gray-400">|</span>
-              <Link to="/find-pwd" className="text-blue-600 hover:underline ml-2">
+              <Link
+                to="/find-pwd"
+                className="text-blue-600 hover:underline ml-2"
+              >
                 비밀번호 찾기
               </Link>
             </p>

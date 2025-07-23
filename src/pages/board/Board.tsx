@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import TopNav from "../../components/common/TopNav";
 import BoardLayout from "../../components/layout/BoardLayout";
 import Button from "../../components/common/Button";
 import { useQuery } from "@tanstack/react-query";
@@ -19,7 +18,6 @@ function Board() {
 
   return (
     <>
-      <TopNav />
       <BoardLayout>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900">📌 게시판</h2>
