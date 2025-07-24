@@ -1,5 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
+import { ROUTES } from '../../constants/routes';
 
 function TopNav() {
   const navigate = useNavigate();
@@ -17,10 +18,8 @@ function TopNav() {
     localStorage.removeItem('token');
     localStorage.removeItem('nickName');
     setNickName('');
-    navigate('/login');
-  };
-
-  return (
+    navigate({ to: ROUTES.LOGIN });
+  };  return (
     <nav className="w-full p-4 flex justify-between items-center z-10 bg-cyan-950 bg-opacity-20 backdrop-blur-md">
       <Link to="/main" className="hover:underline">
         <h1 className="text-black text-2xl font-bold tracking-widest">DOKYDOKY</h1>

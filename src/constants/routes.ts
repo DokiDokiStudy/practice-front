@@ -3,11 +3,11 @@ const BOARD = {
   LIST: "/board",
   WRITE: "/board/write",
   DETAIL: {
-    PATH: "/board/:id",
+    PATH: "/board/$id",
     TO: (id: string | number) => `/board/${id}`,
   },
   EDIT: {
-    PATH: "/board/:id/edit",
+    PATH: "/board/$id/edit",
     TO: (id: string | number) => `/board/${id}/edit`,
   },
 } as const;
@@ -17,11 +17,11 @@ const THREAD = {
   LIST: "/thread",
   WRITE: "/thread/write",
   DETAIL: {
-    PATH: "/thread/:threadId",
+    PATH: "/thread/$threadId",
     TO: (threadId: string | number) => `/thread/${threadId}`,
   },
   EDIT: {
-    PATH: "/thread/:threadId/edit",
+    PATH: "/thread/$threadId/edit",
     TO: (threadId: string | number) => `/thread/${threadId}/edit`,
   },
 } as const;
@@ -36,7 +36,7 @@ export const ROUTES = {
 
   DOCKER_DOCS: "/docker-docs",
   DOCS_DETAIL: {
-    PATH: "/docs/:projectId/:chapterId",
+    PATH: "/docs/$projectId/$chapterId",
     TO: (projectId: string, chapterId: string) =>
       `/docs/${projectId}/${chapterId}`,
   },
