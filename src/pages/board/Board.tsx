@@ -6,14 +6,18 @@ import { useEffect } from "react";
 import { getBoard } from "@/api/Board";
 
 function Board() {
+  // test 안해봄, 이렇게 사용
+  // const loaderData = useLoader();
+
   const {
+    data: posts,
     isPending,
     isError,
-    data: posts,
     error,
   } = useQuery({
     queryKey: ["post"],
     queryFn: getBoard,
+    // initialData: loaderData,
   });
 
   return (

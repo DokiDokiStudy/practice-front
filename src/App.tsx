@@ -6,10 +6,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider } from "@tanstack/react-router";
 import { router } from "./router";
 
+export const queryClient = new QueryClient();
+
 // 라우팅 명시는 여기서 하자
 function App() {
-  const queryClient = new QueryClient();
-
   return (
     <>
       <QueryClientProvider client={queryClient}>
