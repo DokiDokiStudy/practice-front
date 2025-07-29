@@ -68,3 +68,75 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
     1.3) 따라서 isError가 true인 경우만 error가 실제 에러 내용을 가지고 있기 때문에 에러 여부만 따질 때는 간편하게 isError사용, 그렇지 않고 error의 내용도 반환이 필요하다면 error를 직접 꺼내서 사용하면 됩니다.
 
 4. 여전히 CORS 나고 있습니다 ㅠㅠ (참고이미지->게시글작성CORS.png 스샷 첨부..)
+
+### 2025-07-23 정리
+
+#### 프론트 작업
+1. TopNav를 MainLayout으로 분리하여 전체 페이지에 일괄 적용
+2. 리액트 쿼리 패턴을 전체적으로 적용
+   - 게시글, 카테고리, 좋아요, 댓글 등 각 도메인별로 api/hook 분리
+   - useQuery/useMutation을 활용한 데이터 요청 및 상태 관리
+3. Board 페이지에서 isLoading, isError 상태를 return 분기로 리팩터링하여 UI 가독성 개선
+4. 카테고리, 게시글, 좋아요, 댓글 등 API 타입을 백엔드 응답 구조에 맞게 개선
+5. 프론트와 백엔드 통신 시 엔드포인트 및 응답 구조 일치화 작업 진행
+
+
+# 백엔드 코드 리팩토링 및 보완점 정리
+## 1. 엔드포인트 네이밍 일관성
+- RESTful하게 복수형(`/categories`, `/posts`, `/comments`, `/likes`)으로 통일을 하는게 어떠신가요.
+
+## 2. 응답 구조 통일
+- 모든 API에서 `{ message, statusCode, data }`와 같이 일관된 응답 구조 반환 권장드립니디
+
+## 3. 인증/인가 처리
+- GET요청에는 인증이 필요없어도 되지 않는가에 대해서 생각해보면 좋겠습니다.
+
+## 4. 쿼리 최적화
+  - TypeORM에서 트리 구조를 효율적으로 조회하는 예시
+    - QueryBuilder를 활용한 CTE(재귀 쿼리) 예시:
+      ```typescript
+      // src/categories/category.service.ts
+      import { DataSource } from 'typeorm';
+      // ...existing code...
+      async getCategoryTree(): Promise<CategoryEntity[]> {
+        const query = `
+          WITH RECURSIVE category_path (id, name, parentId, depth) AS (
+            SELECT id, name, parentId, 1
+            FROM category
+            WHERE parentId IS NULL
+            UNION ALL
+            SELECT c.id, c.name, c.parentId, cp.depth + 1
+            FROM category c
+            JOIN category_path cp ON c.parentId = cp.id
+          )
+          SELECT * FROM category_path;
+        `;
+        return await this.dataSource.query(query);
+      }
+      ```
+    - Entity 내에서 트리 구조 반환하는 방법(관계 설정 및 재귀 함수):
+      ```typescript
+      // src/categories/entities/category.entity.ts
+      import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+      @Entity('category')
+      export class CategoryEntity {
+        @PrimaryGeneratedColumn()
+        id: number;
+        @Column()
+        name: string;
+        @Column({ nullable: true })
+        parentId: number;
+        @ManyToOne(() => CategoryEntity, category => category.children)
+        parent: CategoryEntity;
+        @OneToMany(() => CategoryEntity, category => category.parent)
+        children: CategoryEntity[];
+      }
+      // 서비스에서 재귀적으로 트리 반환
+      async getCategoryTreeRecursive(parentId: number = null): Promise<CategoryEntity[]> {
+        return this.categoryRepository.find({
+          where: { parentId },
+          relations: ['children'],
+        });
+      }
+      ```
+    - N+1 문제 방지 팁: relations 옵션 최소화, select로 필요한 필드만 조회, 페이징 적용

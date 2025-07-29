@@ -2,7 +2,6 @@ import { useState, useEffect, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import TopNav from '@/components/common/TopNav';
 import BoardLayout from '@/components/layout/BoardLayout';
 import BoardForm from '@/components/board/BoardForm';
 import { useAuth } from '@/hooks/useAuth';
@@ -43,7 +42,6 @@ export default function BoardWrite() {
 
   return (
     <>
-      <TopNav />
       <BoardLayout>
         <h2 className="text-2xl font-bold text-center mb-6">새 글 작성</h2>
 

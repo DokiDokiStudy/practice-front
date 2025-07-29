@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import TopNav from '@/components/common/TopNav';
 import BoardLayout from '@/components/layout/BoardLayout';
 import BoardForm from '@/components/board/BoardForm';
 
@@ -81,7 +80,6 @@ export default function BoardEdit() {
   if (authLoading || postLoading) {
     return (
       <>
-        <TopNav />
         <BoardLayout>
           <p className="text-center py-20">로딩 중…</p>
         </BoardLayout>
@@ -91,7 +89,6 @@ export default function BoardEdit() {
 
   return (
     <>
-      <TopNav />
       <BoardLayout>
         <h2 className="text-2xl font-bold text-center mb-6">
           ✏️ 게시글 수정
