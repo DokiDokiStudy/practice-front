@@ -55,7 +55,6 @@ const ThreadEdit = () => {
 
   return (
     <>
-      <TopNav />
       <BoardLayout>
         <h2 className="text-2xl font-bold text-center mb-6">✏️ 스레드 수정</h2>
         <BoardForm
