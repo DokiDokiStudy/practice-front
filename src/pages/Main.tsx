@@ -1,11 +1,9 @@
-import TopNav from '../components/common/TopNav';
 import MainBanner from './MainBanner';
 import { Link } from 'react-router-dom';
 
 function Main() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white via-blue-50 to-blue-100">
-      <TopNav />
       <MainBanner />
       <div className="flex-1 px-6 py-12 bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">

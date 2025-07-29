@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import TopNav from '@/components/common/TopNav';
 import api from '@/lib/api';
 
 function Login() {
@@ -54,7 +53,6 @@ function Login() {
 
   return (
     <>
-      <TopNav />
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <form
           onSubmit={handleLogin}
