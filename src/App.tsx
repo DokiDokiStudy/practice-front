@@ -1,5 +1,4 @@
 import "../index.css";
-import { BrowserRouter as LegacyRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // 토스트메시지 라이브러리
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -13,9 +12,7 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <LegacyRouter>
-          <RouterProvider router={router} />
-        </LegacyRouter>
+        <RouterProvider router={router} />
         <ToastContainer
           position="top-center"
           autoClose={3000}

@@ -3,10 +3,10 @@ import BoardLayout from "../../components/layout/BoardLayout";
 import BoardView from "../../components/board/BoardView";
 import Button from "../../components/common/Button";
 import { toast } from "react-toastify";
-import { Link, useNavigate, useMatch } from "@tanstack/react-router";
+import { Link, useNavigate, useParams } from "@tanstack/react-router";
 
 function BoardDetail() {
-  const { id } = useMatch({ from: "/board/$id" });
+  const { id } = useParams({ from: "/board/$id" });
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
 

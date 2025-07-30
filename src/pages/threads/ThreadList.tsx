@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import ThreadCard from "@/components/dockerDocs/ThreadCard";
 import NestedSidebar from "@/components/common/NestedSidebar";
 import { docsData } from "@/data/docsData";
 import api from "@/lib/api";
 import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "@tanstack/react-router";
 
 type Thread = {
   threadId: string;
@@ -86,7 +86,7 @@ const ThreadList = () => {
             <h1 className="text-2xl font-bold">🧵 전체 쓰레드 목록</h1>
             {user && (
               <button
-                onClick={() => navigate("/thread/write")}
+                onClick={() => navigate({ to: "/thread/write" })}
                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
               >
                 글쓰기

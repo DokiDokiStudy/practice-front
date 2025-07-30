@@ -1,7 +1,6 @@
 import BoardLayout from "../../components/layout/BoardLayout";
 import Button from "../../components/common/Button";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
 import { getBoard } from "@/api/Board";
 import { Link } from "@tanstack/react-router";
 

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import BoardLayout from "../../components/layout/BoardLayout";
 import BoardForm from "../../components/board/BoardForm";
 import { toast } from "react-toastify";
+import { useNavigate, useParams } from "@tanstack/react-router";
 
 const dummyThreads = [
   {
@@ -24,7 +24,7 @@ const dummyThreads = [
 ];
 
 const ThreadEdit = () => {
-  const { threadId } = useParams();
+  const { threadId } = useParams({ from: "/thread/$threadId/edit" });
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -38,7 +38,7 @@ const ThreadEdit = () => {
     const found = dummyThreads.find((t) => t.id === threadId);
     if (!found) {
       toast.error("수정할 게시글을 찾을 수 없습니다.");
-      return navigate("/thread");
+      return navigate({ to: "/thread" });
     }
 
     setTitle(found.title);
@@ -49,7 +49,7 @@ const ThreadEdit = () => {
     e.preventDefault();
     console.log("수정된 스레드:", { threadId, title, content });
     toast.success("수정이 완료되었습니다.");
-    navigate("/thread");
+    navigate({ to: "/thread" });
   };
 
   return (

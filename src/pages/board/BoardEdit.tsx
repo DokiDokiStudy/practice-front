@@ -2,10 +2,10 @@ import { useRef, useEffect, useState } from "react";
 import BoardLayout from "../../components/layout/BoardLayout";
 import BoardForm from "../../components/board/BoardForm";
 import { toast } from "react-toastify";
-import { useMatch, useNavigate } from "@tanstack/react-router";
+import { useParams, useNavigate } from "@tanstack/react-router";
 
 function BoardEdit() {
-  const { id } = useMatch({ from: "/board/edit/$id" });
+  const { id } = useParams({ from: "/board/$id/edit" });
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");

@@ -1,9 +1,9 @@
-import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import BoardLayout from "@/components/layout/BoardLayout";
 import BoardView from "@/components/board/BoardView";
 import Button from "@/components/common/Button";
 import api from "@/lib/api";
+import { useNavigate, useParams } from "@tanstack/react-router";
 
 const dummyThreads = [
   {
@@ -33,7 +33,7 @@ type CommentType = {
 };
 
 const ThreadDetail = () => {
-  const { threadId } = useParams();
+  const { threadId } = useParams({ from: "/thread/$threadId" });
   const navigate = useNavigate();
   const [thread, setThread] = useState<ThreadType | null>(null);
   const [comments, setComments] = useState<CommentType[]>([]);
@@ -62,7 +62,7 @@ const ThreadDetail = () => {
           setThread(found);
         } else {
           alert("해당 게시글을 찾을 수 없습니다.");
-          navigate("/thread");
+          navigate({ to: "/thread" });
         }
       }
     };
@@ -142,7 +142,7 @@ const ThreadDetail = () => {
         </div>
 
         <div className="mt-6 text-center">
-          <Button onClick={() => navigate("/thread")} color="gray">
+          <Button onClick={() => navigate({ to: "/thread" })} color="gray">
             목록으로
           </Button>
         </div>

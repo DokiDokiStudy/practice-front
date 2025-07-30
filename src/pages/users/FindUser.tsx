@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import api from "@/lib/api";
+import { useNavigate } from "@tanstack/react-router";
 
 function FindUser() {
   const [email, setEmail] = useState("");
@@ -84,7 +84,7 @@ function FindUser() {
               </p>
               <button
                 type="button"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate({ to: "/login" })}
                 className="bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition"
               >
                 로그인 페이지로 이동

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import BoardLayout from "../../components/layout/BoardLayout";
 import BoardForm from "../../components/board/BoardForm";
 import { toast } from "react-toastify";
 import api from "@/lib/api";
+import { useNavigate } from "@tanstack/react-router";
 
 type Category = {
   id: number;
@@ -52,7 +52,7 @@ const ThreadWrite = () => {
 
       if (res.status === 200) {
         toast.success(message || "게시글이 등록되었습니다!");
-        navigate("/thread");
+        navigate({ to: "/thread" });
       } else {
         toast.warn(message || "서버 에러 발생.");
       }

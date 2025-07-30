@@ -1,13 +1,17 @@
-import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDocsData } from "@/hooks/useDocsData";
 import SelectedStepThread from "@/components/dockerDocs/SelectedStepThread";
 import { AnimatePresence } from "framer-motion";
 import NestedSidebar from "@/components/common/NestedSidebar";
 import { docsData as fallbackDocsData } from "@/data/docsData";
+import { useLocation, useNavigate, useParams } from "@tanstack/react-router";
 
 export default function DockerDocsDetail() {
-  const { projectId = "docker", chapterId = "1" } = useParams();
+  const location = useLocation();
+  const { projectId = "docker", chapterId = "1" } = useParams({
+    from: "/docs/$projectId/$chapterId",
+  });
+  console.log("location", location);
   const navigate = useNavigate();
   const [selectedStepId, setSelectedStepId] = useState<string | null>(null);
 
@@ -20,8 +24,6 @@ export default function DockerDocsDetail() {
   const flatChapters = project?.chapters ?? [];
   const currentIndex = flatChapters.findIndex((c) => c.id === chapterId);
 
-  const location = useLocation();
-
   useEffect(() => {
     if (location.hash) {
       const target = document.getElementById(location.hash.substring(1));
@@ -33,13 +35,25 @@ export default function DockerDocsDetail() {
 
   const goToPrev = () => {
     if (currentIndex > 0) {
-      navigate(`/docs/${projectId}/${flatChapters[currentIndex - 1].id}`);
+      navigate({
+        to: "/docs/$projectId/$chapterId",
+        params: {
+          projectId,
+          chapterId: flatChapters[currentIndex - 1].id,
+        },
+      });
     }
   };
 
   const goToNext = () => {
     if (currentIndex < flatChapters.length - 1) {
-      navigate(`/docs/${projectId}/${flatChapters[currentIndex + 1].id}`);
+      navigate({
+        to: "/docs/$projectId/$chapterId",
+        params: {
+          projectId,
+          chapterId: flatChapters[currentIndex + 1].id,
+        },
+      });
     }
   };
 

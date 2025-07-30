@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../../lib/api";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 function Login() {
   // const [id, setId] = useState('');
@@ -34,7 +34,7 @@ function Login() {
         localStorage.setItem("email", user_email);
         localStorage.setItem("role", user_role);
         toast.success("로그인 성공!");
-        navigate("/main");
+        navigate({ to: "/main" });
       } else {
         setError("로그인 실패 다시 시도 해주세요.");
       }

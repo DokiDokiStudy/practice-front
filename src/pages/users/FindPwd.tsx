@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import api from "@/lib/api";
+import { useNavigate } from "@tanstack/react-router";
 
 function FindPwd() {
   const [id, setId] = useState("");
@@ -103,7 +103,7 @@ function FindPwd() {
               </p>
               <button
                 type="button"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate({ to: "/login" })}
                 className="bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition"
               >
                 로그인 페이지로 이동
