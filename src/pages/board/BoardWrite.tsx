@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import BoardLayout from "../../components/layout/BoardLayout";
 import BoardForm from "../../components/board/BoardForm";
+import { useNavigate } from "@tanstack/react-router";
 
 function BoardWrite() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function BoardWrite() {
     const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
     if (!isLoggedIn) {
       toast.warn("로그인 후 글쓰기가 가능합니다.");
-      navigate("/login");
+      navigate({ to: "/login" });
     }
   }, [navigate]);
 
@@ -21,7 +21,7 @@ function BoardWrite() {
     e.preventDefault();
     console.log("작성 완료:", { title, content });
     toast.success("게시글이 작성되었습니다!");
-    navigate("/board");
+    navigate({ to: "/board" });
   };
   return (
     <>

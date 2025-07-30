@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import api from "../../lib/api";
+import { useNavigate } from "@tanstack/react-router";
 
 function Register() {
   const [id, setId] = useState("");
@@ -32,7 +32,7 @@ function Register() {
 
     if (result) {
       toast.success("회원가입 성공!");
-      navigate("/login");
+      navigate({ to: "/login" });
     } else {
       toast.error("회원가입 실패");
     }

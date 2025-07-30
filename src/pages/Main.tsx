@@ -1,5 +1,5 @@
+import { Link } from "@tanstack/react-router";
 import MainBanner from "./MainBanner";
-import { Link } from "react-router-dom";
 
 function Main() {
   return (

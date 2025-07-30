@@ -1,12 +1,11 @@
 import { useRef, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import TopNav from "../../components/common/TopNav";
 import BoardLayout from "../../components/layout/BoardLayout";
 import BoardForm from "../../components/board/BoardForm";
 import { toast } from "react-toastify";
+import { useMatch, useNavigate } from "@tanstack/react-router";
 
 function BoardEdit() {
-  const { id } = useParams();
+  const { id } = useMatch({ from: "/board/edit/$id" });
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -51,12 +50,12 @@ function BoardEdit() {
 
     if (!found) {
       toast.error("게시글을 찾을 수 없습니다.");
-      return navigate("/board");
+      return navigate({ to: "/board" });
     }
 
     if (!isLoggedIn || found.author != userId) {
       toast.warn("수정 권한이 없습니다.");
-      return navigate("/board");
+      return navigate({ to: "/board" });
     }
 
     setTitle(found.title);
@@ -67,7 +66,7 @@ function BoardEdit() {
     e.preventDefault();
     console.log("수정된 내용:", { id, title, content });
     toast.success("게시글이 수정되었습니다!");
-    navigate("/board");
+    navigate({ to: "/board" });
   };
 
   return (

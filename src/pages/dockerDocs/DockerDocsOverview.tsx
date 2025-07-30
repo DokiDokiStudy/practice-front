@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import { useDocsData } from "@/hooks/useDocsData";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function DockerDocsOverview() {
   const navigate = useNavigate();
@@ -10,7 +10,11 @@ export default function DockerDocsOverview() {
     chapterId: string,
     stepId?: string
   ) => {
-    navigate(`/docs/${projectId}/${chapterId}${stepId ? `#${stepId}` : ""}`);
+    navigate({
+      to: "/docs/$projectId/$chapterId",
+      params: { projectId, chapterId },
+      hash: stepId ? stepId : undefined,
+    });
   };
 
   return (

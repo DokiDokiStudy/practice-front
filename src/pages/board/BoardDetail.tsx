@@ -1,13 +1,12 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import BoardLayout from "../../components/layout/BoardLayout";
 import BoardView from "../../components/board/BoardView";
-import TopNav from "../../components/common/TopNav";
 import Button from "../../components/common/Button";
 import { toast } from "react-toastify";
+import { Link, useNavigate, useMatch } from "@tanstack/react-router";
 
 function BoardDetail() {
-  const { id } = useParams();
+  const { id } = useMatch({ from: "/board/$id" });
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
 
@@ -53,7 +52,7 @@ function BoardDetail() {
       setPost(found);
     } else {
       toast.error("게시글을 찾을 수 없습니다.");
-      navigate("/board");
+      navigate({ to: "/board" });
     }
   }, [id, navigate]);
 
@@ -79,7 +78,7 @@ function BoardDetail() {
           </Button>
         </Link>
         {isLoggedIn && currentUser == post.author && (
-          <Link to={`/board/${post.id}/edit`}>
+          <Link to="/board/$id/edit" params={{ id: post.id }}>
             <Button color="teal" size="md">
               수정하기
             </Button>
