@@ -1,5 +1,5 @@
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 function Home() {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ function Home() {
   }, []);
 
   const handleGoMain = () => {
-    navigate("/main");
+    navigate({ to: "/main" });
   };
 
   return (
