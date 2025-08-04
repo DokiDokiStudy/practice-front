@@ -46,7 +46,6 @@ export default function DockerDocsDetail() {
 
   return (
     <>
-      <TopNav />
       <div className="flex min-h-screen bg-white">
         <NestedSidebar data={activeDocs} />
 

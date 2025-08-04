@@ -77,8 +77,6 @@ const ThreadList = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <TopNav />
-
       <div className="flex flex-1">
         <NestedSidebar data={docsData} />
 

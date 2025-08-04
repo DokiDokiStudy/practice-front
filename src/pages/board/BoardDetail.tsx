@@ -12,8 +12,9 @@ function BoardDetail() {
   const navigate = useNavigate();
   const { data: post, isLoading, isError, error } = usePost(Number(id));
 
-  if (isLoading) return <p>로딩 중…</p>;
-  if (isError)  return <p>에러 발생 </p>;
+  if (isLoading) return <BoardLayout><p>로딩 중…</p></BoardLayout>;
+  if (isError) return <BoardLayout><p>에러 발생</p></BoardLayout>;
+  if (!post) return <BoardLayout><p>게시글을 찾을 수 없습니다.</p></BoardLayout>;
 
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') == 'true';
   const currentUser = sessionStorage.getItem('userId');
@@ -44,11 +45,10 @@ function BoardDetail() {
 
   return (
     <>
-      <TopNav />
       <BoardLayout>
         <h2 className="text-2xl font-bold mb-4">{post.title}</h2>
         <p className="text-sm text-gray-500 mb-6">
-          작성자: {post.author} · 조회수: {post.views}
+          작성자: {post.author || post.user?.nickName || '익명'} · 조회수: {post.views || 0}
         </p>
         <div className="prose mb-8">{post.content}</div>
 

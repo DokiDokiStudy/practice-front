@@ -12,32 +12,31 @@ export default function Board() {
   const {
     posts,
     totalPages,
+    total,
     isLoading,
     isError,
     error,
   } = usePosts(page, 10);
-    if (isLoading) {
-      return (
-        <>
-          <BoardLayout>
-            <p className="text-center py-20">로딩 중…</p>
-          </BoardLayout>
-        </>
-      );
-    }
 
-    // 에러 상태 분기
-    if (isError) {
-      return (
-        <>
-          <BoardLayout>
-            <p className="text-center py-20 text-red-500">
-              에러 발생: {(error as Error).message}
-            </p>
-          </BoardLayout>
-        </>
-      );
-    }
+  // 로딩 상태 분기
+  if (isLoading) {
+    return (
+      <BoardLayout>
+        <p className="text-center py-20">로딩 중…</p>
+      </BoardLayout>
+    );
+  }
+
+  // 에러 상태 분기
+  if (isError) {
+    return (
+      <BoardLayout>
+        <p className="text-center py-20 text-red-500">
+          에러 발생: {error?.message || '알 수 없는 오류가 발생했습니다.'}
+        </p>
+      </BoardLayout>
+    );
+  }
 
   // 정상 데이터 렌더링
   return (
@@ -82,8 +81,12 @@ export default function Board() {
                       {post.title}
                     </Link>
                   </td>
-                  <td className="py-3 text-center">{post.author}</td>
-                  <td className="py-3 text-center">{post.date}</td>
+                  <td className="py-3 text-center">
+                    {post.author || post.user?.nickName || '익명'}
+                  </td>
+                  <td className="py-3 text-center">
+                    {new Date(post.createdAt).toLocaleDateString('ko-KR')}
+                  </td>
                 </tr>
               ))
             ) : (

@@ -140,3 +140,36 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
       }
       ```
     - N+1 문제 방지 팁: relations 옵션 최소화, select로 필요한 필드만 조회, 페이징 적용
+
+### 2025-07-29 정리
+
+- 인증관련 페이지에 도커 이미지와 유사한 디자인으로 변경
+  - 해당 페이지 디자인 괜찮으면 도커 카테고리는 도커 이미지
+  - 다른 주제의 카테고리는 해당 주제에 맞도록 디자인-컬러 수정할 수 있도록 하겠습니다.
+    - 이를 구현하기 위해 테마(Theme) 정의 추가
+
+#### 테마
+1. **URL 기반 테마 감지**: 현재 경로를 기준으로 자동으로 테마가 결정됨
+2. **CSS 변수 주입**: 선택된 테마의 색상이 CSS 변수로 루트 요소에 주입
+3. **컴포넌트 스타일 적용**: 각 컴포넌트는 테마 클래스를 통해 동적 스타일 적용
+
+- **themes.ts**: 
+  - 카테고리별 색상 팔레트 정의 (Docker=파랑, JavaScript=노랑 등)
+  - URL 경로를 분석하여 적절한 테마 반환
+  
+- **ThemeProvider.tsx**: 
+  - React Context로 전역 테마 상태 관리
+  - 경로 변경 시 자동으로 테마 업데이트
+  - CSS 변수(--theme-primary 등)를 document에 주입
+  
+- **useTheme.ts**: 
+  - 컴포넌트에서 사용할 테일윈드 클래스 생성
+  - 네비게이션, 폼, 버튼 등 요소별 스타일 클래스 제공
+
+1. 페이지 로드 시 useLocation으로 현재 경로 찾기
+2. getCurrentTheme 호출
+3. 기본 테마 설정
+4. 이후 사용자가 다른 페이지 이동하면 location.pathname가 변경되기 때문에 useEffect 트리거 발동
+5. getCurrentTheme 호출 -> 바뀐 로케이션 정보 기준
+6. 새로운 테마 실행
+

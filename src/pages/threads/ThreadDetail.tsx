@@ -102,7 +102,6 @@ const ThreadDetail = () => {
 
   return (
     <>
-      <TopNav />
       <BoardLayout>
         <h2 className="text-2xl font-bold text-center mb-6">🧵 쓰레드 상세</h2>
         <BoardView
