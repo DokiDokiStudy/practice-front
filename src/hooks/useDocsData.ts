@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '@/lib/api';
+import { fetchCategories } from '@/api/Categories';
 import { docsData as fallbackDocsData } from '@/data/docsData';
 
 interface Step {
@@ -31,8 +32,7 @@ export function useDocsData(): DocsSection[] {
   useEffect(() => {
     const fetchDocs = async () => {
       try {
-        const res = await api.get('/category');
-        const categories = res.data;
+        const categories = await fetchCategories();
 
         if (!Array.isArray(categories) || categories.length === 0) {
           console.warn('📭 fallbackDocsData 사용');

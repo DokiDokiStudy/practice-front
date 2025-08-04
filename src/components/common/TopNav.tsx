@@ -5,13 +5,8 @@ import { useTheme } from '@/themes/useTheme';
 
 function TopNav() {
   const navigate = useNavigate();
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, logout } = useAuth();
   const { classes } = useTheme();
-
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
 
   return (
     <nav 
@@ -33,7 +28,7 @@ function TopNav() {
 
           {user ? (
             <li>
-              <button onClick={handleLogout} className={`transition-colors ${classes.navHover}`}>
+              <button onClick={logout} className={`transition-colors ${classes.navHover}`}>
                 {user.nickName} (로그아웃)
               </button>
             </li>

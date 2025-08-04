@@ -31,7 +31,7 @@ export const createPost = (payload: {
   content: string;
 }): Promise<Post> =>
   api
-    .post<{ data: Post }>('/post', payload)
+    .post<{ data: Post }>('/posts', payload)
     .then(res => res.data.data);
 
 export const updatePost = (
@@ -51,5 +51,5 @@ export interface Category {
 
 export const fetchCategories = (): Promise<Category[]> =>
   api
-    .get<{ data: Category[] }>('/category')
+    .get<{ data: Category[] }>('/categories')
     .then(res => res.data.data);
