@@ -7,7 +7,27 @@ export type Category = {
 };
 
 export async function fetchCategories(): Promise<Category[]> {
-  const res = await api.get("/category");
-  // 백엔드 응답 구조에 따라 categories 배열 반환
-  return res.data.categories ?? res.data.data;
+  try {
+    const res = await api.get("/categories");
+    console.log('Categories API response:', res.data);
+
+    console.log('first Categories', res.data.data?.categories);
+
+    console.log('middle Categories', res.data.data?.categories[2].children);
+
+    console.log('small Categories', res.data.data?.categories[2].children[0]);
+    console.log('small Categories', res.data.data?.categories[2].children[1]);
+    
+    const categories = res.data.data?.categories || res.data.categories || [];
+    
+    // 배열인지 확인
+    if (!Array.isArray(categories)) {
+      console.warn('Categories is not an array:', categories);
+      return [];
+    }
+    
+    return categories;
+  } catch (error) {
+    return [];
+  }
 }

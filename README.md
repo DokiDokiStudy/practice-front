@@ -173,3 +173,22 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 5. getCurrentTheme 호출 -> 바뀐 로케이션 정보 기준
 6. 새로운 테마 실행
 
+### 2025-08-06 정리
+
+#### Thread 시스템 대규모 리팩토링
+1. **카테고리 평면화 로직 수정**
+   - 3단계 카테고리 구조: 대분류→ 중분류 → 소분류
+   - useDockerCategories 훅으로 Docker 전용 카테고리 관리
+      - 추후에는 대분류 카테고리 전용으로 확장 필요
+   - 도커 카테고리는 name으로 검색
+
+2. **좋아요/싫어요 추가**
+   - 백엔드 API 구조 분석 및 호환: `POST /likes/post/{id}` with `{ reactionType: "like" | "disLike" }`
+   - usePostReaction 공통 훅 생성으로 ThreadCard와 ThreadDetail 코드 중복 제거
+   - 낙관적 업데이트 처리: UI 즉시 반영 후 API 호출, 실패시 이전 상태로 롤백
+
+3. **쓰레드 댓글 추가**
+   - CommentWrite 컴포넌트: 로그인 상태 확인, 키보드 단축키 지원 (Enter 전송, Shift+Enter 줄바꿈)
+   - Thread 조회 시 댓글 포함 구조로 변경: 별도 댓글 API 대신 `/posts/{id}` 응답의 comments 활용
+      - 근데.. 이거 500떨어지네요 흠..
+

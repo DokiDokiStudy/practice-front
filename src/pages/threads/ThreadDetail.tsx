@@ -1,152 +1,200 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
-import TopNav from '@/components/common/TopNav';
-import BoardLayout from '@/components/layout/BoardLayout';
-import BoardView from '@/components/board/BoardView';
-import Button from '@/components/common/Button';
-import api from '@/lib/api';
-
-const dummyThreads = [
-  {
-    id: 'thread-1',
-    title: '도커 설치할 때 주의할 점',
-    content:
-      '도커 설치 중 문제가 생길 수 있는 몇 가지 환경이 있습니다. 특히 Windows 환경에서는 WSL2 설정이 중요하며, Mac에서는 Apple Silicon과의 호환성 문제를 확인해야 합니다.',
-    author: '익명1',
-    date: '2025-05-14',
-  },
-  {
-    id: 'thread-2',
-    title: '컨테이너와 가상머신의 차이',
-    content:
-      '컨테이너와 VM의 가장 큰 차이는 리소스 사용 방식입니다. VM은 하이퍼바이저를 거쳐 OS 단위로 분리되며, 컨테이너는 커널을 공유하면서 애플리케이션 단위로 분리됩니다.',
-    author: '익명2',
-    date: '2025-05-13',
-  },
-];
-
-type ThreadType = typeof dummyThreads[0];
-
-type CommentType = {
-  id: string;
-  content: string;
-  author: string;
-};
+import NestedSidebar from '@/components/common/NestedSidebar';
+import { docsData } from '@/data/docsData';
+import CommentList from '@/components/dockerDocs/CommentList';
+import { useThread, useDeleteThread } from '@/hooks/useThreads';
+import { useTheme } from '@/themes/useTheme';
+import { useAuth } from '@/hooks/useAuth';
+import { MessageSquare, ThumbsUp, ThumbsDown, Edit, Trash2, ArrowLeft } from 'lucide-react';
+import { usePostReaction } from '@/hooks/usePostReaction';
 
 const ThreadDetail = () => {
-  const { threadId } = useParams();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [thread, setThread] = useState<ThreadType | null>(null);
-  const [comments, setComments] = useState<CommentType[]>([]);
-  const [newComment, setNewComment] = useState('');
+  const { classes } = useTheme();
+  const { user } = useAuth();
+  
+  const threadId = parseInt(id || '0');
+  
+  const { 
+    data: thread, 
+    isLoading, 
+    error,
+    isError 
+  } = useThread(threadId);
 
-  const initialized = useRef(false);
+  const {
+    userReaction,
+    likeCount,
+    dislikeCount,
+    handleReactionClick,
+    updateCounts,
+    isLikePending,
+    isDislikePending,
+  } = usePostReaction(thread?.likes || 0, thread?.dislikes || 0);
 
-  useEffect(() => {
-    if (initialized.current || !threadId) return;
-    initialized.current = true;
+  // 삭제 mutation
+  const deleteThreadMutation = useDeleteThread();
 
-    const fetchThread = async () => {
-      try {
-        const res = await api.get(`/post/${threadId}`);
-        const post = res.data;
-        setThread({
-          id: post.id.toString(),
-          title: post.title,
-          content: post.content,
-          author: post.author ?? '익명',
-          date: post.createdAt?.slice(0, 10) ?? '날짜 없음',
-        });
-      } catch (err) {
-        const found = dummyThreads.find((t) => t.id === threadId);
-        if (found) {
-          setThread(found);
-        } else {
-          alert('해당 게시글을 찾을 수 없습니다.');
-          navigate('/thread');
-        }
-      }
-    };
+  // 쓰레드 데이터가 로드되면 초기 좋아요/싫어요 수 설정
+  if (thread) {
+    updateCounts(thread.likes || 0, thread.dislikes || 0);
+  }
 
-    const fetchComments = async () => {
-      try {
-        const res = await api.get(`/comment?postId=${threadId}`);
-        setComments(res.data);
-      } catch (err) {
-        console.warn('댓글 불러오기 실패:', err);
-      }
-    };
+  const handleDeleteThread = async () => {
+    if (!confirm('정말 삭제하시겠습니까?')) {
+      return;
+    }
 
-    fetchThread();
-    fetchComments();
-  }, [threadId, navigate]);
-
-  // comment가 없어..
-  const handleCommentSubmit = async () => {
-    if (!newComment.trim()) return;
     try {
-      await api.post('/comment', {
-        content: newComment,
-        postId: threadId,
-        author: '익명',
-      });
-      setNewComment('');
-      const res = await api.get(`/comment?postId=${threadId}`);
-      setComments(res.data);
-    } catch (err) {
-      console.error('댓글 등록 실패:', err);
+      await deleteThreadMutation.mutateAsync(threadId);
+      alert('쓰레드가 삭제되었습니다.');
+      navigate('/threads');
+    } catch (error) {
+      console.error('쓰레드 삭제 실패:', error);
+      alert('쓰레드 삭제 중 오류가 발생했습니다.');
     }
   };
 
-  if (!thread) return null;
+  if (isLoading) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <div className="flex flex-1">
+          <NestedSidebar data={docsData} />
+          <main className="max-w-4xl px-4 py-10 mx-auto w-full">
+            <div className="flex justify-center items-center h-64">
+              <div className="text-lg text-gray-600">쓰레드를 불러오고 있습니다...</div>
+            </div>
+          </main>
+        </div>
+      </div>
+    );
+  }
+
+  if (isError || !thread) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <div className="flex flex-1">
+          <NestedSidebar data={docsData} />
+          <main className="max-w-4xl px-4 py-10 mx-auto w-full">
+            <div className="flex justify-center items-center h-64">
+              <div className="text-lg text-red-600">
+                쓰레드를 찾을 수 없습니다: {error?.message}
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <BoardLayout>
-        <h2 className="text-2xl font-bold text-center mb-6">🧵 쓰레드 상세</h2>
-        <BoardView
-          title={thread.title}
-          author={thread.author}
-          date={thread.date}
-          content={thread.content}
-        />
+    <div className="flex flex-col min-h-screen">
+      <div className="flex flex-1">
+        <NestedSidebar data={docsData} />
 
-        <div className="mt-10">
-          <h3 className="font-semibold text-lg mb-2">💬 댓글</h3>
-          <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="댓글을 입력하세요"
-            className="w-full border px-3 py-2 rounded"
-          />
-          <button
-            onClick={handleCommentSubmit}
-            className="bg-blue-600 text-white px-4 py-1 mt-2 rounded hover:bg-blue-700"
-          >
-            등록
-          </button>
-
-          <ul className="space-y-3 mt-6">
-            {comments.length === 0 ? (
-              <li className="text-gray-500 text-sm">댓글이 없습니다.</li>
-            ) : (
-              comments.map((c) => (
-                <li key={c.id} className="border p-3 rounded">
-                  <div className="text-sm font-semibold text-gray-700">{c.author}</div>
-                  <div className="text-sm text-gray-800 mt-1">{c.content}</div>
-                </li>
-              ))
+        <main className="max-w-4xl px-4 py-10 mx-auto w-full">
+          <div className="flex items-center gap-4 mb-6">
+            <button
+              onClick={() => navigate('/threads')}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+            >
+              <ArrowLeft size={16} />
+              목록으로
+            </button>
+            
+            {user && (
+              <div className="flex gap-2">
+                <button
+                  onClick={() => navigate(`/thread/edit/${thread.id}`)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
+                >
+                  <Edit size={16} />
+                  수정
+                </button>
+                <button
+                  onClick={handleDeleteThread}
+                  disabled={deleteThreadMutation.isPending}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors disabled:opacity-50"
+                >
+                  <Trash2 size={16} />
+                  {deleteThreadMutation.isPending ? '삭제 중...' : '삭제'}
+                </button>
+              </div>
             )}
-          </ul>
-        </div>
+          </div>
 
-        <div className="mt-6 text-center">
-          <Button onClick={() => navigate('/thread')} color="gray">
-            목록으로
-          </Button>
-        </div>
-      </BoardLayout>
-    </>
+          <article className={`rounded-lg shadow-lg p-8 mb-8 ${classes.surface}`} style={classes.surfaceBorderStyle}>
+            <header className="border-b pb-4 mb-6">
+              <h1 className={`text-3xl font-bold mb-4 ${classes.title}`} style={classes.titleStyle}>
+                {thread.title}
+              </h1>
+              <div className="flex justify-between items-center text-sm">
+                <div className={`${classes.textSecondary}`} style={classes.textSecondaryStyle}>
+                  <span className="font-medium">{thread.user?.nickName || '익명'}</span>
+                  <span className="mx-2">•</span>
+                  <span>{new Date(thread.createdAt).toLocaleDateString()}</span>
+                  {thread.categoryName && (
+                    <>
+                      <span className="mx-2">•</span>
+                      <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                        {thread.categoryName}
+                      </span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </header>
+
+            <div className={`prose max-w-none mb-6 ${classes.textPrimary}`} style={classes.textPrimaryStyle}>
+              <div className="whitespace-pre-wrap leading-relaxed">
+                {thread.content}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 pt-6 border-t">
+              <button
+                onClick={() => handleReactionClick(threadId, "like")}
+                disabled={isLikePending}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                  userReaction === "like"
+                    ? 'bg-blue-100 text-blue-600 border border-blue-300 font-bold'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                <ThumbsUp size={18} />
+                <span>좋아요 {likeCount}</span>
+              </button>
+
+              <button
+                onClick={() => handleReactionClick(threadId, "dislike")}
+                disabled={isDislikePending}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                  userReaction === "dislike"
+                    ? 'bg-red-100 text-red-600 border border-red-300 font-bold'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                <ThumbsDown size={18} />
+                <span>싫어요 {dislikeCount}</span>
+              </button>
+
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 text-gray-600">
+                <MessageSquare size={18} />
+                <span>댓글 {thread.comments?.length || 0}개</span>
+              </div>
+            </div>
+          </article>
+
+          <section className={`rounded-lg shadow-lg p-6 ${classes.surface}`} style={classes.surfaceBorderStyle}>
+            <h2 className={`text-xl font-bold mb-6 ${classes.title}`} style={classes.titleStyle}>
+              💬 댓글
+            </h2>
+            <CommentList threadId={threadId} comments={thread.comments} />
+          </section>
+        </main>
+      </div>
+    </div>
   );
 };
 

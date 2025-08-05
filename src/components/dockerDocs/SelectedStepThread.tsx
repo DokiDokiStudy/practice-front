@@ -47,7 +47,7 @@ const SelectedStepThread = ({ stepId, onClose }: Props) => {
     const fetchThreads = async () => {
       try {
         setLoading(true);
-        const res = await api.get('/post', { params: { categoryId: stepId } });
+        const res = await api.get('/posts', { params: { categoryId: stepId } });
 
         const data = res.data;
 
