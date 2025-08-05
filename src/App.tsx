@@ -47,9 +47,9 @@ function App() {
                 path="/docs/:projectId/:chapterId"
                 element={<DockerDocsDetail />}
               />
-              <Route path="/thread" element={<ThreadList />} />
-              <Route path="/thread/:threadId" element={<ThreadDetail />} />
-              <Route path="/thread/:threadId/edit" element={<ThreadEdit />} />
+              <Route path="/threads" element={<ThreadList />} />
+              <Route path="/thread/:id" element={<ThreadDetail />} />
+              <Route path="/thread/edit/:id" element={<ThreadEdit />} />
               <Route path="/thread/write" element={<ThreadWrite />} />
             </Routes>
           </MainLayout>
