@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
-import api from "../../lib/api";
 import { Link, useNavigate } from "@tanstack/react-router";
+import { toast } from "react-toastify";
+import api from "@/lib/api";
+import AuthLayout from "@/components/layout/AuthLayout";
+import { useTheme } from "@/themes/useTheme";
 
 function Login() {
   // const [id, setId] = useState('');
@@ -9,6 +11,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const { classes } = useTheme();
 
   const navigate = useNavigate();
 
@@ -29,10 +32,15 @@ function Login() {
       const user_role = res.data.data.role;
 
       if (token && nickName && user_email) {
-        localStorage.setItem("token", token);
-        localStorage.setItem("nickName", nickName);
-        localStorage.setItem("email", user_email);
-        localStorage.setItem("role", user_role);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            token: token,
+            nickName: nickName,
+            email: user_email,
+            role: user_role,
+          })
+        );
         toast.success("로그인 성공!");
         navigate({ to: "/main" });
       } else {
@@ -50,100 +58,161 @@ function Login() {
   };
 
   return (
-    <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <form
-          onSubmit={handleLogin}
-          className="bg-white p-8 rounded-2xl shadow-md w-full max-w-sm"
+    <AuthLayout>
+      <form
+        onSubmit={handleLogin}
+        className={`p-10 pt-16 rounded-3xl shadow-2xl w-full max-w-md ${classes.surface} ${classes.surfaceBorder}`}
+        style={classes.surfaceBorderStyle}
+      >
+        <h2
+          className={`text-3xl text-center mb-8 ${classes.title}`}
+          style={classes.titleStyle}
         >
-          <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">
-            로그인
-          </h2>
-
-          <label className="block mb-4">
-            <span className="text-gray-700">이메일</span>
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:border-blue-400"
-              required
-            />
-          </label>
-
-          <label className="block mb-6">
-            <span className="text-gray-700">비밀번호</span>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:border-blue-400"
-              required
-            />
-          </label>
-
-          {error && (
-            <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
+          로그인
+        </h2>
+        <label className="block mb-6">
+          <span className={`${classes.label}`} style={classes.labelStyle}>
+            이메일
+          </span>
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={`mt-2 block w-full rounded-2xl px-5 py-3 transition shadow-sm ${classes.inputBorder} ${classes.inputFocus}`}
+            style={{
+              ...classes.inputBackgroundStyle,
+              ...classes.inputBorderStyle,
+              ...classes.inputTextStyle,
+              ...classes.inputPlaceholderStyle,
+            }}
+            placeholder="example@docker.com"
+            required
+            onFocus={(e) =>
+              Object.assign(
+                (e.target as HTMLElement).style,
+                classes.inputFocusStyle
+              )
+            }
+            onBlur={(e) =>
+              Object.assign(
+                (e.target as HTMLElement).style,
+                classes.inputBorderStyle
+              )
+            }
+          />
+        </label>
+        <label className="block mb-8">
+          <span className={`${classes.label}`} style={classes.labelStyle}>
+            비밀번호
+          </span>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={`mt-2 block w-full rounded-2xl px-5 py-3 transition shadow-sm ${classes.inputBorder} ${classes.inputFocus}`}
+            style={{
+              ...classes.inputBackgroundStyle,
+              ...classes.inputBorderStyle,
+              ...classes.inputTextStyle,
+              ...classes.inputPlaceholderStyle,
+            }}
+            placeholder="비밀번호 입력"
+            required
+            onFocus={(e) =>
+              Object.assign(
+                (e.target as HTMLElement).style,
+                classes.inputFocusStyle
+              )
+            }
+            onBlur={(e) =>
+              Object.assign(
+                (e.target as HTMLElement).style,
+                classes.inputBorderStyle
+              )
+            }
+          />
+        </label>
+        {error && (
+          <p className="text-red-500 text-base mb-6 text-center font-semibold">
+            {error}
+          </p>
+        )}
+        <button
+          type="submit"
+          disabled={isLoading}
+          className={`w-full py-3 rounded-2xl text-lg mb-4 disabled:opacity-50 ${classes.buttonPrimary}`}
+          style={classes.buttonPrimaryStyle}
+          onMouseEnter={(e) =>
+            !isLoading &&
+            Object.assign(
+              (e.target as HTMLElement).style,
+              classes.buttonPrimaryHoverStyle
+            )
+          }
+          onMouseLeave={(e) =>
+            !isLoading &&
+            Object.assign(
+              (e.target as HTMLElement).style,
+              classes.buttonPrimaryStyle
+            )
+          }
+        >
+          {isLoading ? (
+            <div className="flex items-center justify-center gap-2">
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8H4z"
+                />
+              </svg>
+              <span>로그인 중...</span>
+            </div>
+          ) : (
+            "로그인"
           )}
-
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition disabled:opacity-50"
+        </button>
+        <div className="flex justify-between items-center mb-2">
+          <Link
+            to="/register"
+            className={`hover:underline font-semibold text-sm`}
+            style={classes.textSecondaryStyle}
           >
-            {isLoading ? (
-              <div className="flex items-center justify-center gap-2">
-                <svg
-                  className="animate-spin h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v8H4z"
-                  />
-                </svg>
-                <span>로그인 중...</span>
-              </div>
-            ) : (
-              "로그인"
-            )}
-          </button>
-          <div className="mt-4 text-center text-sm text-gray-600 space-y-1">
-            <p>
-              <Link to="/register" className="text-blue-600 hover:underline">
-                회원가입
-              </Link>
-            </p>
-            <p>
-              <Link
-                to="/find-user"
-                className="text-blue-600 hover:underline mr-2"
-              >
-                아이디 찾기
-              </Link>
-              <span className="text-gray-400">|</span>
-              <Link
-                to="/find-pwd"
-                className="text-blue-600 hover:underline ml-2"
-              >
-                비밀번호 찾기
-              </Link>
-            </p>
+            회원가입
+          </Link>
+          <div className="flex items-center gap-2 text-sm">
+            <Link
+              to="/find-user"
+              className={`hover:underline font-semibold`}
+              style={classes.textSecondaryStyle}
+            >
+              아이디 찾기
+            </Link>
+            <span style={classes.textSecondaryStyle}>|</span>
+            <Link
+              to="/find-pwd"
+              className={`hover:underline font-semibold`}
+              style={classes.textSecondaryStyle}
+            >
+              비밀번호 찾기
+            </Link>
           </div>
-        </form>
-      </div>
-    </>
+        </div>
+      </form>
+    </AuthLayout>
   );
 }
 

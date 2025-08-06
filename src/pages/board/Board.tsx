@@ -1,36 +1,66 @@
-import BoardLayout from "../../components/layout/BoardLayout";
-import Button from "../../components/common/Button";
-import { useQuery } from "@tanstack/react-query";
-import { getBoard } from "@/api/Board";
-import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import BoardLayout from "@/components/layout/BoardLayout";
+import Button from "@/components/common/Button";
+import { useAuth } from "@/hooks/useAuth";
+import { usePosts } from "@/hooks/usePosts";
+import { Link, useNavigate } from "@tanstack/react-router";
 
-function Board() {
-  // test 안해봄, 이렇게 사용
-  // const loaderData = useLoader();
+export default function Board() {
+  const navigate = useNavigate();
+  const [page, setPage] = useState(1);
+  const { user, isLoading: authLoading } = useAuth();
+  const { posts, totalPages, total, isLoading, isError, error } = usePosts(
+    page,
+    10
+  );
 
-  const {
-    data: posts,
-    isPending,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["post"],
-    queryFn: getBoard,
-    // initialData: loaderData,
-  });
+  // 로딩 상태 분기
+  if (isLoading) {
+    return (
+      <BoardLayout>
+        <p className="text-center py-20">로딩 중…</p>
+      </BoardLayout>
+    );
+  }
 
+  // 에러 상태 분기
+  if (isError) {
+    return (
+      <BoardLayout>
+        <p className="text-center py-20 text-red-500">
+          에러 발생: {error?.message || "알 수 없는 오류가 발생했습니다."}
+        </p>
+      </BoardLayout>
+    );
+  }
+
+  // 정상 데이터 렌더링
   return (
     <>
       <BoardLayout>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900">📌 게시판</h2>
-          <Link to="/board/write">
-            <Button color="teal" size="mb" /* disabled={!isLoggedIn} */>
-              글쓰기
+          {authLoading ? (
+            <Button size="md" color="gray" disabled>
+              …
             </Button>
-          </Link>
+          ) : user ? (
+            <Link to="/board/write">
+              <Button size="md" color="teal">
+                글쓰기
+              </Button>
+            </Link>
+          ) : (
+            <Button
+              size="md"
+              color="gray"
+              disabled
+              onClick={() => navigate({ to: "/login" })}
+            >
+              로그인 후 쓰기 가능
+            </Button>
+          )}
         </div>
-        {/* 테이블 */}
         <table className="w-full text-left table-fixed border-t border-gray-300 mb-4">
           <thead>
             <tr className="text-gray-600 border-b border-gray-300">
@@ -41,73 +71,60 @@ function Board() {
             </tr>
           </thead>
           <tbody>
-            {isPending ? (
-              <>loading...</>
-            ) : (
-              posts.map((post, idx) => (
+            {posts.length > 0 ? (
+              posts.map((post) => (
                 <tr
-                  key={idx}
-                  className={`border-b border-gray-200 ${
-                    post ? "hover:bg-white/70" : "text-gray-300"
-                  }`}
+                  key={post.id}
+                  className="border-b border-gray-200 hover:bg-white/70"
                 >
-                  <td className="py-3 text-center">{post ? post.id : "-"}</td>
+                  <td className="py-3 text-center">{post.id}</td>
                   <td className="py-3 text-center">
-                    {post ? (
-                      <Link
-                        to={`/board/${post.id}`}
-                        className="text-black-700 hover:underline"
-                      >
-                        {post.title}
-                      </Link>
-                    ) : (
-                      <span>게시글 없음</span>
-                    )}
+                    <Link
+                      to={`/board/${post.id}`}
+                      className="text-black-700 hover:underline"
+                    >
+                      {post.title}
+                    </Link>
                   </td>
                   <td className="py-3 text-center">
-                    {post ? post.author : "-"}
+                    {post.author || post.user?.nickName || "익명"}
                   </td>
-                  <td className="py-3 text-center">{post ? post.date : "-"}</td>
+                  <td className="py-3 text-center">
+                    {new Date(post.createdAt).toLocaleDateString("ko-KR")}
+                  </td>
                 </tr>
               ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="py-20 text-center text-gray-500">
+                  등록된 게시글이 없습니다.
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
-
-        {/* 페이지네이션 */}
-        {/* <div className="flex justify-center gap-2 text-sm mt-2">
+        <div className="flex justify-center gap-2 text-sm">
           <Button
             color="gray"
             size="sm"
-            disabled={currentPage == 1}
-            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+            disabled={page === 1}
+            onClick={() => setPage((p) => Math.max(p - 1, 1))}
           >
-            ◀
+            ◀ 이전
           </Button>
-
-          {[...Array(totalPages)].map((_, idx) => (
-            <Button
-              key={idx + 1}
-              size="sm"
-              color={currentPage == idx + 1 ? "teal" : "gray"}
-              onClick={() => setCurrentPage(idx + 1)}
-            >
-              {idx + 1}
-            </Button>
-          ))}
-
+          <span className="flex items-center px-2">
+            {page} / {totalPages} 페이지
+          </span>
           <Button
             color="gray"
             size="sm"
-            disabled={currentPage == totalPages}
-            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+            disabled={page >= totalPages}
+            onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
           >
-            ▶
+            다음 ▶
           </Button>
-        </div> */}
+        </div>
       </BoardLayout>
     </>
   );
 }
-
-export default Board;

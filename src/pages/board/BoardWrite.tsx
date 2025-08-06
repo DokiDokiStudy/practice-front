@@ -1,34 +1,69 @@
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import BoardLayout from "../../components/layout/BoardLayout";
-import BoardForm from "../../components/board/BoardForm";
+import { useState, useEffect, FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import { toast } from "react-toastify";
 
-function BoardWrite() {
+import BoardLayout from "@/components/layout/BoardLayout";
+import BoardForm from "@/components/board/BoardForm";
+import { useAuth } from "@/hooks/useAuth";
+import { useCreatePost } from "@/hooks/useMutatePost";
+import { useCategories } from "@/hooks/useCategories";
+
+export default function BoardWrite() {
   const navigate = useNavigate();
+  const { user, isLoading: authLoading } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [categoryId, setCategoryId] = useState(0);
+
+  const { mutate: create, isPending: isCreating } = useCreatePost();
+  const { data: categories = [], isLoading: catLoading } = useCategories();
 
   useEffect(() => {
-    const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
-    if (!isLoggedIn) {
+    if (authLoading) return;
+    if (!user) {
       toast.warn("로그인 후 글쓰기가 가능합니다.");
       navigate({ to: "/login" });
     }
-  }, [navigate]);
+  }, [user, authLoading, navigate]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log("작성 완료:", { title, content });
-    toast.success("게시글이 작성되었습니다!");
-    navigate({ to: "/board" });
+    create(
+      { categoryId, title, content },
+      {
+        onSuccess: () => {
+          toast.success("게시글이 작성되었습니다!");
+          navigate({ to: "/board" });
+        },
+        onError: (err) => toast.error(`작성 실패: ${err.message}`),
+      }
+    );
   };
+
   return (
     <>
       <BoardLayout>
-        <h2 className="text-2xl font-bold text-black-900 mb-6 text-center">
-          ✍️ 게시글 작성
-        </h2>
+        <h2 className="text-2xl font-bold text-center mb-6">새 글 작성</h2>
+
+        {/* 카테고리가 필요할 거 같긴 한데 해당 게시판(게시글)은 추후 용도에 따라 달라질 예정.. 일단 연습용으로 카테고리 붙여봄 */}
+        <div className="mb-4">
+          {catLoading ? (
+            <p>카테고리 로딩 중…</p>
+          ) : (
+            <select
+              value={categoryId}
+              onChange={(e) => setCategoryId(Number(e.target.value))}
+              className="w-full border rounded px-3 py-2"
+            >
+              <option value={0}>카테고리 선택</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          )}
+        </div>
 
         <BoardForm
           titleValue={title}
@@ -37,52 +72,14 @@ function BoardWrite() {
           onContentChange={(e) => setContent(e.target.value)}
           onSubmit={handleSubmit}
           buttonText="작성 완료"
-          buttonProps={{ color: "green", size: "md", loading: false }}
+          buttonProps={{
+            color: "green",
+            size: "md",
+            loading: isCreating,
+            disabled: authLoading || isCreating,
+          }}
         />
       </BoardLayout>
     </>
   );
-
-  // return (
-  //   <>
-  //     <TopNav />
-  //     <BoardLayout>
-  //         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">✍️ 게시글 작성</h2>
-
-  //         <form onSubmit={handleSubmit} className="space-y-6">
-  //           <div>
-  //             <label className="block text-gray-700 font-semibold mb-1">제목</label>
-  //             <input
-  //               type="text"
-  //               value={title}
-  //               onChange={(e) => setTitle(e.target.value)}
-  //               className="w-full border border-gray-300 rounded-xl px-4 py-2"
-  //               required
-  //             />
-  //           </div>
-
-  //           <div>
-  //             <label className="block text-gray-700 font-semibold mb-1">내용</label>
-  //             <textarea
-  //               value={content}
-  //               onChange={(e) => setContent(e.target.value)}
-  //               className="w-full border border-gray-300 rounded-xl px-4 py-2 h-52"
-  //               required
-  //             />
-  //           </div>
-
-  //           <div className="text-center">
-  //             <button
-  //               type="submit"
-  //               className="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 transition"
-  //             >
-  //               작성 완료
-  //             </button>
-  //           </div>
-  //         </form>
-  //     </BoardLayout>
-  //   </>
-  // );
 }
-
-export default BoardWrite;

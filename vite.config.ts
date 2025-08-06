@@ -7,7 +7,10 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, 'src'),
+      '@lib': path.resolve(__dirname, 'src/lib'),
+      '@api': path.resolve(__dirname, 'src/api'),
+      '@types': path.resolve(__dirname, 'src/types'),
     },
   },
   base: './',
@@ -20,16 +23,3 @@ export default defineConfig({
     strictPort: true
   }
 })
-
-
-// CommonJs 문법
-// const { defineConfig } = require('vite');
-// const react = require('@vitejs/plugin-react');
-
-// module.exports = defineConfig({
-//   plugins: [react()],
-//   build: {
-//     outDir: 'dist'
-//   }
-// });
-

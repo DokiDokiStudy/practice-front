@@ -1,54 +1,82 @@
-import { Link, useNavigate } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
-import { ROUTES } from '../../constants/routes';
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { ROUTES } from "../../constants/routes";
+import { useAuth } from "@/hooks/useAuth";
+import { useTheme } from "@/themes/useTheme";
 
 function TopNav() {
   const navigate = useNavigate();
-  const [nickName, setNickName] = useState('');
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    const storedNick = localStorage.getItem('nickName');
-    if (storedToken && storedNick) {
-      setNickName(storedNick);
-    }
-  }, []);
+  const { user, isLoading } = useAuth();
+  const { classes } = useTheme();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('nickName');
-    setNickName('');
+    localStorage.removeItem("user");
     navigate({ to: ROUTES.LOGIN });
-  };  return (
-    <nav className="w-full p-4 flex justify-between items-center z-10 bg-cyan-950 bg-opacity-20 backdrop-blur-md">
-      <Link to="/main" className="hover:underline">
-        <h1 className="text-black text-2xl font-bold tracking-widest">DOKYDOKY</h1>
-      </Link>
-      <ul className="flex space-x-6 text-black font-medium">
-        <li>
-          <Link to="/main" className="hover:underline">메인</Link>
-        </li>
-        <li>
-          <Link to="/board" className="hover:underline">게시판</Link>
-        </li>
+  };
 
-        {nickName ? (
+  return (
+    <nav
+      className={`w-full p-4 flex justify-between items-center z-10 shadow-lg ${classes.navBackground}`}
+      style={classes.navBackgroundStyle}
+    >
+      <Link to="/main" className="hover:scale-105 transition-transform">
+        <h1
+          className={`text-2xl font-bold tracking-widest drop-shadow-sm ${classes.navText}`}
+        >
+          DOKYDOKY
+        </h1>
+      </Link>
+
+      {!isLoading && (
+        <ul className={`flex space-x-6 font-semibold ${classes.navText}`}>
           <li>
-            <button onClick={handleLogout} className="hover:underline">
-              {nickName} (로그아웃)
-            </button>
+            <Link
+              to="/main"
+              className={`transition-colors ${classes.navHover}`}
+            >
+              메인
+            </Link>
           </li>
-        ) : (
-          <>
+          <li>
+            <Link
+              to="/board"
+              className={`transition-colors ${classes.navHover}`}
+            >
+              게시판
+            </Link>
+          </li>
+
+          {user ? (
             <li>
-              <Link to="/login" className="hover:underline">로그인</Link>
+              <button
+                onClick={handleLogout}
+                className={`transition-colors ${classes.navHover}`}
+              >
+                {user.nickName} (로그아웃)
+              </button>
             </li>
-            <li>
-              <Link to="/register" className="hover:underline">회원가입</Link>
-            </li>
-          </>
-        )}
-      </ul>
+          ) : (
+            <>
+              <li>
+                <Link
+                  to="/login"
+                  className={`transition-colors ${classes.navHover}`}
+                >
+                  로그인
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/register"
+                  className={`transition-colors ${classes.navHover}`}
+                >
+                  회원가입
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
+      )}
     </nav>
   );
 }
