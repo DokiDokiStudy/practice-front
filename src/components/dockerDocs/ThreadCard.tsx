@@ -8,8 +8,8 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import CommentList from "./CommentList";
-import { Link } from "react-router-dom";
 import api from "@/lib/api";
+import { Link } from "@tanstack/react-router";
 
 type ThreadCardProps = {
   threadId: string; // 현재 화면 구조로는 게시글..
@@ -31,7 +31,9 @@ const ThreadCard = ({
   userId,
 }: ThreadCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [userReaction, setUserReaction] = useState<"like" | "dislike" | null>(null);
+  const [userReaction, setUserReaction] = useState<"like" | "dislike" | null>(
+    null
+  );
   const [reactionId, setReactionId] = useState<number | null>(null);
   const [likeCount, setLikeCount] = useState(likes);
   const [dislikeCount, setDislikeCount] = useState(dislikes);
@@ -96,7 +98,8 @@ const ThreadCard = ({
     <div className="border rounded-lg p-4 mb-4 shadow-sm">
       <div className="flex justify-between items-start mb-2">
         <Link
-          to={`/thread/${threadId}`}
+          to="/thread/$threadId"
+          params={{ threadId }}
           className="text-blue-700 font-semibold hover:underline block mb-1"
         >
           {title}
@@ -142,7 +145,8 @@ const ThreadCard = ({
             className="overflow-hidden mt-2"
           >
             <div className="text-sm text-gray-800 mb-3">
-              📄 전체 본문 내용 표시 예시입니다. 이곳에 실제 본문이 들어갈 수 있어요.
+              📄 전체 본문 내용 표시 예시입니다. 이곳에 실제 본문이 들어갈 수
+              있어요.
             </div>
             <CommentList comments={comments} />
           </motion.div>

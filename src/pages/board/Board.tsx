@@ -1,22 +1,18 @@
 import { useState } from "react";
-import { Link, useNavigate  } from "react-router-dom";
 import BoardLayout from "@/components/layout/BoardLayout";
 import Button from "@/components/common/Button";
 import { useAuth } from "@/hooks/useAuth";
 import { usePosts } from "@/hooks/usePosts";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 export default function Board() {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const { user, isLoading: authLoading } = useAuth();
-  const {
-    posts,
-    totalPages,
-    total,
-    isLoading,
-    isError,
-    error,
-  } = usePosts(page, 10);
+  const { posts, totalPages, total, isLoading, isError, error } = usePosts(
+    page,
+    10
+  );
 
   // 로딩 상태 분기
   if (isLoading) {
@@ -32,7 +28,7 @@ export default function Board() {
     return (
       <BoardLayout>
         <p className="text-center py-20 text-red-500">
-          에러 발생: {error?.message || '알 수 없는 오류가 발생했습니다.'}
+          에러 발생: {error?.message || "알 수 없는 오류가 발생했습니다."}
         </p>
       </BoardLayout>
     );
@@ -45,13 +41,22 @@ export default function Board() {
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900">📌 게시판</h2>
           {authLoading ? (
-            <Button size="md" color="gray" disabled>…</Button>
+            <Button size="md" color="gray" disabled>
+              …
+            </Button>
           ) : user ? (
             <Link to="/board/write">
-              <Button size="md" color="teal">글쓰기</Button>
+              <Button size="md" color="teal">
+                글쓰기
+              </Button>
             </Link>
           ) : (
-            <Button size="md" color="gray" disabled onClick={() => navigate("/login")}> 
+            <Button
+              size="md"
+              color="gray"
+              disabled
+              onClick={() => navigate({ to: "/login" })}
+            >
               로그인 후 쓰기 가능
             </Button>
           )}
@@ -82,10 +87,10 @@ export default function Board() {
                     </Link>
                   </td>
                   <td className="py-3 text-center">
-                    {post.author || post.user?.nickName || '익명'}
+                    {post.author || post.user?.nickName || "익명"}
                   </td>
                   <td className="py-3 text-center">
-                    {new Date(post.createdAt).toLocaleDateString('ko-KR')}
+                    {new Date(post.createdAt).toLocaleDateString("ko-KR")}
                   </td>
                 </tr>
               ))

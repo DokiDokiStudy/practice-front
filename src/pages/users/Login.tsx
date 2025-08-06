@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import api from '@/lib/api';
-import AuthLayout from '@/components/layout/AuthLayout';
-import { useTheme } from '@/themes/useTheme';
+import { useState } from "react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { toast } from "react-toastify";
+import api from "@/lib/api";
+import AuthLayout from "@/components/layout/AuthLayout";
+import { useTheme } from "@/themes/useTheme";
 
 function Login() {
   // const [id, setId] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { classes } = useTheme();
 
   const navigate = useNavigate();
@@ -18,10 +18,10 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
-      const res = await api.post('/auth/login', {
+      const res = await api.post("/auth/login", {
         email,
         password,
       });
@@ -41,14 +41,17 @@ function Login() {
             role: user_role,
           })
         );
-        toast.success('로그인 성공!');
-        navigate('/main');
+        toast.success("로그인 성공!");
+        navigate({ to: "/main" });
       } else {
-        setError('로그인 실패 다시 시도 해주세요.');
+        setError("로그인 실패 다시 시도 해주세요.");
       }
     } catch (err) {
-      setError(err.response?.data?.message || '아이디 또는 비밀번호를 다시 확인해주세요.');
-      toast.error('로그인 실패');
+      setError(
+        err.response?.data?.message ||
+          "아이디 또는 비밀번호를 다시 확인해주세요."
+      );
+      toast.error("로그인 실패");
     } finally {
       setIsLoading(false);
     }
@@ -61,11 +64,16 @@ function Login() {
         className={`p-10 pt-16 rounded-3xl shadow-2xl w-full max-w-md ${classes.surface} ${classes.surfaceBorder}`}
         style={classes.surfaceBorderStyle}
       >
-        <h2 className={`text-3xl text-center mb-8 ${classes.title}`} style={classes.titleStyle}>
+        <h2
+          className={`text-3xl text-center mb-8 ${classes.title}`}
+          style={classes.titleStyle}
+        >
           로그인
         </h2>
         <label className="block mb-6">
-          <span className={`${classes.label}`} style={classes.labelStyle}>이메일</span>
+          <span className={`${classes.label}`} style={classes.labelStyle}>
+            이메일
+          </span>
           <input
             type="text"
             value={email}
@@ -75,16 +83,28 @@ function Login() {
               ...classes.inputBackgroundStyle,
               ...classes.inputBorderStyle,
               ...classes.inputTextStyle,
-              ...classes.inputPlaceholderStyle
+              ...classes.inputPlaceholderStyle,
             }}
             placeholder="example@docker.com"
             required
-            onFocus={(e) => Object.assign((e.target as HTMLElement).style, classes.inputFocusStyle)}
-            onBlur={(e) => Object.assign((e.target as HTMLElement).style, classes.inputBorderStyle)}
+            onFocus={(e) =>
+              Object.assign(
+                (e.target as HTMLElement).style,
+                classes.inputFocusStyle
+              )
+            }
+            onBlur={(e) =>
+              Object.assign(
+                (e.target as HTMLElement).style,
+                classes.inputBorderStyle
+              )
+            }
           />
         </label>
         <label className="block mb-8">
-          <span className={`${classes.label}`} style={classes.labelStyle}>비밀번호</span>
+          <span className={`${classes.label}`} style={classes.labelStyle}>
+            비밀번호
+          </span>
           <input
             type="password"
             value={password}
@@ -94,24 +114,48 @@ function Login() {
               ...classes.inputBackgroundStyle,
               ...classes.inputBorderStyle,
               ...classes.inputTextStyle,
-              ...classes.inputPlaceholderStyle
+              ...classes.inputPlaceholderStyle,
             }}
             placeholder="비밀번호 입력"
             required
-            onFocus={(e) => Object.assign((e.target as HTMLElement).style, classes.inputFocusStyle)}
-            onBlur={(e) => Object.assign((e.target as HTMLElement).style, classes.inputBorderStyle)}
+            onFocus={(e) =>
+              Object.assign(
+                (e.target as HTMLElement).style,
+                classes.inputFocusStyle
+              )
+            }
+            onBlur={(e) =>
+              Object.assign(
+                (e.target as HTMLElement).style,
+                classes.inputBorderStyle
+              )
+            }
           />
         </label>
         {error && (
-          <p className="text-red-500 text-base mb-6 text-center font-semibold">{error}</p>
+          <p className="text-red-500 text-base mb-6 text-center font-semibold">
+            {error}
+          </p>
         )}
         <button
           type="submit"
           disabled={isLoading}
           className={`w-full py-3 rounded-2xl text-lg mb-4 disabled:opacity-50 ${classes.buttonPrimary}`}
           style={classes.buttonPrimaryStyle}
-          onMouseEnter={(e) => !isLoading && Object.assign((e.target as HTMLElement).style, classes.buttonPrimaryHoverStyle)}
-          onMouseLeave={(e) => !isLoading && Object.assign((e.target as HTMLElement).style, classes.buttonPrimaryStyle)}
+          onMouseEnter={(e) =>
+            !isLoading &&
+            Object.assign(
+              (e.target as HTMLElement).style,
+              classes.buttonPrimaryHoverStyle
+            )
+          }
+          onMouseLeave={(e) =>
+            !isLoading &&
+            Object.assign(
+              (e.target as HTMLElement).style,
+              classes.buttonPrimaryStyle
+            )
+          }
         >
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
@@ -138,19 +182,31 @@ function Login() {
               <span>로그인 중...</span>
             </div>
           ) : (
-            '로그인'
+            "로그인"
           )}
         </button>
         <div className="flex justify-between items-center mb-2">
-          <Link to="/register" className={`hover:underline font-semibold text-sm`} style={classes.textSecondaryStyle}>
+          <Link
+            to="/register"
+            className={`hover:underline font-semibold text-sm`}
+            style={classes.textSecondaryStyle}
+          >
             회원가입
           </Link>
           <div className="flex items-center gap-2 text-sm">
-            <Link to="/find-user" className={`hover:underline font-semibold`} style={classes.textSecondaryStyle}>
+            <Link
+              to="/find-user"
+              className={`hover:underline font-semibold`}
+              style={classes.textSecondaryStyle}
+            >
               아이디 찾기
             </Link>
             <span style={classes.textSecondaryStyle}>|</span>
-            <Link to="/find-pwd" className={`hover:underline font-semibold`} style={classes.textSecondaryStyle}>
+            <Link
+              to="/find-pwd"
+              className={`hover:underline font-semibold`}
+              style={classes.textSecondaryStyle}
+            >
               비밀번호 찾기
             </Link>
           </div>

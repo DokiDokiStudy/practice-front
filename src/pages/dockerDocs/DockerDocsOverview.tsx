@@ -1,12 +1,20 @@
-import { useNavigate } from 'react-router-dom';
-import { useDocsData } from '@/hooks/useDocsData';
+import { useNavigate } from "@tanstack/react-router";
+import { useDocsData } from "@/hooks/useDocsData";
 
 export default function DockerDocsOverview() {
   const navigate = useNavigate();
   const docs = useDocsData();
 
-  const goToDetail = (projectId: string, chapterId: string, stepId?: string) => {
-    navigate(`/docs/${projectId}/${chapterId}${stepId ? `#${stepId}` : ''}`);
+  const goToDetail = (
+    projectId: string,
+    chapterId: string,
+    stepId?: string
+  ) => {
+    navigate({
+      to: "/docs/$projectId/$chapterId",
+      params: { projectId, chapterId },
+      hash: stepId ? stepId : undefined,
+    });
   };
 
   return (
@@ -17,7 +25,9 @@ export default function DockerDocsOverview() {
 
           {docs.map((section) => (
             <div key={section.id} className="mb-12">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">{section.title}</h2>
+              <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                {section.title}
+              </h2>
               {section.chapters.map((chapter) => (
                 <div key={chapter.id} className="mb-6">
                   <h3
@@ -31,7 +41,9 @@ export default function DockerDocsOverview() {
                       <li
                         key={step.id}
                         className="text-sm text-blue-700 hover:underline cursor-pointer"
-                        onClick={() => goToDetail(section.id, chapter.id, step.id)}
+                        onClick={() =>
+                          goToDetail(section.id, chapter.id, step.id)
+                        }
                       >
                         {step.title}
                       </li>

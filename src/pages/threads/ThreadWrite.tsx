@@ -1,10 +1,9 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import TopNav from '../../components/common/TopNav';
-import BoardLayout from '../../components/layout/BoardLayout';
-import BoardForm from '../../components/board/BoardForm';
-import { toast } from 'react-toastify';
-import api from '@/lib/api';
+import { useState } from "react";
+import BoardLayout from "../../components/layout/BoardLayout";
+import BoardForm from "../../components/board/BoardForm";
+import { toast } from "react-toastify";
+import api from "@/lib/api";
+import { useNavigate } from "@tanstack/react-router";
 
 type Category = {
   id: number;
@@ -14,19 +13,19 @@ type Category = {
 
 // 더미 카테고리 데이터
 const dummyCategories: Category[] = [
-  { id: 1, name: '도커', parentId: null },         // 대분류
-  { id: 2, name: '1장', parentId: 1 },             // 챕터
-  { id: 3, name: '2장', parentId: 1 },             // 챕터
-  { id: 4, name: '1.1', parentId: 2 },             // 소분류
-  { id: 5, name: '1.2', parentId: 2 },             // 소분류
-  { id: 4, name: '1.1', parentId: 3 },             // 소분류
-  { id: 5, name: '1.2', parentId: 3 },             // 소분류
+  { id: 1, name: "도커", parentId: null }, // 대분류
+  { id: 2, name: "1장", parentId: 1 }, // 챕터
+  { id: 3, name: "2장", parentId: 1 }, // 챕터
+  { id: 4, name: "1.1", parentId: 2 }, // 소분류
+  { id: 5, name: "1.2", parentId: 2 }, // 소분류
+  { id: 4, name: "1.1", parentId: 3 }, // 소분류
+  { id: 5, name: "1.2", parentId: 3 }, // 소분류
 ];
 
 const ThreadWrite = () => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [mainCategory, setMainCategory] = useState<number | null>(null);
   const [chapterCategory, setChapterCategory] = useState<number | null>(null);
   const [subCategory, setSubCategory] = useState<number | null>(null);
@@ -36,14 +35,14 @@ const ThreadWrite = () => {
     e.preventDefault();
 
     if (!subCategory) {
-      toast.warn('카테고리를 모두 선택해주세요.');
+      toast.warn("카테고리를 모두 선택해주세요.");
       return;
     }
 
     try {
       setLoading(true);
 
-      const res = await api.post('/post', {
+      const res = await api.post("/post", {
         categoryId: subCategory,
         title,
         content,
@@ -52,22 +51,25 @@ const ThreadWrite = () => {
       const { data, message } = res.data;
 
       if (res.status === 200) {
-        toast.success(message || '게시글이 등록되었습니다!');
-        navigate('/thread');
+        toast.success(message || "게시글이 등록되었습니다!");
+        navigate({ to: "/thread" });
       } else {
-        toast.warn(message || '서버 에러 발생.');
+        toast.warn(message || "서버 에러 발생.");
       }
-
     } catch (err: any) {
-      toast.error(err.response?.data?.message || '서버 에러 발생.');
+      toast.error(err.response?.data?.message || "서버 에러 발생.");
     } finally {
       setLoading(false);
     }
   };
 
   const mainCategories = dummyCategories.filter((c) => c.parentId === null);
-  const chapterCategories = dummyCategories.filter((c) => c.parentId === mainCategory);
-  const subCategories = dummyCategories.filter((c) => c.parentId === chapterCategory);
+  const chapterCategories = dummyCategories.filter(
+    (c) => c.parentId === mainCategory
+  );
+  const subCategories = dummyCategories.filter(
+    (c) => c.parentId === chapterCategory
+  );
 
   return (
     <>
@@ -78,15 +80,17 @@ const ThreadWrite = () => {
           <div className="flex space-x-4 mb-4">
             <select
               className="border p-2 rounded w-1/3"
-              value={mainCategory ?? ''}
+              value={mainCategory ?? ""}
               onChange={(e) => {
                 const val = e.target.value;
-                setMainCategory(val === '' ? null : parseInt(val));
+                setMainCategory(val === "" ? null : parseInt(val));
                 setChapterCategory(null);
                 setSubCategory(null);
               }}
             >
-              <option value="" disabled hidden>📚 대분류 선택</option>
+              <option value="" disabled hidden>
+                📚 대분류 선택
+              </option>
               {mainCategories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.name}
@@ -96,15 +100,17 @@ const ThreadWrite = () => {
 
             <select
               className="border p-2 rounded w-1/3"
-              value={chapterCategory ?? ''}
+              value={chapterCategory ?? ""}
               onChange={(e) => {
                 const val = e.target.value;
-                setChapterCategory(val === '' ? null : parseInt(val));
+                setChapterCategory(val === "" ? null : parseInt(val));
                 setSubCategory(null);
               }}
               disabled={!mainCategory}
             >
-              <option value="" disabled hidden>📖 챕터 선택</option>
+              <option value="" disabled hidden>
+                📖 챕터 선택
+              </option>
               {mainCategory &&
                 chapterCategories.map((cat) => (
                   <option key={cat.id} value={cat.id}>
@@ -115,14 +121,16 @@ const ThreadWrite = () => {
 
             <select
               className="border p-2 rounded w-1/3"
-              value={subCategory ?? ''}
+              value={subCategory ?? ""}
               onChange={(e) => {
                 const val = e.target.value;
-                setSubCategory(val === '' ? null : parseInt(val));
+                setSubCategory(val === "" ? null : parseInt(val));
               }}
               disabled={!chapterCategory}
             >
-              <option value="" disabled hidden>📄 소분류 선택</option>
+              <option value="" disabled hidden>
+                📄 소분류 선택
+              </option>
               {chapterCategory &&
                 subCategories.map((cat) => (
                   <option key={cat.id} value={cat.id}>
@@ -139,7 +147,7 @@ const ThreadWrite = () => {
             onContentChange={(e) => setContent(e.target.value)}
             onSubmit={handleSubmit}
             buttonText="작성 완료"
-            buttonProps={{ color: 'green', size: 'md', loading }}
+            buttonProps={{ color: "green", size: "md", loading }}
           />
         </div>
       </BoardLayout>
