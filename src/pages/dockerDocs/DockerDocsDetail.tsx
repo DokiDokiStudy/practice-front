@@ -59,7 +59,7 @@ export default function DockerDocsDetail() {
 
   return (
     <>
-      <div className="flex min-h-screen bg-white">
+      <div className="flex flex-1 bg-white">
         <NestedSidebar data={activeDocs} />
 
         <main className="flex-1 relative px-6 py-10 max-w-4xl mx-auto">

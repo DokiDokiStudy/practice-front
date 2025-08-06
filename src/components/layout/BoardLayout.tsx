@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 // 레이아웃은 레이아웃끼리 모아야 하나 Or 게시판의 레이아웃이니까 게시판에 들어가야 하나.. 후자가 맞나
 function BoardLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-gray-100 min-h-screen py-12 px-4">
+    <div className="bg-gray-100 flex-1 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <div
           className="

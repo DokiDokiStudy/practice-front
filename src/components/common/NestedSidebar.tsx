@@ -26,7 +26,7 @@ const NestedSidebar = ({ data }: Props) => {
   const state = useRouterState();
 
   return (
-    <aside className="w-60 p-4 border-r border-gray-300 bg-white overflow-y-auto h-screen">
+    <aside className="w-60 p-4 border-r border-gray-300 bg-white overflow-y-auto">
       <h2 className="text-xl font-bold mb-4">📚 전체 프로젝트</h2>
       <ul className="space-y-2 text-sm">
         {data.map((project) => (

@@ -77,30 +77,28 @@ const ThreadList = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex flex-1">
-        <NestedSidebar data={docsData} />
+    <div className="flex flex-1">
+      <NestedSidebar data={docsData} />
 
-        <main className="max-w-4xl px-4 py-10 mx-auto w-full">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">🧵 전체 쓰레드 목록</h1>
-            {user && (
-              <button
-                onClick={() => navigate({ to: "/thread/write" })}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              >
-                글쓰기
-              </button>
-            )}
-          </div>
+      <main className="max-w-4xl px-4 py-10 mx-auto w-full">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">🧵 전체 쓰레드 목록</h1>
+          {user && (
+            <button
+              onClick={() => navigate({ to: "/thread/write" })}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              글쓰기
+            </button>
+          )}
+        </div>
 
-          <div className="space-y-6">
-            {threads.map((thread) => (
-              <ThreadCard key={thread.threadId} {...thread} />
-            ))}
-          </div>
-        </main>
-      </div>
+        <div className="space-y-6">
+          {threads.map((thread) => (
+            <ThreadCard key={thread.threadId} {...thread} />
+          ))}
+        </div>
+      </main>
     </div>
   );
 };
