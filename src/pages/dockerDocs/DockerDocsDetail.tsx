@@ -1,46 +1,59 @@
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useDocsData } from '@/hooks/useDocsData';
-import TopNav from '@/components/common/TopNav';
-import SelectedStepThread from '@/components/dockerDocs/SelectedStepThread';
-import { AnimatePresence } from 'framer-motion';
-import NestedSidebar from '@/components/common/NestedSidebar';
-import { docsData as fallbackDocsData } from '@/data/docsData';
+import { useState, useEffect } from "react";
+import { useDocsData } from "@/hooks/useDocsData";
+import SelectedStepThread from "@/components/dockerDocs/SelectedStepThread";
+import { AnimatePresence } from "framer-motion";
+import NestedSidebar from "@/components/common/NestedSidebar";
+import { docsData as fallbackDocsData } from "@/data/docsData";
+import { useLocation, useNavigate, useParams } from "@tanstack/react-router";
 
 export default function DockerDocsDetail() {
-  const { projectId = 'docker', chapterId = '1' } = useParams();
+  const location = useLocation();
+  const { projectId = "docker", chapterId = "1" } = useParams({
+    from: "/docs/$projectId/$chapterId",
+  });
+  console.log("location", location);
   const navigate = useNavigate();
   const [selectedStepId, setSelectedStepId] = useState<string | null>(null);
 
   const docs = useDocsData();
   const activeDocs = docs.length > 0 ? docs : fallbackDocsData;
 
-  const project = activeDocs.find(p => p.id === projectId);
-  const chapter = project?.chapters.find(c => c.id === chapterId);
+  const project = activeDocs.find((p) => p.id === projectId);
+  const chapter = project?.chapters.find((c) => c.id === chapterId);
 
   const flatChapters = project?.chapters ?? [];
-  const currentIndex = flatChapters.findIndex(c => c.id === chapterId);
-
-  const location = useLocation();
+  const currentIndex = flatChapters.findIndex((c) => c.id === chapterId);
 
   useEffect(() => {
     if (location.hash) {
       const target = document.getElementById(location.hash.substring(1));
       if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
+        target.scrollIntoView({ behavior: "smooth" });
       }
     }
   }, [location]);
 
   const goToPrev = () => {
     if (currentIndex > 0) {
-      navigate(`/docs/${projectId}/${flatChapters[currentIndex - 1].id}`);
+      navigate({
+        to: "/docs/$projectId/$chapterId",
+        params: {
+          projectId,
+          chapterId: flatChapters[currentIndex - 1].id,
+        },
+      });
     }
   };
 
   const goToNext = () => {
     if (currentIndex < flatChapters.length - 1) {
-      navigate(`/docs/${projectId}/${flatChapters[currentIndex + 1].id}`);
+      navigate({
+        to: "/docs/$projectId/$chapterId",
+        params: {
+          projectId,
+          chapterId: flatChapters[currentIndex + 1].id,
+        },
+      });
     }
   };
 
@@ -86,7 +99,9 @@ export default function DockerDocsDetail() {
               </div>
             </>
           ) : (
-            <p className="text-blue-500 text-center mt-20">해당 챕터를 찾을 수 없습니다.</p>
+            <p className="text-blue-500 text-center mt-20">
+              해당 챕터를 찾을 수 없습니다.
+            </p>
           )}
 
           <AnimatePresence>

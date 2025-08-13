@@ -1,23 +1,27 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import NestedSidebar from '@/components/common/NestedSidebar';
-import { docsData } from '@/data/docsData';
-import { useCreateThread } from '@/hooks/useThreads';
-import { useDockerCategories } from '@/hooks/useDockerCategories';
-import { useTheme } from '@/themes/useTheme';
-import { useAuth } from '@/hooks/useAuth';
-import { ArrowLeft, Save } from 'lucide-react';
+import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import NestedSidebar from "@/components/common/NestedSidebar";
+import { docsData } from "@/data/docsData";
+import { useCreateThread } from "@/hooks/useThreads";
+import { useDockerCategories } from "@/hooks/useDockerCategories";
+import { useTheme } from "@/themes/useTheme";
+import { useAuth } from "@/hooks/useAuth";
+import { ArrowLeft, Save } from "lucide-react";
 
 const ThreadWrite = () => {
   const navigate = useNavigate();
   const { classes } = useTheme();
   const { user } = useAuth();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null); // 소분류 (최종 선택)
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null); // 중분류 (챕터)
 
-  const { dockerCategory, flatDockerCategories, isLoading: categoriesLoading } = useDockerCategories();
+  const {
+    dockerCategory,
+    flatDockerCategories,
+    isLoading: categoriesLoading,
+  } = useDockerCategories();
 
   const createThreadMutation = useCreateThread();
 
@@ -25,22 +29,24 @@ const ThreadWrite = () => {
     e.preventDefault();
 
     if (!user) {
-      alert('로그인이 필요합니다.');
+      alert("로그인이 필요합니다.");
       return;
     }
 
     if (!title.trim()) {
-      alert('제목을 입력해주세요.');
+      alert("제목을 입력해주세요.");
       return;
     }
 
     if (!content.trim()) {
-      alert('내용을 입력해주세요.');
+      alert("내용을 입력해주세요.");
       return;
     }
 
     if (!selectedCategory) {
-      alert('소분류 카테고리를 선택해주세요. (대분류와 중분류를 먼저 선택한 후 소분류를 선택하세요)');
+      alert(
+        "소분류 카테고리를 선택해주세요. (대분류와 중분류를 먼저 선택한 후 소분류를 선택하세요)"
+      );
       return;
     }
 
@@ -51,11 +57,11 @@ const ThreadWrite = () => {
         categoryId: selectedCategory,
       });
 
-      alert('쓰레드가 성공적으로 작성되었습니다!');
-      navigate('/threads');
+      alert("쓰레드가 성공적으로 작성되었습니다!");
+      navigate({ to: "/threads" });
     } catch (error) {
-      console.error('쓰레드 작성 실패:', error);
-      alert('쓰레드 작성 중 오류가 발생했습니다.');
+      console.error("쓰레드 작성 실패:", error);
+      alert("쓰레드 작성 중 오류가 발생했습니다.");
     }
   };
 
@@ -83,7 +89,9 @@ const ThreadWrite = () => {
           <NestedSidebar data={docsData} />
           <main className="max-w-4xl px-4 py-10 mx-auto w-full">
             <div className="flex justify-center items-center h-64">
-              <div className="text-lg text-gray-600">카테고리를 불러오고 있습니다...</div>
+              <div className="text-lg text-gray-600">
+                카테고리를 불러오고 있습니다...
+              </div>
             </div>
           </main>
         </div>
@@ -100,77 +108,99 @@ const ThreadWrite = () => {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
               <button
-                onClick={() => navigate('/threads')}
+                onClick={() => navigate({ to: "/threads" })}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
               >
                 <ArrowLeft size={16} />
                 목록으로
               </button>
-              <h1 className={`text-2xl font-bold ${classes.title}`} style={classes.titleStyle}>
+              <h1
+                className={`text-2xl font-bold ${classes.title}`}
+                style={classes.titleStyle}
+              >
                 🐳 Docker 학습 쓰레드 작성
               </h1>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className={`rounded-lg shadow-lg p-8 ${classes.surface}`} style={classes.surfaceBorderStyle}>
+          <form
+            onSubmit={handleSubmit}
+            className={`rounded-lg shadow-lg p-8 ${classes.surface}`}
+            style={classes.surfaceBorderStyle}
+          >
             <div className="mb-6">
-              <label className={`block text-sm font-medium mb-4 ${classes.label}`} style={classes.labelStyle}>
-                카테고리 선택 * <span className="text-xs text-gray-500">(소분류까지 반드시 선택해주세요)</span>
+              <label
+                className={`block text-sm font-medium mb-4 ${classes.label}`}
+                style={classes.labelStyle}
+              >
+                카테고리 선택 *{" "}
+                <span className="text-xs text-gray-500">
+                  (소분류까지 반드시 선택해주세요)
+                </span>
               </label>
-              
+
               <div className="mb-4">
-                <h4 className="text-sm font-medium text-gray-700 mb-2">📚 대분류</h4>
+                <h4 className="text-sm font-medium text-gray-700 mb-2">
+                  📚 대분류
+                </h4>
                 <div className="p-3 bg-blue-50 rounded-lg border">
                   <span className="text-blue-700 font-medium">🐳 Docker</span>
-                  <span className="text-xs text-gray-600 ml-2">(학습 쓰레드 전용 카테고리)</span>
+                  <span className="text-xs text-gray-600 ml-2">
+                    (학습 쓰레드 전용 카테고리)
+                  </span>
                 </div>
               </div>
 
-              {dockerCategory?.children && dockerCategory.children.length > 0 && (
-                <div className="mb-4">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">📖 챕터별 주제</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {dockerCategory.children.map((chapter) => (
-                      <button
-                        key={chapter.id}
-                        type="button"
-                        onClick={() => {
-                          setSelectedChapter(chapter.id);
-                          setSelectedCategory(null);
-                        }}
-                        className={`px-3 py-2 rounded-lg text-sm transition-colors ${
-                          selectedChapter === chapter.id 
-                            ? 'bg-green-600 text-white shadow-md' 
-                            : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
-                        }`}
-                      >
-                        {chapter.name}
-                      </button>
-                    ))}
+              {dockerCategory?.children &&
+                dockerCategory.children.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="text-sm font-medium text-gray-700 mb-2">
+                      📖 챕터별 주제
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {dockerCategory.children.map((chapter) => (
+                        <button
+                          key={chapter.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedChapter(chapter.id);
+                            setSelectedCategory(null);
+                          }}
+                          className={`px-3 py-2 rounded-lg text-sm transition-colors ${
+                            selectedChapter === chapter.id
+                              ? "bg-green-600 text-white shadow-md"
+                              : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+                          }`}
+                        >
+                          {chapter.name}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
               {selectedChapter && dockerCategory?.children && (
                 <div className="mb-4">
-                  <h4 className="text-sm font-medium text-red-600 mb-2">📝 세부 내용 (필수 선택)</h4>
+                  <h4 className="text-sm font-medium text-red-600 mb-2">
+                    📝 세부 내용 (필수 선택)
+                  </h4>
                   <div className="flex flex-wrap gap-2">
                     {dockerCategory.children
-                      .find(chapter => chapter.id === selectedChapter)
+                      .find((chapter) => chapter.id === selectedChapter)
                       ?.children?.map((subTopic) => (
-                      <button
-                        key={subTopic.id}
-                        type="button"
-                        onClick={() => setSelectedCategory(subTopic.id)}
-                        className={`px-3 py-1 rounded-full text-sm transition-colors ${
-                          selectedCategory === subTopic.id 
-                            ? 'bg-purple-600 text-white shadow-md' 
-                            : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
-                        }`}
-                      >
-                        {subTopic.name}
-                      </button>
-                    ))}
+                        <button
+                          key={subTopic.id}
+                          type="button"
+                          onClick={() => setSelectedCategory(subTopic.id)}
+                          className={`px-3 py-1 rounded-full text-sm transition-colors ${
+                            selectedCategory === subTopic.id
+                              ? "bg-purple-600 text-white shadow-md"
+                              : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+                          }`}
+                        >
+                          {subTopic.name}
+                        </button>
+                      ))}
                   </div>
                 </div>
               )}
@@ -179,18 +209,28 @@ const ThreadWrite = () => {
               {(selectedChapter || selectedCategory) && (
                 <div className="p-3 bg-gray-50 rounded-lg border">
                   <div className="text-sm">
-                    <span className="font-medium text-gray-700">📍 현재 선택:</span>
+                    <span className="font-medium text-gray-700">
+                      📍 현재 선택:
+                    </span>
                     <span className="text-blue-600 ml-2">Docker</span>
                     {selectedChapter && (
                       <span className="text-green-600">
-                        {' > '}
-                        {dockerCategory?.children?.find(ch => ch.id === selectedChapter)?.name}
+                        {" > "}
+                        {
+                          dockerCategory?.children?.find(
+                            (ch) => ch.id === selectedChapter
+                          )?.name
+                        }
                       </span>
                     )}
                     {selectedCategory && (
                       <span className="text-purple-600 font-medium">
-                        {' > '}
-                        {flatDockerCategories.find(cat => cat.id === selectedCategory)?.name}
+                        {" > "}
+                        {
+                          flatDockerCategories.find(
+                            (cat) => cat.id === selectedCategory
+                          )?.name
+                        }
                       </span>
                     )}
                   </div>
@@ -204,7 +244,10 @@ const ThreadWrite = () => {
             </div>
 
             <div className="mb-6">
-              <label className={`block text-sm font-medium mb-2 ${classes.label}`} style={classes.labelStyle}>
+              <label
+                className={`block text-sm font-medium mb-2 ${classes.label}`}
+                style={classes.labelStyle}
+              >
                 제목 *
               </label>
               <input
@@ -216,13 +259,19 @@ const ThreadWrite = () => {
                 required
                 maxLength={200}
               />
-              <div className={`text-sm mt-1 ${classes.textSecondary}`} style={classes.textSecondaryStyle}>
+              <div
+                className={`text-sm mt-1 ${classes.textSecondary}`}
+                style={classes.textSecondaryStyle}
+              >
                 {title.length}/200
               </div>
             </div>
 
             <div className="mb-8">
-              <label className={`block text-sm font-medium mb-2 ${classes.label}`} style={classes.labelStyle}>
+              <label
+                className={`block text-sm font-medium mb-2 ${classes.label}`}
+                style={classes.labelStyle}
+              >
                 내용 *
               </label>
               <textarea
@@ -233,7 +282,10 @@ const ThreadWrite = () => {
                 rows={12}
                 required
               />
-              <div className={`text-sm mt-1 ${classes.textSecondary}`} style={classes.textSecondaryStyle}>
+              <div
+                className={`text-sm mt-1 ${classes.textSecondary}`}
+                style={classes.textSecondaryStyle}
+              >
                 {content.length} 자
               </div>
             </div>
@@ -242,7 +294,7 @@ const ThreadWrite = () => {
             <div className="flex justify-end gap-3">
               <button
                 type="button"
-                onClick={() => navigate('/threads')}
+                onClick={() => navigate({ to: "/threads" })}
                 className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 취소
@@ -253,7 +305,7 @@ const ThreadWrite = () => {
                 className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <Save size={16} />
-                {createThreadMutation.isPending ? '작성 중...' : '작성하기'}
+                {createThreadMutation.isPending ? "작성 중..." : "작성하기"}
               </button>
             </div>
           </form>

@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ThreadCard from '@/components/dockerDocs/ThreadCard';
-import NestedSidebar from '@/components/common/NestedSidebar';
-import { docsData } from '@/data/docsData';
-import { useAuth } from '@/hooks/useAuth';
-import { useThreadsByCategory } from '@/hooks/useThreads';
-import { useDockerCategories } from '@/hooks/useDockerCategories';
-import { useTheme } from '@/themes/useTheme';
-import { Category } from '@/api/Categories';
+import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import ThreadCard from "@/components/dockerDocs/ThreadCard";
+import NestedSidebar from "@/components/common/NestedSidebar";
+import { docsData } from "@/data/docsData";
+import { useAuth } from "@/hooks/useAuth";
+import { useThreadsByCategory } from "@/hooks/useThreads";
+import { useDockerCategories } from "@/hooks/useDockerCategories";
+import { useTheme } from "@/themes/useTheme";
+import { Category } from "@/api/Categories";
 
 const ThreadList = () => {
   const { user } = useAuth();
@@ -17,12 +17,16 @@ const ThreadList = () => {
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
 
   // TODO : 나중에는.. 대분류 카테고리별로 가져올 수 있어야 할 것 같다.
-  const { dockerCategory, flatDockerCategories, isLoading: categoriesLoading } = useDockerCategories();
-  const { 
-    data: threads = [], 
-    isLoading: threadsLoading, 
+  const {
+    dockerCategory,
+    flatDockerCategories,
+    isLoading: categoriesLoading,
+  } = useDockerCategories();
+  const {
+    data: threads = [],
+    isLoading: threadsLoading,
     error,
-    isError: hasError 
+    isError: hasError,
   } = useThreadsByCategory(
     selectedCategory || selectedChapter || 0 // 소분류 > 중분류 > 전체 순서로 우선순위
   );
@@ -36,7 +40,9 @@ const ThreadList = () => {
           <NestedSidebar data={docsData} />
           <main className="max-w-4xl px-4 py-10 mx-auto w-full">
             <div className="flex justify-center items-center h-64">
-              <div className="text-lg text-gray-600">쓰레드를 불러오고 있습니다...</div>
+              <div className="text-lg text-gray-600">
+                쓰레드를 불러오고 있습니다...
+              </div>
             </div>
           </main>
         </div>
@@ -69,21 +75,32 @@ const ThreadList = () => {
         {/* TODO: 추후 컴포넌트화 + props로 카테고리 받아서 여러 대분류 카테고리를 한번에 표현, 또는 각 카테고리별로 표현할 수 있어야겠다요. */}
         <main className="max-w-4xl px-4 py-10 mx-auto w-full">
           <div className="flex justify-between items-center mb-6">
-            <h1 className={`text-2xl font-bold ${classes.title}`} style={classes.titleStyle}>
+            <h1
+              className={`text-2xl font-bold ${classes.title}`}
+              style={classes.titleStyle}
+            >
               🐳 Docker 학습 쓰레드
               {(selectedChapter || selectedCategory) && (
                 <div className="text-sm font-normal text-gray-600 mt-1">
                   🖥️ 현재 위치: Docker
                   {selectedChapter && (
                     <span>
-                      {' > '}
-                      {dockerCategory?.children?.find(ch => ch.id === selectedChapter)?.name}
+                      {" > "}
+                      {
+                        dockerCategory?.children?.find(
+                          (ch) => ch.id === selectedChapter
+                        )?.name
+                      }
                     </span>
                   )}
                   {selectedCategory && (
                     <span>
-                      {' > '}
-                      {flatDockerCategories.find(cat => cat.id === selectedCategory)?.name}
+                      {" > "}
+                      {
+                        flatDockerCategories.find(
+                          (cat) => cat.id === selectedCategory
+                        )?.name
+                      }
                     </span>
                   )}
                 </div>
@@ -91,7 +108,7 @@ const ThreadList = () => {
             </h1>
             {user && (
               <button
-                onClick={() => navigate('/thread/write')}
+                onClick={() => navigate({ to: "/thread/write" })}
                 className={`px-4 py-2 rounded transition-colors ${classes.buttonPrimary}`}
                 style={classes.buttonPrimaryStyle}
               >
@@ -102,7 +119,9 @@ const ThreadList = () => {
 
           <div className="mb-6 space-y-4">
             <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">📚 대분류</h3>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">
+                📚 대분류
+              </h3>
               <div className="flex gap-2">
                 <button
                   onClick={() => {
@@ -110,9 +129,9 @@ const ThreadList = () => {
                     setSelectedChapter(null);
                   }}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    selectedCategory === null 
-                      ? 'bg-blue-600 text-white shadow-md' 
-                      : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                    selectedCategory === null
+                      ? "bg-blue-600 text-white shadow-md"
+                      : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
                   }`}
                 >
                   🐳 전체 Docker
@@ -122,7 +141,9 @@ const ThreadList = () => {
 
             {dockerCategory?.children && dockerCategory.children.length > 0 && (
               <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-2">📖 챕터별 주제</h3>
+                <h3 className="text-sm font-medium text-gray-700 mb-2">
+                  📖 챕터별 주제
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {dockerCategory.children.map((chapter) => (
                     <button
@@ -132,9 +153,9 @@ const ThreadList = () => {
                         setSelectedCategory(null);
                       }}
                       className={`px-3 py-2 rounded-lg text-sm transition-colors ${
-                        selectedChapter === chapter.id 
-                          ? 'bg-green-600 text-white shadow-md' 
-                          : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                        selectedChapter === chapter.id
+                          ? "bg-green-600 text-white shadow-md"
+                          : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
                       }`}
                     >
                       {chapter.name}
@@ -146,23 +167,25 @@ const ThreadList = () => {
 
             {selectedChapter && dockerCategory?.children && (
               <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-2">📝 세부 내용</h3>
+                <h3 className="text-sm font-medium text-gray-700 mb-2">
+                  📝 세부 내용
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {dockerCategory.children
-                    .find(chapter => chapter.id === selectedChapter)
+                    .find((chapter) => chapter.id === selectedChapter)
                     ?.children?.map((subTopic) => (
-                    <button
-                      key={subTopic.id}
-                      onClick={() => setSelectedCategory(subTopic.id)}
-                      className={`px-3 py-1 rounded-full text-sm transition-colors ${
-                        selectedCategory === subTopic.id 
-                          ? 'bg-purple-600 text-white shadow-md' 
-                          : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      {subTopic.name}
-                    </button>
-                  ))}
+                      <button
+                        key={subTopic.id}
+                        onClick={() => setSelectedCategory(subTopic.id)}
+                        className={`px-3 py-1 rounded-full text-sm transition-colors ${
+                          selectedCategory === subTopic.id
+                            ? "bg-purple-600 text-white shadow-md"
+                            : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+                        }`}
+                      >
+                        {subTopic.name}
+                      </button>
+                    ))}
                 </div>
               </div>
             )}
@@ -170,15 +193,19 @@ const ThreadList = () => {
 
           <div className="space-y-6">
             {threads.map((thread) => (
-              <ThreadCard 
+              <ThreadCard
                 key={thread.id}
                 threadId={thread.id.toString()}
                 title={thread.title}
-                summary={thread.content?.slice(0, 100) + '...' || '내용이 없습니다.'}
+                summary={
+                  thread.content?.slice(0, 100) + "..." || "내용이 없습니다."
+                }
                 content={thread.content}
                 likes={thread.likes}
                 dislikes={thread.dislikes || 0}
-                comments={thread.comments?.map(comment => comment.content) || []}
+                comments={
+                  thread.comments?.map((comment) => comment.content) || []
+                }
               />
             ))}
           </div>

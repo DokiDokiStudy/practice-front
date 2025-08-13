@@ -1,18 +1,18 @@
-import { useState, useEffect, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useState, useEffect, FormEvent } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { toast } from "react-toastify";
 
-import BoardLayout from '@/components/layout/BoardLayout';
-import BoardForm from '@/components/board/BoardForm';
-import { useAuth } from '@/hooks/useAuth';
-import { useCreatePost } from '@/hooks/useMutatePost';
-import { useCategories } from '@/hooks/useCategories';
+import BoardLayout from "@/components/layout/BoardLayout";
+import BoardForm from "@/components/board/BoardForm";
+import { useAuth } from "@/hooks/useAuth";
+import { useCreatePost } from "@/hooks/useMutatePost";
+import { useCategories } from "@/hooks/useCategories";
 
 export default function BoardWrite() {
   const navigate = useNavigate();
   const { user, isLoading: authLoading } = useAuth();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [categoryId, setCategoryId] = useState(0);
 
   const { mutate: create, isPending: isCreating } = useCreatePost();
@@ -21,8 +21,8 @@ export default function BoardWrite() {
   useEffect(() => {
     if (authLoading) return;
     if (!user) {
-      toast.warn('로그인 후 글쓰기가 가능합니다.');
-      navigate('/login');
+      toast.warn("로그인 후 글쓰기가 가능합니다.");
+      navigate({ to: "/login" });
     }
   }, [user, authLoading, navigate]);
 
@@ -32,8 +32,8 @@ export default function BoardWrite() {
       { categoryId, title, content },
       {
         onSuccess: () => {
-          toast.success('게시글이 작성되었습니다!');
-          navigate('/board');
+          toast.success("게시글이 작성되었습니다!");
+          navigate({ to: "/board" });
         },
         onError: (err) => toast.error(`작성 실패: ${err.message}`),
       }
@@ -68,11 +68,16 @@ export default function BoardWrite() {
         <BoardForm
           titleValue={title}
           contentValue={content}
-          onTitleChange={e => setTitle(e.target.value)}
-          onContentChange={e => setContent(e.target.value)}
+          onTitleChange={(e) => setTitle(e.target.value)}
+          onContentChange={(e) => setContent(e.target.value)}
           onSubmit={handleSubmit}
           buttonText="작성 완료"
-          buttonProps={{ color: 'green', size: 'md', loading: isCreating, disabled: authLoading || isCreating, }}
+          buttonProps={{
+            color: "green",
+            size: "md",
+            loading: isCreating,
+            disabled: authLoading || isCreating,
+          }}
         />
       </BoardLayout>
     </>

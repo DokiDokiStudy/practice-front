@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, useRouterState } from "@tanstack/react-router";
 
 interface Step {
   id: string;
@@ -22,8 +22,8 @@ interface Props {
 }
 
 const NestedSidebar = ({ data }: Props) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const state = useRouterState();
 
   return (
     <aside className="w-60 p-4 border-r border-gray-300 bg-white overflow-y-auto h-screen">
@@ -35,17 +35,33 @@ const NestedSidebar = ({ data }: Props) => {
             <ul className="ml-2 space-y-1">
               {project.chapters.map((chapter) => (
                 <li key={chapter.id}>
-                  <div className="text-gray-700 font-semibold">{chapter.title}</div>
+                  <div className="text-gray-700 font-semibold">
+                    {chapter.title}
+                  </div>
                   <ul className="ml-4 space-y-0.5 mt-1">
                     {chapter.steps?.map((step) => {
-                      const isActive = location.pathname.includes(step.id);
+                      const isActive = state.location.pathname.includes(
+                        step.id
+                      );
+
                       return (
                         <li
                           key={step.id}
                           className={`cursor-pointer hover:underline ${
-                            isActive ? 'text-blue-600 font-semibold' : 'text-gray-700'
+                            isActive
+                              ? "text-blue-600 font-semibold"
+                              : "text-gray-700"
                           }`}
-                          onClick={() => navigate(`/docs/${project.id}/${chapter.id}#${step.id}`)}
+                          onClick={() =>
+                            router.navigate({
+                              to: "/docs/$projectId/$chapterId",
+                              params: {
+                                projectId: project.id,
+                                chapterId: chapter.id,
+                              },
+                              hash: step.id,
+                            })
+                          }
                         >
                           {step.title}
                         </li>
