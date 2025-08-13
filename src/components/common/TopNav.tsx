@@ -6,14 +6,13 @@ import { useTheme } from "@/themes/useTheme";
 
 function TopNav() {
   const navigate = useNavigate();
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, logout } = useAuth();
   const { classes } = useTheme();
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate({ to: ROUTES.LOGIN });
   };
-
   return (
     <nav
       className={`w-full p-4 flex justify-between items-center z-10 shadow-lg ${classes.navBackground}`}

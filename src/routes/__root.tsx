@@ -5,10 +5,8 @@ import { ThemeProvider } from "@/themes/ThemeProvider";
 export const Route = createRootRoute({
   component: () => (
     <ThemeProvider>
-      <div className="flex flex-col h-screen">
-        <TopNav />
-        <Outlet />
-      </div>
+      <TopNav />
+      <Outlet />
     </ThemeProvider>
   ),
 });
