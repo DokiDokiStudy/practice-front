@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '@/lib/api';
+import { fetchCategories } from '@/api/Categories';
 import { docsData as fallbackDocsData } from '@/data/docsData';
 
 interface Step {
@@ -31,41 +32,34 @@ export function useDocsData(): DocsSection[] {
   useEffect(() => {
     const fetchDocs = async () => {
       try {
-        const res = await api.get('/category');
-        const categories = res.data;
+        setDocs(fallbackDocsData);
+        return;
+
+        // TODO: Categories API 응답 구조에 맞춰 변환 로직 구현 필요
+        const categories = await fetchCategories();
 
         if (!Array.isArray(categories) || categories.length === 0) {
-          console.warn('📭 fallbackDocsData 사용');
           setDocs(fallbackDocsData);
           return;
         }
 
-        const groupMap: { [groupId: string]: DocsSection } = {};
-        categories.forEach((cat) => {
-          const groupId = cat.groupId || 'etc';
-          if (!groupMap[groupId]) {
-            groupMap[groupId] = { id: groupId, title: groupId, chapters: [] };
-          }
-          if (cat.parentId === null) {
-            groupMap[groupId].chapters.push({ id: cat.id, title: cat.name, steps: [] });
-          }
-        });
+        // 계층구조 데이터를 DocsSection 구조로 변환
+        const transformedDocs = categories.map(category => ({
+          id: category.id.toString(),
+          title: category.name,
+          chapters: category.children.map(child => ({
+            id: child.id.toString(),
+            title: child.name,
+            steps: child.children.map(grandchild => ({
+              id: grandchild.id.toString(),
+              title: grandchild.name
+            }))
+          }))
+        }));
 
-        categories
-          .filter((c) => c.parentId !== null)
-          .forEach((cat) => {
-            for (const section of Object.values(groupMap)) {
-              const chapter = section.chapters.find((ch) => ch.id === cat.parentId);
-              if (chapter) {
-                chapter.steps.push({ id: cat.id, title: cat.name });
-              }
-            }
-          });
-
-        setDocs(Object.values(groupMap));
+        setDocs(transformedDocs);
       } catch (err) {
-        console.error('문서 데이터 로드 실패, fallback 사용:', err);
-        setDocs(fallbackDocsData); // 다시 보장
+        setDocs(fallbackDocsData);
       }
     };
 
