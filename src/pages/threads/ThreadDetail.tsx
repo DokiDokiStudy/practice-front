@@ -1,4 +1,3 @@
-import { useParams, useNavigate } from "@tanstack/react-router";
 import NestedSidebar from "@/components/common/NestedSidebar";
 import { docsData } from "@/data/docsData";
 import CommentList from "@/components/dockerDocs/CommentList";
@@ -14,9 +13,10 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { usePostReaction } from "@/hooks/usePostReaction";
+import { useNavigate, useParams } from "@tanstack/react-router";
 
 const ThreadDetail = () => {
-  const { threadId } = useParams({ from: "/thread/$threadId" });
+  const { id } = useParams({ from: "/thread/$id" });
   const navigate = useNavigate();
   const { classes } = useTheme();
   const { user } = useAuth();
