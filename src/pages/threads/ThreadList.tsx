@@ -35,40 +35,36 @@ const ThreadList = () => {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col min-h-screen">
-        <div className="flex flex-1">
-          <NestedSidebar data={docsData} />
-          <main className="max-w-4xl px-4 py-10 mx-auto w-full">
-            <div className="flex justify-center items-center h-64">
-              <div className="text-lg text-gray-600">
-                쓰레드를 불러오고 있습니다...
-              </div>
+      <div className="flex h-full overflow-hidden">
+        <NestedSidebar data={docsData} />
+        <main className="max-w-4xl px-4 py-10 mx-auto w-full overflow-auto">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-lg text-gray-600">
+              쓰레드를 불러오고 있습니다...
             </div>
-          </main>
-        </div>
+          </div>
+        </main>
       </div>
     );
   }
 
   if (hasError) {
     return (
-      <div className="flex flex-col min-h-screen">
-        <div className="flex flex-1">
-          <NestedSidebar data={docsData} />
-          <main className="max-w-4xl px-4 py-10 mx-auto w-full">
-            <div className="flex justify-center items-center h-64">
-              <div className="text-lg text-red-600">
-                쓰레드를 불러오는 중 오류가 발생했습니다: {error?.message}
-              </div>
+      <div className="flex h-full overflow-hidden">
+        <NestedSidebar data={docsData} />
+        <main className="max-w-4xl px-4 py-10 mx-auto w-full overflow-auto">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-lg text-red-600">
+              쓰레드를 불러오는 중 오류가 발생했습니다: {error?.message}
             </div>
-          </main>
-        </div>
+          </div>
+        </main>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-1">
+    <div className="flex h-full overflow-hidden">
       <NestedSidebar data={docsData} />
 
       {/* TODO: 추후 컴포넌트화 + props로 카테고리 받아서 여러 대분류 카테고리를 한번에 표현, 또는 각 카테고리별로 표현할 수 있어야겠다요. */}

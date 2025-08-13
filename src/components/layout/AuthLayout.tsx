@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { useTheme } from "@/themes/useTheme";
+import BaseLayout from "./BaseLayout";
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -9,11 +10,11 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
   const { classes } = useTheme();
 
   return (
-    <div
-      className={`flex-1 flex items-center justify-center ${classes.pageBackground}`}
+    <BaseLayout
+      className={`flex items-center justify-center ${classes.pageBackground}`}
     >
       <div className="w-full max-w-md">{children}</div>
-    </div>
+    </BaseLayout>
   );
 };
 

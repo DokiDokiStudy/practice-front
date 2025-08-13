@@ -59,10 +59,10 @@ export default function DockerDocsDetail() {
 
   return (
     <>
-      <div className="flex flex-1 bg-white">
+      <div className="flex h-full bg-white overflow-hidden">
         <NestedSidebar data={activeDocs} />
 
-        <main className="flex-1 relative px-6 py-10 max-w-4xl mx-auto">
+        <main className="flex-1 relative px-6 py-10 max-w-4xl mx-auto overflow-auto">
           {/* 좌우 화살표 */}
           {currentIndex > 0 && (
             <button
@@ -99,21 +99,19 @@ export default function DockerDocsDetail() {
               </div>
             </>
           ) : (
-            <p className="text-blue-500 text-center mt-20">
-              해당 챕터를 찾을 수 없습니다.
-            </p>
+            <div>챕터를 찾을 수 없습니다.</div>
           )}
-
-          <AnimatePresence>
-            {selectedStepId && (
-              <SelectedStepThread
-                stepId={selectedStepId}
-                onClose={() => setSelectedStepId(null)}
-              />
-            )}
-          </AnimatePresence>
         </main>
       </div>
+
+      <AnimatePresence>
+        {selectedStepId && (
+          <SelectedStepThread
+            stepId={selectedStepId}
+            onClose={() => setSelectedStepId(null)}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }
