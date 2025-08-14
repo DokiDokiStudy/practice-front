@@ -1,9 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import MainBanner from "./MainBanner";
+import BaseLayout from "@/components/layout/BaseLayout";
 
 function Main() {
   return (
-    <div className="flex-1 flex flex-col bg-gradient-to-b from-white via-blue-50 to-blue-100">
+    <BaseLayout className="flex flex-col bg-gradient-to-b from-white via-blue-50 to-blue-100">
       <MainBanner />
       <div className="flex-1 px-6 py-12 bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -31,7 +32,7 @@ function Main() {
           ))}
         </div>
       </div>
-    </div>
+    </BaseLayout>
   );
 }
 

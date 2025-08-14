@@ -1,5 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import BaseLayout from "@/components/layout/BaseLayout";
 
 function Home() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Home() {
   };
 
   return (
-    <div className="flex flex-col flex-1">
+    <BaseLayout className="flex flex-col">
       <div
         className={`flex-1 flex items-center justify-center bg-cover bg-center bg-no-repeat transition-opacity duration-700 ${
           fadeIn ? "opacity-100" : "opacity-0"
@@ -36,7 +37,7 @@ function Home() {
           </button>
         </div>
       </div>
-    </div>
+    </BaseLayout>
   );
 }
 

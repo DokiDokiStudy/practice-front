@@ -103,183 +103,174 @@ const ThreadEdit = () => {
 
   if (!user) {
     return (
-      <div className="flex flex-col min-h-screen">
-        <div className="flex flex-1">
-          <NestedSidebar data={docsData} />
-          <main className="max-w-4xl px-4 py-10 mx-auto w-full">
-            <div className="flex justify-center items-center h-64">
-              <div className="text-lg text-red-600">
-                로그인이 필요한 서비스입니다.
-              </div>
+      <div className="flex h-full">
+        <NestedSidebar data={docsData} />
+        <main className="max-w-4xl px-4 py-10 mx-auto w-full">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-lg text-red-600">
+              로그인이 필요한 서비스입니다.
             </div>
-          </main>
-        </div>
+          </div>
+        </main>
       </div>
     );
   }
 
   if (threadLoading) {
     return (
-      <div className="flex flex-col min-h-screen">
-        <div className="flex flex-1">
-          <NestedSidebar data={docsData} />
-          <main className="max-w-4xl px-4 py-10 mx-auto w-full">
-            <div className="flex justify-center items-center h-64">
-              <div className="text-lg text-gray-600">
-                쓰레드를 불러오고 있습니다...
-              </div>
+      <div className="flex h-full">
+        <NestedSidebar data={docsData} />
+        <main className="max-w-4xl px-4 py-10 mx-auto w-full">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-lg text-gray-600">
+              쓰레드를 불러오고 있습니다...
             </div>
-          </main>
-        </div>
+          </div>
+        </main>
       </div>
     );
   }
 
   if (threadError || !thread) {
     return (
-      <div className="flex flex-col min-h-screen">
-        <div className="flex flex-1">
-          <NestedSidebar data={docsData} />
-          <main className="max-w-4xl px-4 py-10 mx-auto w-full">
-            <div className="flex justify-center items-center h-64">
-              <div className="text-lg text-red-600">
-                쓰레드를 찾을 수 없습니다.
-              </div>
+      <div className="flex h-full">
+        <NestedSidebar data={docsData} />
+        <main className="max-w-4xl px-4 py-10 mx-auto w-full">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-lg text-red-600">
+              쓰레드를 찾을 수 없습니다.
             </div>
-          </main>
-        </div>
+          </div>
+        </main>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex flex-1">
-        <NestedSidebar data={docsData} />
+    <div className="flex h-full">
+      <NestedSidebar data={docsData} />
 
-        <main className="max-w-4xl px-4 py-10 mx-auto w-full">
-          {/* 헤더 */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => navigate({ to: `/thread/${threadId}` })}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
-              >
-                <ArrowLeft size={16} />
-                상세로
-              </button>
-              <h1
-                className={`text-2xl font-bold ${classes.title}`}
-                style={classes.titleStyle}
-              >
-                🧵 쓰레드 수정
-              </h1>
+      <main className="max-w-4xl px-4 py-10 mx-auto w-full">
+        {/* 헤더 */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate({ to: `/thread/${threadId}` })}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+            >
+              <ArrowLeft size={16} />
+              상세로
+            </button>
+            <h1
+              className={`text-2xl font-bold ${classes.title}`}
+              style={classes.titleStyle}
+            >
+              🧵 쓰레드 수정
+            </h1>
+          </div>
+        </div>
+
+        {/* 수정 폼 */}
+        <form
+          onSubmit={handleSubmit}
+          className={`rounded-lg shadow-lg p-8 ${classes.surface}`}
+          style={classes.surfaceBorderStyle}
+        >
+          {/* 카테고리 선택 */}
+          <div className="mb-6">
+            <label
+              className={`block text-sm font-medium mb-2 ${classes.label}`}
+              style={classes.labelStyle}
+            >
+              카테고리 *
+            </label>
+            <select
+              value={selectedCategory || ""}
+              onChange={(e) =>
+                setSelectedCategory(
+                  e.target.value ? parseInt(e.target.value) : null
+                )
+              }
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            >
+              <option value="">카테고리를 선택하세요</option>
+              {flatCategories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* 제목 입력 */}
+          <div className="mb-6">
+            <label
+              className={`block text-sm font-medium mb-2 ${classes.label}`}
+              style={classes.labelStyle}
+            >
+              제목 *
+            </label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="쓰레드 제목을 입력하세요"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+              maxLength={200}
+            />
+            <div
+              className={`text-sm mt-1 ${classes.textSecondary}`}
+              style={classes.textSecondaryStyle}
+            >
+              {title.length}/200
             </div>
           </div>
 
-          {/* 수정 폼 */}
-          <form
-            onSubmit={handleSubmit}
-            className={`rounded-lg shadow-lg p-8 ${classes.surface}`}
-            style={classes.surfaceBorderStyle}
-          >
-            {/* 카테고리 선택 */}
-            <div className="mb-6">
-              <label
-                className={`block text-sm font-medium mb-2 ${classes.label}`}
-                style={classes.labelStyle}
-              >
-                카테고리 *
-              </label>
-              <select
-                value={selectedCategory || ""}
-                onChange={(e) =>
-                  setSelectedCategory(
-                    e.target.value ? parseInt(e.target.value) : null
-                  )
-                }
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              >
-                <option value="">카테고리를 선택하세요</option>
-                {flatCategories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
+          {/* 내용 입력 */}
+          <div className="mb-8">
+            <label
+              className={`block text-sm font-medium mb-2 ${classes.label}`}
+              style={classes.labelStyle}
+            >
+              내용 *
+            </label>
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="쓰레드 내용을 입력하세요"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              rows={12}
+              required
+            />
+            <div
+              className={`text-sm mt-1 ${classes.textSecondary}`}
+              style={classes.textSecondaryStyle}
+            >
+              {content.length} 자
             </div>
+          </div>
 
-            {/* 제목 입력 */}
-            <div className="mb-6">
-              <label
-                className={`block text-sm font-medium mb-2 ${classes.label}`}
-                style={classes.labelStyle}
-              >
-                제목 *
-              </label>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="쓰레드 제목을 입력하세요"
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-                maxLength={200}
-              />
-              <div
-                className={`text-sm mt-1 ${classes.textSecondary}`}
-                style={classes.textSecondaryStyle}
-              >
-                {title.length}/200
-              </div>
-            </div>
-
-            {/* 내용 입력 */}
-            <div className="mb-8">
-              <label
-                className={`block text-sm font-medium mb-2 ${classes.label}`}
-                style={classes.labelStyle}
-              >
-                내용 *
-              </label>
-              <textarea
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="쓰레드 내용을 입력하세요"
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                rows={12}
-                required
-              />
-              <div
-                className={`text-sm mt-1 ${classes.textSecondary}`}
-                style={classes.textSecondaryStyle}
-              >
-                {content.length} 자
-              </div>
-            </div>
-
-            {/* 버튼 */}
-            <div className="flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => navigate({ to: `/thread/${threadId}` })}
-                className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                취소
-              </button>
-              <button
-                type="submit"
-                disabled={updateThreadMutation.isPending}
-                className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                <Save size={16} />
-                {updateThreadMutation.isPending ? "수정 중..." : "수정하기"}
-              </button>
-            </div>
-          </form>
-        </main>
-      </div>
+          {/* 버튼 */}
+          <div className="flex justify-end gap-3">
+            <button
+              type="button"
+              onClick={() => navigate({ to: `/thread/${threadId}` })}
+              className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              취소
+            </button>
+            <button
+              type="submit"
+              disabled={updateThreadMutation.isPending}
+              className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              <Save size={16} />
+            </button>
+          </div>
+        </form>
+      </main>
     </div>
   );
 };
