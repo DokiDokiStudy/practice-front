@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import BoardWrite from "@/pages/board/BoardWrite";
+import { BoardWritePage } from "@/features/board";
 
 export const Route = createFileRoute("/board/write")({
-  component: BoardWrite,
+  component: BoardWritePage,
 });
