@@ -1,9 +1,6 @@
 import api from "@/shared/api";
-import type { Post } from "@/types";
+import { Post } from "../model";
 
-// 백엔드로 치면 레파지토리와 역할이 같다.
-
-// 백엔드 응답은 이렇게 올거야~ 라는 기대로 사용할 수 있겠다.
 export interface PostsResponse {
   data: Post[];
   meta: {
@@ -40,7 +37,6 @@ export const updatePost = (
 export const deletePost = (id: number): Promise<void> =>
   api.delete<void>(`/post/${id}`).then(() => {});
 
-// 카테고리 레파지토리
 export interface Category {
   id: number;
   name: string;

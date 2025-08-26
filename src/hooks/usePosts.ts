@@ -1,11 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchPosts, fetchPost, PostsResponse } from '@/api/Posts';
-import type { Post } from '@/types';
+import { fetchPost, fetchPosts, Post, PostsResponse } from "@/entities/post";
+import { useQuery } from "@tanstack/react-query";
 
 // 리스트로 조회
 export function usePosts(page = 1, limit = 10) {
   const query = useQuery<PostsResponse, Error, PostsResponse>({
-    queryKey: ['posts', page, limit],
+    queryKey: ["posts", page, limit],
     queryFn: () => fetchPosts(page, limit),
     placeholderData: (previousData) => previousData, // keepPreviousData 대신 사용하면 좋다길래 넣어봄요
     retry: 1, // 1번만 재시도
@@ -27,7 +26,7 @@ export function usePosts(page = 1, limit = 10) {
 // 단건 조회 = 게시글 객체 하나 리턴
 export function usePost(id: number | undefined) {
   return useQuery<Post>({
-    queryKey: ['post', id],
+    queryKey: ["post", id],
     queryFn: () => fetchPost(id!),
     enabled: Boolean(id),
     staleTime: 1000 * 60 * 5,
