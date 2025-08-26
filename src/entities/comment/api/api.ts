@@ -1,12 +1,5 @@
 import api from "@/shared/api";
 
-export type Comment = {
-  id: number;
-  content: string;
-  author: string;
-  createdAt: string;
-};
-
 // 댓글 목록 조회
 export async function fetchComments(postId: number): Promise<Comment[]> {
   const res = await api.get(`/comments/${postId}`);

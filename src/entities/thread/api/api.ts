@@ -1,93 +1,7 @@
 import api from "@/shared/api";
+import { Thread, ThreadCreateDto, ThreadUpdateDto } from "../model";
+import { dummyThreads } from "../fix";
 
-export interface Thread {
-  id: number;
-  title: string;
-  content: string;
-  likes: number;
-  dislikes: number;
-  categoryId: number;
-  categoryName?: string;
-  userId: number;
-  user?: {
-    id: number;
-    nickName: string;
-    email: string;
-  };
-  comments?: Comment[];
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface Comment {
-  id: number;
-  content: string;
-  postId: number;
-  userId: number;
-  user?: {
-    id: number;
-    nickName: string;
-    email: string;
-  };
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface ThreadCreateDto {
-  title: string;
-  content: string;
-  categoryId: number;
-}
-
-export interface ThreadUpdateDto {
-  title?: string;
-  content?: string;
-  categoryId?: number;
-}
-
-// 요청/응답 타입 별칭 (호환성을 위해)
-export type CreateThreadRequest = ThreadCreateDto;
-export type UpdateThreadRequest = ThreadUpdateDto;
-
-export interface CommentCreateDto {
-  content: string;
-  postId: number;
-}
-
-// 더미 데이터
-const dummyThreads: Thread[] = [
-  {
-    id: 1,
-    title: "Docker 설치 가이드",
-    content: "Docker 설치하는 방법에 대해 알아보겠습니다...",
-    likes: 5,
-    dislikes: 0,
-    categoryId: 4,
-    categoryName: "1.1 Docker 소개",
-    userId: 1,
-    user: { id: 1, nickName: "Docker초보", email: "docker@test.com" },
-    comments: [],
-    createdAt: "2025-08-04T00:00:00Z",
-    updatedAt: "2025-08-04T00:00:00Z",
-  },
-  {
-    id: 2,
-    title: "컨테이너와 가상머신의 차이점",
-    content: "컨테이너 기술과 가상머신의 차이점을 설명드리겠습니다...",
-    likes: 8,
-    dislikes: 1,
-    categoryId: 6,
-    categoryName: "2.1 컨테이너 기초",
-    userId: 2,
-    user: { id: 2, nickName: "Container마스터", email: "container@test.com" },
-    comments: [],
-    createdAt: "2025-08-03T00:00:00Z",
-    updatedAt: "2025-08-03T00:00:00Z",
-  },
-];
-
-// 전체 쓰레드 목록 조회 - 사용케이스 아직 없음
-// TODO : Threads 전체 파일 나중에는 더미 데이터 제거
 export async function fetchThreads(): Promise<Thread[]> {
   try {
     const res = await api.get("/posts");
@@ -182,16 +96,4 @@ export async function fetchCommentsByThreadId(
   } catch (error) {
     return [];
   }
-}
-
-// 댓글 생성
-export async function createComment(data: CommentCreateDto): Promise<Comment> {
-  // 댓글 등록하고 posts/{post_id} 로 재호출 가게 되는데.. 이 때 서버에러 나네요.. 뭐지
-  const res = await api.post("/comments", data);
-  return res.data.comment ?? res.data.data?.comment ?? res.data;
-}
-
-// 댓글 삭제
-export async function deleteComment(id: number): Promise<void> {
-  await api.delete(`/comments/${id}`);
 }

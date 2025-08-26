@@ -10,8 +10,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import CommentList from "./CommentList";
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { fetchThreadById } from "@/api/Threads";
 import { usePostReaction } from "@/hooks/usePostReaction";
+import { fetchThreadById } from "@/entities/thread";
 
 type ThreadCardProps = {
   threadId: string;

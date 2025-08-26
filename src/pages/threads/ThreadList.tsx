@@ -7,7 +7,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { useThreadsByCategory } from "@/hooks/useThreads";
 import { useDockerCategories } from "@/hooks/useDockerCategories";
 import { useTheme } from "@/themes/useTheme";
-import { Category } from "@/api/Categories";
 
 const ThreadList = () => {
   const { user } = useAuth();

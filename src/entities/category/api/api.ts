@@ -1,10 +1,5 @@
 import api from "@/shared/api";
-
-export type Category = {
-  id: number;
-  name: string;
-  children: Category[];
-};
+import { Category } from "../model";
 
 export async function fetchCategories(): Promise<Category[]> {
   try {

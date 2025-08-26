@@ -1,17 +1,6 @@
 import api from "@/shared/api";
+import { LikeResponse, ReactionType } from "../model";
 
-export type ReactionType = "like" | "disLike";
-
-export interface LikeResponse {
-  message: string;
-  data?: { id: number };
-}
-
-/**
- * 포스트에 좋아요/싫어요 반응 추가/변경/취소
- * @param postId - 포스트 ID
- * @param reactionType - "like" 또는 "disLike"
- */
 export async function togglePostReaction(
   postId: number,
   reactionType: ReactionType
@@ -26,11 +15,6 @@ export async function togglePostReaction(
   }
 }
 
-/**
- * 댓글에 좋아요/싫어요 반응 추가/변경/취소
- * @param commentId - 댓글 ID
- * @param reactionType - "like" 또는 "disLike"
- */
 export async function toggleCommentReaction(
   commentId: number,
   reactionType: ReactionType
@@ -49,7 +33,6 @@ export async function dislikePost(postId: number) {
   return togglePostReaction(postId, "disLike");
 }
 
-// UI 아직 안만듦
 export async function likeComment(commentId: number) {
   return toggleCommentReaction(commentId, "like");
 }

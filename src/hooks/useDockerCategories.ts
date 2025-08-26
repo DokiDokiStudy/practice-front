@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { fetchCategories, Category } from '@/api/Categories';
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Category, fetchCategories } from "@/entities/category";
 
 /**
  * Docker 카테고리 전용 훅
@@ -9,26 +9,30 @@ import { fetchCategories, Category } from '@/api/Categories';
  * - 환경별로 ID가 다를 수 있어서 name 기반으로 안전하게 찾음.. 필터링 방법 필요해보임
  */
 export const useDockerCategories = () => {
-  const { data: categories = [], isLoading, error } = useQuery({
-    queryKey: ['categories'],
+  const {
+    data: categories = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["categories"],
     queryFn: fetchCategories,
     placeholderData: [],
   });
 
   const flatDockerCategories = useMemo(() => {
-    const dockerCategory = categories.find(cat => cat.name === "Docker");
+    const dockerCategory = categories.find((cat) => cat.name === "Docker");
     if (!dockerCategory) {
-      console.warn('Docker 카테고리를 찾을 수 없습니다:', categories);
+      console.warn("Docker 카테고리를 찾을 수 없습니다:", categories);
       return [];
     }
-    
+
     const flattenDockerCategories = (cats: Category[]): Category[] => {
       if (!Array.isArray(cats)) {
         return [];
       }
-      
+
       const result: Category[] = [];
-      cats.forEach(cat => {
+      cats.forEach((cat) => {
         if (cat.name !== "Docker") {
           result.push(cat);
         }
@@ -38,12 +42,12 @@ export const useDockerCategories = () => {
       });
       return result;
     };
-    
+
     return flattenDockerCategories([dockerCategory]);
   }, [categories]);
 
   const dockerCategory = useMemo(() => {
-    return categories.find(cat => cat.name === "Docker") || null;
+    return categories.find((cat) => cat.name === "Docker") || null;
   }, [categories]);
 
   return {

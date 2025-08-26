@@ -1,5 +1,5 @@
+import { createComment, fetchComments } from "@/entities/comment";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchComments, createComment } from "@/api/Comments";
 
 // 댓글 목록 조회 - 사용 어떻게 해야할 지 감이 안잡혀서 일단 만들기만 함
 export function useComments(postId: number) {
