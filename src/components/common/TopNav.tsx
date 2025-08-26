@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/themes/useTheme";
-import { ROUTES } from "@/shared/constants";
+import { ROUTES } from "@/shared/config";
 
 function TopNav() {
   const navigate = useNavigate();
