@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import ThreadCard from "@/components/dockerDocs/ThreadCard";
-import NestedSidebar from "@/components/common/NestedSidebar";
+import { NestedSidebar } from "@/shared/ui";
 import { docsData } from "@/data/docsData";
 import { useAuth } from "@/hooks/useAuth";
 import { useThreadsByCategory } from "@/hooks/useThreads";

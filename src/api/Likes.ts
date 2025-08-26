@@ -1,4 +1,4 @@
-import api from "@/lib/api";
+import api from "@/shared/api";
 
 export type ReactionType = "like" | "disLike";
 
@@ -16,7 +16,6 @@ export async function togglePostReaction(
   postId: number,
   reactionType: ReactionType
 ): Promise<LikeResponse> {
-  
   try {
     const response = await api.post(`/likes/post/${postId}`, {
       reactionType,

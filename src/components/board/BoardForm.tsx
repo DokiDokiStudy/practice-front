@@ -1,6 +1,6 @@
 // 게시판의 등록/수정에서 사용
-import React from 'react';
-import {Button, ButtonProps} from '../common/Button';
+import { Button, ButtonProps } from "@/shared/ui";
+import React from "react";
 
 interface BoardFormProps {
   titleValue: string;
@@ -9,7 +9,7 @@ interface BoardFormProps {
   onContentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   buttonText?: string;
-  buttonProps?: Partial<Omit<ButtonProps, 'children'>>;
+  buttonProps?: Partial<Omit<ButtonProps, "children">>;
 }
 
 function BoardForm({
@@ -18,7 +18,7 @@ function BoardForm({
   onTitleChange,
   onContentChange,
   onSubmit,
-  buttonText = '제출',
+  buttonText = "제출",
   buttonProps = {},
 }: BoardFormProps) {
   return (

@@ -3,7 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import api from "../../lib/api";
+import api from "@/shared/api";
 import AuthLayout from "@/components/layout/AuthLayout";
 
 function Register() {

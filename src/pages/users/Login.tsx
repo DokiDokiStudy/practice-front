@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
-import api from "@/lib/api";
+import api from "@/shared/api";
 import AuthLayout from "@/components/layout/AuthLayout";
 import { useTheme } from "@/themes/useTheme";
 

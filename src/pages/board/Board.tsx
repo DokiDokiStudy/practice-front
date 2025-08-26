@@ -1,6 +1,6 @@
 import { useState } from "react";
 import BoardLayout from "@/components/layout/BoardLayout";
-import Button from "@/components/common/Button";
+import Button from "@/shared/ui/Button";
 import { useAuth } from "@/hooks/useAuth";
 import { usePosts } from "@/hooks/usePosts";
 import { Link, useNavigate } from "@tanstack/react-router";

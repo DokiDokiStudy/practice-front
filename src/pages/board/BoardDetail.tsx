@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import BoardLayout from "@/components/layout/BoardLayout";
 import BoardView from "@/components/board/BoardView";
 import TopNav from "@/components/common/TopNav";
-import Button from "@/components/common/Button";
+import Button from "@/shared/ui/Button";
 import { toast } from "react-toastify";
 import { usePost } from "@/hooks/usePosts";
 

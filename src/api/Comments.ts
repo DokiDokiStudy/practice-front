@@ -1,4 +1,4 @@
-import api from "@/lib/api";
+import api from "@/shared/api";
 
 export type Comment = {
   id: number;
@@ -14,7 +14,10 @@ export async function fetchComments(postId: number): Promise<Comment[]> {
 }
 
 // 댓글 등록
-export async function createComment(postId: number, content: string): Promise<Comment> {
+export async function createComment(
+  postId: number,
+  content: string
+): Promise<Comment> {
   const res = await api.post(`/comments/${postId}`, { content });
   return res.data;
 }

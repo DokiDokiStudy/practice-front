@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import NestedSidebar from "@/components/common/NestedSidebar";
+import { NestedSidebar } from "@/shared/ui";
 import { docsData } from "@/data/docsData";
 import { useThread, useUpdateThread } from "@/hooks/useThreads";
 import { useTheme } from "@/themes/useTheme";

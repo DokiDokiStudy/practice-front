@@ -1,25 +1,25 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
-import ThreadCard from './ThreadCard';
-import api from '@/lib/api';
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { X } from "lucide-react";
+import ThreadCard from "./ThreadCard";
+import api from "@/shared/api";
 
 const dummyThreads = [
   {
-    threadId: 'thread-1',
-    title: '도커 설치할 때 주의할 점',
-    summary: '도커 설치 중 문제가 생길 수 있는 몇 가지 환경이 있습니다...',
+    threadId: "thread-1",
+    title: "도커 설치할 때 주의할 점",
+    summary: "도커 설치 중 문제가 생길 수 있는 몇 가지 환경이 있습니다...",
     likes: 5,
     dislikes: 0,
-    comments: ['정말 도움됐어요', '윈도우 환경에서는 다른가요?'],
+    comments: ["정말 도움됐어요", "윈도우 환경에서는 다른가요?"],
   },
   {
-    threadId: 'thread-2',
-    title: '컨테이너와 가상머신의 차이',
-    summary: '컨테이너와 VM의 가장 큰 차이는 리소스 사용 방식입니다...',
+    threadId: "thread-2",
+    title: "컨테이너와 가상머신의 차이",
+    summary: "컨테이너와 VM의 가장 큰 차이는 리소스 사용 방식입니다...",
     likes: 3,
     dislikes: 1,
-    comments: ['깔끔한 설명입니다', 'PDF로 저장할 수 있나요?'],
+    comments: ["깔끔한 설명입니다", "PDF로 저장할 수 있나요?"],
   },
 ];
 
@@ -41,13 +41,13 @@ interface Thread {
 const SelectedStepThread = ({ stepId, onClose }: Props) => {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchThreads = async () => {
       try {
         setLoading(true);
-        const res = await api.get('/posts', { params: { categoryId: stepId } });
+        const res = await api.get("/posts", { params: { categoryId: stepId } });
 
         const data = res.data;
 
@@ -68,7 +68,7 @@ const SelectedStepThread = ({ stepId, onClose }: Props) => {
         setThreads(normalized);
       } catch (err) {
         setThreads(dummyThreads);
-        setError('API 요청 실패 - 더미 데이터 사용');
+        setError("API 요청 실패 - 더미 데이터 사용");
       } finally {
         setLoading(false);
       }
@@ -87,7 +87,10 @@ const SelectedStepThread = ({ stepId, onClose }: Props) => {
     >
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-bold">🧵 {stepId} 토론</h2>
-        <button onClick={onClose} className="text-gray-500 hover:text-black text-xl">
+        <button
+          onClick={onClose}
+          className="text-gray-500 hover:text-black text-xl"
+        >
           <X />
         </button>
       </div>

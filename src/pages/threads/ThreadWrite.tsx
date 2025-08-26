@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import NestedSidebar from "@/components/common/NestedSidebar";
+import { NestedSidebar } from "@/shared/ui";
 import { docsData } from "@/data/docsData";
 import { useCreateThread } from "@/hooks/useThreads";
 import { useDockerCategories } from "@/hooks/useDockerCategories";

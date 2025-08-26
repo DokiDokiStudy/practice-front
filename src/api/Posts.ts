@@ -1,5 +1,5 @@
-import api from '@/lib/api';
-import type { Post } from '@/types';
+import api from "@/shared/api";
+import type { Post } from "@/types";
 
 // 백엔드로 치면 레파지토리와 역할이 같다.
 
@@ -14,31 +14,28 @@ export interface PostsResponse {
   };
 }
 
-export const fetchPosts = (
-  page = 1,
-  limit = 10
-): Promise<PostsResponse> => 
+export const fetchPosts = (page = 1, limit = 10): Promise<PostsResponse> =>
   api
     .get<PostsResponse>(`/post?page=${page}&limit=${limit}`)
-    .then(res => res.data);
+    .then((res) => res.data);
 
 export const fetchPost = (id: number): Promise<Post> =>
-  api.get(`/post/${id}`).then(res => res.data.data);
+  api.get(`/post/${id}`).then((res) => res.data.data);
 
 export const createPost = (payload: {
   categoryId: number;
   title: string;
   content: string;
 }): Promise<Post> =>
-  api
-    .post<{ data: Post }>('/posts', payload)
-    .then(res => res.data.data);
+  api.post<{ data: Post }>("/posts", payload).then((res) => res.data.data);
 
 export const updatePost = (
   id: number,
   payload: { title: string; content: string }
 ): Promise<Post> =>
-  api.patch<{ data: Post }>(`/post/${id}`, payload).then(res => res.data.data);
+  api
+    .patch<{ data: Post }>(`/post/${id}`, payload)
+    .then((res) => res.data.data);
 
 export const deletePost = (id: number): Promise<void> =>
   api.delete<void>(`/post/${id}`).then(() => {});
@@ -50,6 +47,4 @@ export interface Category {
 }
 
 export const fetchCategories = (): Promise<Category[]> =>
-  api
-    .get<{ data: Category[] }>('/categories')
-    .then(res => res.data.data);
+  api.get<{ data: Category[] }>("/categories").then((res) => res.data.data);

@@ -1,4 +1,4 @@
-import api from "@/lib/api";
+import api from "@/shared/api";
 
 export const getBoard = async () => {
   const res = await api.get("/post");

@@ -1,8 +1,9 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ROUTES } from "../../constants/routes";
+
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/themes/useTheme";
+import { ROUTES } from "@/shared/constants";
 
 function TopNav() {
   const navigate = useNavigate();

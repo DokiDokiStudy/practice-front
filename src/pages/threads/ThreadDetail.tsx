@@ -1,4 +1,4 @@
-import NestedSidebar from "@/components/common/NestedSidebar";
+import { NestedSidebar } from "@/shared/ui";
 import { docsData } from "@/data/docsData";
 import CommentList from "@/components/dockerDocs/CommentList";
 import { useThread, useDeleteThread } from "@/hooks/useThreads";
