@@ -1,17 +1,15 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination, Autoplay } from "swiper/modules";
 
 function MainBanner() {
   const bannerImages = [
-    '/images/개발자농담1.png',
-    '/images/just_joke.jpg',
-    '/images/running_curve.jpg',
+    "/images/개발자농담1.png",
+    "/images/just_joke.jpg",
+    "/images/running_curve.jpg",
   ];
 
-  // h-[200px] sm:h-[250px] md:h-[300px] lg:h-[400px]
-  // SwiperSlide.className = object-cover -> object-contains
   return (
     <div className="w-full h-[35vh] ">
       <Swiper
