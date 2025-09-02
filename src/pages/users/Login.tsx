@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
-import api from "@/shared/api";
-import AuthLayout from "@/components/layout/AuthLayout";
-import { useTheme } from "@/themes/useTheme";
+import api from "@shared/api";
+import AuthLayout from "@widgets/layout/ui/AuthLayout";
+import { useTheme } from "@app/providers/themes/useTheme";
 
 function Login() {
   // const [id, setId] = useState('');

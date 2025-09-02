@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import ThreadCard from "@/components/dockerDocs/ThreadCard";
-import { NestedSidebar } from "@/shared/ui";
-import { docsData } from "@/data/docsData";
-import { useAuth } from "@/hooks/useAuth";
-import { useThreadsByCategory } from "@/hooks/useThreads";
-import { useDockerCategories } from "@/hooks/useDockerCategories";
-import { useTheme } from "@/themes/useTheme";
+import ThreadCard from "@features/docker-docs/ui/ThreadCard";
+import { NestedSidebar } from "@shared/ui";
+import { docsData } from "@features/docker-docs/model/data/docsData";
+import { useAuth } from "@features/auth/model/useAuth";
+import { useThreadsByCategory } from "@features/thread/model/useThreads";
+import { useDockerCategories } from "@features/docker-docs/model/useDockerCategories";
+import { useTheme } from "@app/providers/themes/useTheme";
 
 const ThreadList = () => {
   const { user } = useAuth();

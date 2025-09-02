@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "@tanstack/react-router";
 import "react-toastify/dist/ReactToastify.css";
 import api from "@/shared/api";
-import AuthLayout from "@/components/layout/AuthLayout";
+import { AuthLayout } from "@/widgets";
 
 function FindPwd() {
   const [id, setId] = useState("");

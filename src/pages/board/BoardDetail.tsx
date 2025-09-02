@@ -1,15 +1,9 @@
+import { usePost } from "@/features/board/model/usePosts";
+import { BoardLayout } from "@/widgets";
 import { Link, useNavigate, useParams } from "@tanstack/react-router";
-import { useRef, useEffect, useState } from "react";
-import BoardLayout from "@/components/layout/BoardLayout";
-import BoardView from "@/components/board/BoardView";
-import TopNav from "@/components/common/TopNav";
-import Button from "@/shared/ui/Button";
-import { toast } from "react-toastify";
-import { usePost } from "@/hooks/usePosts";
 
 function BoardDetail() {
   const { id } = useParams({ from: "/board/$id" });
-  const navigate = useNavigate();
   const { data: post, isLoading, isError, error } = usePost(Number(id));
 
   if (isLoading)

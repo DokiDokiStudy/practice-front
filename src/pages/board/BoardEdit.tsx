@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
-import BoardLayout from "@/components/layout/BoardLayout";
-import BoardForm from "@/components/board/BoardForm";
-import { useAuth } from "@/hooks/useAuth";
-import { usePost } from "@/hooks/usePosts";
-import { useUpdatePost } from "@/hooks/useMutatePost";
+import { BoardForm, useAuth, useUpdatePost } from "@/features";
+import { usePost } from "@/features/board/model/usePosts";
+import { BoardLayout } from "@/widgets";
 
 export default function BoardEdit() {
   const { id } = useParams({ from: "/board/$id/edit" });

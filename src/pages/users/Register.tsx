@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import api from "@/shared/api";
-import AuthLayout from "@/components/layout/AuthLayout";
+import { AuthLayout } from "@/widgets";
 
 function Register() {
   const [id, setId] = useState("");

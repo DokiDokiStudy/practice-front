@@ -6,14 +6,13 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"], // "@/foo" → "src/foo"
-      "@api/*": ["src/api/*"], // "@api/posts" → "src/api/posts"
-      "@types": ["src/types/index"], // "@types" → "src/types/index.ts"
-      "@app/*": ["app/*"],
-      "@pages/*": ["pages/*"],
-      "@features/*": ["features/*"],
-      "@entities/*": ["entities/*"],
-      "@shared/*": ["shared/*"]
+      "@/*": ["src/*"],
+      "@app/*": ["src/app/*"],
+      "@pages/*": ["src/pages/*"],
+      "@features/*": ["src/features/*"],
+      "@entities/*": ["src/entities/*"],
+      "@shared/*": ["src/shared/*"],
+      "@widgets/*": ["src/widgets/*"]
     },
     "allowJs": true,
     "esModuleInterop": true,
