@@ -6,13 +6,7 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@app/*": ["src/app/*"],
-      "@pages/*": ["src/pages/*"],
-      "@features/*": ["src/features/*"],
-      "@entities/*": ["src/entities/*"],
-      "@shared/*": ["src/shared/*"],
-      "@widgets/*": ["src/widgets/*"]
+      "@/*": ["src/*"]
     },
     "allowJs": true,
     "esModuleInterop": true,

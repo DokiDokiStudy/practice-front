@@ -1,5 +1,5 @@
+import { useDocsData } from "@/features";
 import { useNavigate } from "@tanstack/react-router";
-import { useDocsData } from "@features/docker-docs/model/useDocsData";
 
 export default function DockerDocsOverview() {
   const navigate = useNavigate();

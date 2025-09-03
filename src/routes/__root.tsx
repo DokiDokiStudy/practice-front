@@ -1,6 +1,6 @@
-import { ThemeProvider } from "@/shared";
+import { ThemeProvider } from "@/shared/theme";
+import { TopNav } from "@/widgets";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
-import TopNav from "@widgets/navigation/ui/TopNav";
 
 export const Route = createRootRoute({
   component: () => (

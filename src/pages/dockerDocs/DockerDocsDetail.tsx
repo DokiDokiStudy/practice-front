@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import { useDocsData } from "@features/docker-docs/model/useDocsData";
-import SelectedStepThread from "@features/docker-docs/ui/SelectedStepThread";
 import { AnimatePresence } from "framer-motion";
-import { docsData as fallbackDocsData } from "@features/docker-docs/model/data/docsData";
 import { useLocation, useNavigate, useParams } from "@tanstack/react-router";
-import { NestedSidebar } from "@shared/ui";
+import { docsData, SelectedStepThread, useDocsData } from "@/features";
+import { NestedSidebar } from "@/shared/ui";
 
 export default function DockerDocsDetail() {
   const location = useLocation();
@@ -16,7 +14,7 @@ export default function DockerDocsDetail() {
   const [selectedStepId, setSelectedStepId] = useState<string | null>(null);
 
   const docs = useDocsData();
-  const activeDocs = docs.length > 0 ? docs : fallbackDocsData;
+  const activeDocs = docs.length > 0 ? docs : docsData;
 
   const project = activeDocs.find((p) => p.id === projectId);
   const chapter = project?.chapters.find((c) => c.id === chapterId);

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
-import { api } from "@shared/api";
-import AuthLayout from "@widgets/layout/ui/AuthLayout";
+import { api } from "@/shared/api";
+import AuthLayout from "@/widgets/layout/ui/AuthLayout";
 import { useTheme } from "@/shared/theme";
 
 function Login() {

@@ -1,12 +1,11 @@
 import { useState, useEffect, FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
-
-import BoardLayout from "@widgets/layout/ui/BoardLayout";
-import BoardForm from "@features/board/ui/BoardForm";
-import { useAuth } from "@features/auth/model/useAuth";
-import { useCreatePost } from "@features/board/model/useMutatePost";
-import { useCategories } from "@features/category/model/useCategories";
+import BoardLayout from "@/widgets/layout/ui/BoardLayout";
+import BoardForm from "@/features/board/ui/BoardForm";
+import { useAuth } from "@/features/auth/model/useAuth";
+import { useCreatePost } from "@/features/board/model/useMutatePost";
+import { useCategories } from "@/features/category/model/useCategories";
 
 export default function BoardWrite() {
   const navigate = useNavigate();
