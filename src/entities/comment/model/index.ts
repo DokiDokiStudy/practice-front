@@ -1,1 +1,1 @@
-export * from "./type";
+export type { Comment } from "./types";

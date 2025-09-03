@@ -4,5 +4,4 @@ export {
   createPost,
   updatePost,
   deletePost,
-  fetchCategories,
-} from "./api";
+} from "./postApi";

@@ -1,1 +1,1 @@
-export * from "./types";
+export type { Post, PostsResponse } from "./types";

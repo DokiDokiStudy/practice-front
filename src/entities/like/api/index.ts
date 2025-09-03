@@ -1,1 +1,8 @@
-export * from "./api";
+export {
+  togglePostReaction,
+  toggleCommentReaction,
+  likePost,
+  dislikePost,
+  likeComment,
+  dislikeComment,
+} from "./likeApi";

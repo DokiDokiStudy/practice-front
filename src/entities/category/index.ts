@@ -1,2 +1,2 @@
-export * from "./api";
-export * from "./model";
+export type { Category } from "./model";
+export { fetchCategories } from "./api";

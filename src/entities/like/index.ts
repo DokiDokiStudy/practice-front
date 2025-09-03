@@ -1,2 +1,9 @@
-export * from "./api";
-export * from "./model";
+export type { ReactionType, LikeResponse } from "./model";
+export {
+  togglePostReaction,
+  toggleCommentReaction,
+  likePost,
+  dislikePost,
+  likeComment,
+  dislikeComment,
+} from "./api";

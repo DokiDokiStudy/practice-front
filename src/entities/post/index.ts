@@ -1,2 +1,8 @@
-export * from "./api";
-export * from "./model/types";
+export type { Post, PostsResponse } from "./model";
+export {
+  fetchPosts,
+  fetchPost,
+  createPost,
+  updatePost,
+  deletePost,
+} from "./api";

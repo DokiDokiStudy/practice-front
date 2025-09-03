@@ -1,1 +1,1 @@
-export * from "./types";
+export type { ReactionType, LikeResponse } from "./types";

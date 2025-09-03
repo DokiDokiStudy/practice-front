@@ -31,6 +31,3 @@ export interface Category {
   id: number;
   name: string;
 }
-
-export const fetchCategories = (): Promise<Category[]> =>
-  api.get<{ data: Category[] }>("/categories").then((res) => res.data.data);

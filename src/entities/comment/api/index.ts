@@ -1,1 +1,1 @@
-export * from "./api";
+export { fetchComments, createComment } from "./commentApi";
