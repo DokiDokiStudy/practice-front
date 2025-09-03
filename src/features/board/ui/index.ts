@@ -1,2 +1,2 @@
-export { default as BoardForm } from "./BoardForm";
-export { default as BoardView } from "./BoardView";
+export { BoardForm } from "./BoardForm";
+export { BoardView } from "./BoardView";

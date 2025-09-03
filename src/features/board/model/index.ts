@@ -1,3 +1,3 @@
 export { useCreatePost, useUpdatePost, useDeletePost } from "./useMutatePost";
 export { usePostReaction } from "./usePostReaction";
-export { usePosts } from "./usePosts";
+export { usePosts, usePost } from "./usePosts";

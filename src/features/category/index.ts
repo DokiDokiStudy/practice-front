@@ -1,1 +1,1 @@
-export * from "./model";
+export { useCategories } from "./model";

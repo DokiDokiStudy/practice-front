@@ -1,2 +1,7 @@
-export * from "./model";
-export * from "./ui";
+export { useDockerCategories, useDocsData, docsData } from "./model";
+export {
+  CommentList,
+  CommentWrite,
+  SelectedStepThread,
+  ThreadCard,
+} from "./ui";

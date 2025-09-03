@@ -2,12 +2,6 @@ import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Category, fetchCategories } from "@/entities/category";
 
-/**
- * Docker 카테고리 전용 훅
- * - name이 "Docker"인 카테고리를 환경에 관계없이 동적으로 찾아서 추출
- * - 하위 카테고리들을 평면화하여 반환
- * - 환경별로 ID가 다를 수 있어서 name 기반으로 안전하게 찾음.. 필터링 방법 필요해보임
- */
 export const useDockerCategories = () => {
   const {
     data: categories = [],

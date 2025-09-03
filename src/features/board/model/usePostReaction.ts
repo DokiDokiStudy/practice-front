@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ReactionType, togglePostReaction } from "@/entities/like";
+import { togglePostReaction, type ReactionType } from "@/entities/like";
 import { useAuth } from "@/features/auth";
 
 export const usePostReaction = (initialLikes = 0, initialDislikes = 0) => {
@@ -20,15 +20,9 @@ export const usePostReaction = (initialLikes = 0, initialDislikes = 0) => {
       postId: number;
       reactionType: ReactionType;
     }) => togglePostReaction(postId, reactionType),
-    onSuccess: (data, variables) => {
-      // 관련 쿼리들 무효화
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["threads"] });
-      queryClient.invalidateQueries({
-        queryKey: ["thread", variables.postId.toString()],
-      });
-    },
-    onError: (error, variables) => {
-      console.error(`Post ${variables.reactionType} failed:`, error);
+      queryClient.invalidateQueries({ queryKey: ["thread", variables.postId] });
     },
   });
 
@@ -99,7 +93,6 @@ export const usePostReaction = (initialLikes = 0, initialDislikes = 0) => {
     }
   };
 
-  // 초기값 업데이트 함수
   const updateCounts = (likes: number, dislikes: number) => {
     if (likeCount === 0 && dislikeCount === 0) {
       setLikeCount(likes);
@@ -116,41 +109,4 @@ export const usePostReaction = (initialLikes = 0, initialDislikes = 0) => {
     isLikePending: postMutation.isPending,
     isDislikePending: postMutation.isPending,
   };
-};
-
-/**
- * 편의를 위한 개별 훅들
- */
-export const usePostLike = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (postId: number) => togglePostReaction(postId, "like"),
-    onSuccess: (data, postId) => {
-      queryClient.invalidateQueries({ queryKey: ["threads"] });
-      queryClient.invalidateQueries({
-        queryKey: ["thread", postId.toString()],
-      });
-    },
-    onError: (error) => {
-      console.error("Post like failed:", error);
-    },
-  });
-};
-
-export const usePostDislike = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (postId: number) => togglePostReaction(postId, "disLike"),
-    onSuccess: (data, postId) => {
-      queryClient.invalidateQueries({ queryKey: ["threads"] });
-      queryClient.invalidateQueries({
-        queryKey: ["thread", postId.toString()],
-      });
-    },
-    onError: (error) => {
-      console.error("Post dislike failed:", error);
-    },
-  });
 };

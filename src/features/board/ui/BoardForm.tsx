@@ -1,5 +1,4 @@
-// 게시판의 등록/수정에서 사용
-import { Button, ButtonProps } from "@/shared/ui";
+import { Button, type ButtonProps } from "@/shared/ui";
 import React from "react";
 
 interface BoardFormProps {
@@ -12,7 +11,7 @@ interface BoardFormProps {
   buttonProps?: Partial<Omit<ButtonProps, "children">>;
 }
 
-function BoardForm({
+export function BoardForm({
   titleValue,
   contentValue,
   onTitleChange,
@@ -52,5 +51,3 @@ function BoardForm({
     </form>
   );
 }
-
-export default BoardForm;

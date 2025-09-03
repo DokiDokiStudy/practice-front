@@ -1,1 +1,1 @@
-export * from "./docsData";
+export { docsData } from "./docsData";

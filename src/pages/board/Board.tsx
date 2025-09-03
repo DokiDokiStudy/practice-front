@@ -1,9 +1,9 @@
 import { useState } from "react";
 import BoardLayout from "@/widgets/layout/ui/BoardLayout";
-import { useAuth } from "@/features/auth/model/useAuth";
-import { usePosts } from "@/features/board/model/usePosts";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/shared/ui";
+import { useAuth } from "@/features/auth";
+import { usePosts } from "@/features/board";
 
 export default function Board() {
   const navigate = useNavigate();
