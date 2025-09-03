@@ -1,4 +1,4 @@
-import api from "@/shared/api";
+import { api } from "@/shared/api";
 import { LikeResponse, ReactionType } from "../model";
 
 export async function togglePostReaction(

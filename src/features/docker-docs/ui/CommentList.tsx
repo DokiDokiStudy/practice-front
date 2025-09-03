@@ -1,4 +1,4 @@
-import { useTheme } from "@/app/providers";
+import { useTheme } from "@/shared/theme";
 import CommentWrite from "./CommentWrite";
 import { Comment } from "@/entities/thread";
 

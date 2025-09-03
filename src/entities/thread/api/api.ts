@@ -1,4 +1,4 @@
-import api from "@/shared/api";
+import { api } from "@/shared/api";
 import { Thread, ThreadCreateDto, ThreadUpdateDto } from "../model";
 import { dummyThreads } from "../fix";
 

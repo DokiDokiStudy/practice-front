@@ -1,4 +1,7 @@
-export { default as Button } from "./Button";
+export { Button } from "./Button";
 export type { ButtonProps } from "./Button";
 
-export { default as NestedSidebar } from "./NestedSidebar";
+export { CardButton } from "./CardButton";
+export type { CardButtonProps } from "./CardButton";
+
+export { NestedSidebar } from "./NestedSidebar";

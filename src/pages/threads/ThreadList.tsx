@@ -6,7 +6,7 @@ import { docsData } from "@features/docker-docs/model/data/docsData";
 import { useAuth } from "@features/auth/model/useAuth";
 import { useThreadsByCategory } from "@features/thread/model/useThreads";
 import { useDockerCategories } from "@features/docker-docs/model/useDockerCategories";
-import { useTheme } from "@app/providers/themes/useTheme";
+import { useTheme } from "@/shared/theme";
 
 const ThreadList = () => {
   const { user } = useAuth();

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
-import api from "@shared/api";
+import { api } from "@shared/api";
 import AuthLayout from "@widgets/layout/ui/AuthLayout";
-import { useTheme } from "@app/providers/themes/useTheme";
+import { useTheme } from "@/shared/theme";
 
 function Login() {
   // const [id, setId] = useState('');
@@ -15,7 +15,7 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
@@ -25,7 +25,7 @@ function Login() {
         email,
         password,
       });
-      // 쿠키에 넣어야 하는지 생각을 좀 해보자
+
       const token = res.data.data.token;
       const nickName = res.data.data.nickName;
       const user_email = res.data.data.email;
@@ -47,8 +47,9 @@ function Login() {
         setError("로그인 실패 다시 시도 해주세요.");
       }
     } catch (err) {
+      const error = err as { response?: { data?: { message?: string } } };
       setError(
-        err.response?.data?.message ||
+        error.response?.data?.message ||
           "아이디 또는 비밀번호를 다시 확인해주세요."
       );
       toast.error("로그인 실패");

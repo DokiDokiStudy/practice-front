@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-type ButtonProps = {
+export type ButtonProps = {
   children: ReactNode;
   color?: string;
   size?: string;
@@ -36,7 +36,7 @@ const sizeClasses = {
   "4xl": "px-9 py-5 text-2xl",
 };
 
-function Button({
+export function Button({
   children,
   color = "blue",
   size = "md",
@@ -83,7 +83,3 @@ function Button({
     </button>
   );
 }
-
-// 이렇게 하거나.. 타입 앞에 하거나..
-export type { ButtonProps };
-export default Button;

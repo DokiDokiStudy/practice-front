@@ -1,4 +1,4 @@
-import api from "@/shared/api";
+import { api } from "@/shared/api";
 
 // 댓글 목록 조회
 export async function fetchComments(postId: number): Promise<Comment[]> {

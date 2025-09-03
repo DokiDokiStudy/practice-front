@@ -25,7 +25,7 @@ export const themes: Record<string, Theme> = {
       primaryLight: "rgb(59, 130, 246)", // blue-500
       secondary: "rgb(147, 197, 253)", // blue-300
       background:
-        "linear-gradient(to bottom right, rgb(219, 234, 254), rgb(255, 255, 255), rgb(219, 234, 254))", // blue-100 to white to blue-100
+        "linear-gradient(to bottom right, rgb(219, 234, 254), rgb(255, 255, 255), rgb(219, 234, 254))", // blue-100 → white → blue-100
       backgroundGradient: "from-blue-100 via-white to-blue-200",
       surface: "rgba(255, 255, 255, 0.9)",
       surfaceHover: "rgba(255, 255, 255, 0.95)",
@@ -43,7 +43,7 @@ export const themes: Record<string, Theme> = {
       primaryLight: "rgb(251, 191, 36)", // amber-400
       secondary: "rgb(252, 211, 77)", // amber-300
       background:
-        "linear-gradient(to bottom right, rgb(254, 243, 199), rgb(255, 255, 255), rgb(254, 243, 199))", // amber-100 to white to amber-100
+        "linear-gradient(to bottom right, rgb(254, 243, 199), rgb(255, 255, 255), rgb(254, 243, 199))", // amber-100 → white → amber-100
       backgroundGradient: "from-amber-100 via-white to-amber-200",
       surface: "rgba(255, 255, 255, 0.9)",
       surfaceHover: "rgba(255, 255, 255, 0.95)",
@@ -61,7 +61,7 @@ export const themes: Record<string, Theme> = {
       primaryLight: "rgb(34, 211, 238)", // cyan-400
       secondary: "rgb(103, 232, 249)", // cyan-300
       background:
-        "linear-gradient(to bottom right, rgb(207, 250, 254), rgb(255, 255, 255), rgb(207, 250, 254))", // cyan-100 to white to cyan-100
+        "linear-gradient(to bottom right, rgb(207, 250, 254), rgb(255, 255, 255), rgb(207, 250, 254))", // cyan-100 → white → cyan-100
       backgroundGradient: "from-cyan-100 via-white to-cyan-200",
       surface: "rgba(255, 255, 255, 0.9)",
       surfaceHover: "rgba(255, 255, 255, 0.95)",
@@ -79,7 +79,7 @@ export const themes: Record<string, Theme> = {
       primaryLight: "rgb(74, 222, 128)", // green-400
       secondary: "rgb(134, 239, 172)", // green-300
       background:
-        "linear-gradient(to bottom right, rgb(220, 252, 231), rgb(255, 255, 255), rgb(220, 252, 231))", // green-100 to white to green-100
+        "linear-gradient(to bottom right, rgb(220, 252, 231), rgb(255, 255, 255), rgb(220, 252, 231))", // green-100 → white → green-100
       backgroundGradient: "from-green-100 via-white to-green-200",
       surface: "rgba(255, 255, 255, 0.9)",
       surfaceHover: "rgba(255, 255, 255, 0.95)",
@@ -97,7 +97,7 @@ export const themes: Record<string, Theme> = {
       primaryLight: "rgb(156, 163, 175)", // gray-400
       secondary: "rgb(209, 213, 219)", // gray-300
       background:
-        "linear-gradient(to bottom right, rgb(243, 244, 246), rgb(255, 255, 255), rgb(243, 244, 246))", // gray-100 to white to gray-100
+        "linear-gradient(to bottom right, rgb(243, 244, 246), rgb(255, 255, 255), rgb(243, 244, 246))", // gray-100 → white → gray-100
       backgroundGradient: "from-gray-100 via-white to-gray-200",
       surface: "rgba(255, 255, 255, 0.9)",
       surfaceHover: "rgba(255, 255, 255, 0.95)",
@@ -135,5 +135,5 @@ export const getCurrentTheme = (pathname: string): Theme => {
     }
   }
 
-  return themes.docker;
+  return themes.default;
 };

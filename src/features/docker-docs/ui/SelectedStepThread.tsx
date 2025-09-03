@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import ThreadCard from "./ThreadCard";
-import api from "@/shared/api";
+import { api } from "@/shared/api";
 
 const dummyThreads = [
   {

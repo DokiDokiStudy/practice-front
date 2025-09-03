@@ -1,15 +1,5 @@
-import api from "@/shared/api";
-import { Post } from "../model";
-
-export interface PostsResponse {
-  data: Post[];
-  meta: {
-    total: number;
-    page: string;
-    limit: string;
-    totalPages: number;
-  };
-}
+import { api } from "@/shared/api";
+import { Post, PostsResponse } from "../model";
 
 export const fetchPosts = (page = 1, limit = 10): Promise<PostsResponse> =>
   api

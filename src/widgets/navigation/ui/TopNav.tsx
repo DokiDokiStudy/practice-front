@@ -1,11 +1,11 @@
-import { useTheme } from "@/app/providers";
 import { useAuth } from "@/features";
-import { ROUTES } from "@/shared";
+import { ROUTES } from "@/shared/config";
+import { useTheme } from "@/shared/theme";
 import { Link, useNavigate } from "@tanstack/react-router";
 
 function TopNav() {
   const navigate = useNavigate();
-  const { user, isLoading, logout } = useAuth();
+  const { user, isLoading } = useAuth();
   const { classes } = useTheme();
 
   const handleLogout = () => {

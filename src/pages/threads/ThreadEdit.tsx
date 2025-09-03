@@ -4,9 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Save } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { fetchCategories } from "@/entities/category";
-import { useTheme } from "@/app/providers";
 import { docsData, useAuth } from "@/features";
 import { useThread, useUpdateThread } from "@/features/thread/model/useThreads";
+import { useTheme } from "@/shared/theme";
 
 const ThreadEdit = () => {
   const { id } = useParams({ from: "/thread/$id/edit" });

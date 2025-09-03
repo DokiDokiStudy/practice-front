@@ -1,4 +1,4 @@
-import api from "@/shared/api";
+import { api } from "@/shared/api";
 import type { AxiosResponse } from "axios";
 
 export interface LoginParams {

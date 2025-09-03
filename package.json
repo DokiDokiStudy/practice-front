@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@tanstack/react-query": "^5.81.5",
@@ -22,8 +23,11 @@
     "@tanstack/router-cli": "^1.130.8",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/parser": "^8.42.0",
     "@vitejs/plugin-react": "^4.0.0",
     "autoprefixer": "^10.4.14",
+    "eslint": "^9.34.0",
+    "eslint-plugin-boundaries": "^5.0.1",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.8.3",

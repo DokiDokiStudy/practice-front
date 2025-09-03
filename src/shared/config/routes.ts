@@ -26,7 +26,7 @@ const THREAD = {
   },
 } as const;
 
-const ROUTES = {
+export const ROUTES = {
   HOME: "/",
   MAIN: "/main",
   LOGIN: "/login",
@@ -44,5 +44,3 @@ const ROUTES = {
   BOARD,
   THREAD,
 } as const;
-
-export default ROUTES;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "@tanstack/react-router";
 import "react-toastify/dist/ReactToastify.css";
-import api from "@/shared/api";
+import { api } from "@/shared/api";
 import { AuthLayout } from "@/widgets";
 
 function FindPwd() {
@@ -11,11 +11,6 @@ function FindPwd() {
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
-  // const checkValidate = (id, email) => {
-  //   const dummy = { id: 'doky123', email: 'doky@doky.com' };
-  //   return dummy.id == id && dummy.email == email;
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,10 +21,6 @@ function FindPwd() {
         email,
         name: id,
       });
-
-      console.log(res);
-      // 아, 이거 비밀번호 암호화된 채로 내려주는거 좋지 않습니다.
-      // 일단 이메일로 보냈다는 메시지는 유지할게요
 
       if (res.status === 201 || res.data?.statusCode === 201) {
         setSubmitted(true);

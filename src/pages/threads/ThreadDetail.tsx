@@ -8,9 +8,9 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import { useTheme } from "@/app/providers";
 import { CommentList, docsData, useAuth, usePostReaction } from "@/features";
 import { useDeleteThread, useThread } from "@/features/thread/model/useThreads";
+import { useTheme } from "@/shared/theme";
 
 const ThreadDetail = () => {
   const { id } = useParams({ from: "/thread/$id" });

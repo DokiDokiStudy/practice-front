@@ -21,7 +21,7 @@ interface Props {
   data: Project[];
 }
 
-const NestedSidebar = ({ data }: Props) => {
+export function NestedSidebar({ data }: Props) {
   const router = useRouter();
   const state = useRouterState();
 
@@ -76,6 +76,4 @@ const NestedSidebar = ({ data }: Props) => {
       </ul>
     </aside>
   );
-};
-
-export default NestedSidebar;
+}

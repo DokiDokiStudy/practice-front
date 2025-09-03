@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { NestedSidebar } from "@/shared/ui";
 import { ArrowLeft, Save } from "lucide-react";
-import { useTheme } from "@/app/providers";
 import { docsData, useAuth, useDockerCategories } from "@/features";
 import { useCreateThread } from "@/features/thread/model/useThreads";
+import { useTheme } from "@/shared/theme";
 
 const ThreadWrite = () => {
   const navigate = useNavigate();
@@ -288,7 +288,6 @@ const ThreadWrite = () => {
               </div>
             </div>
 
-            {/* 나중에 Button 컴포넌트 가져다가 쓰기 */}
             <div className="flex justify-end gap-3">
               <button
                 type="button"
