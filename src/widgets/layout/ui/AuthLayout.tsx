@@ -1,11 +1,7 @@
 import { useTheme } from "@/shared/theme";
 import { ReactNode } from "react";
 
-interface AuthLayoutProps {
-  children: ReactNode;
-}
-
-const AuthLayout = ({ children }: AuthLayoutProps) => {
+const AuthLayout = ({ children }: { children: ReactNode }) => {
   const { classes } = useTheme();
 
   return (
