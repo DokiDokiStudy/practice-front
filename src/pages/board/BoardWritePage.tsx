@@ -7,7 +7,7 @@ import { useCategories } from "@/features/category/model/useCategories";
 import { BoardForm } from "@/features/board";
 import { BoardLayout } from "@/widgets/_common";
 
-export default function BoardWrite() {
+export function BoardWritePage() {
   const navigate = useNavigate();
   const { user, isLoading: authLoading } = useAuth();
   const [title, setTitle] = useState("");
@@ -44,7 +44,6 @@ export default function BoardWrite() {
       <BoardLayout>
         <h2 className="text-2xl font-bold text-center mb-6">새 글 작성</h2>
 
-        {/* 카테고리가 필요할 거 같긴 한데 해당 게시판(게시글)은 추후 용도에 따라 달라질 예정.. 일단 연습용으로 카테고리 붙여봄 */}
         <div className="mb-4">
           {catLoading ? (
             <p>카테고리 로딩 중…</p>
