@@ -1,1 +1,1 @@
-export { login, register } from "./authApi";
+export { login, register, checkEmailExists } from "./authApi";

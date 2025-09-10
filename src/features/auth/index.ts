@@ -1,4 +1,4 @@
-export { login, register } from "./api";
+export { login, register, checkEmailExists } from "./api";
 export type { LoginParams, RegisterParams, AuthResponse, User } from "./model";
-export { useAuth, useLogin, useRegister } from "./model";
-export { LoginForm, RegisterForm } from "./ui";
+export { useAuth, useLogin, useRegister, useFindUser } from "./model";
+export { LoginForm, RegisterForm, FindUserForm } from "./ui";
