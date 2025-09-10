@@ -1,2 +1,1 @@
-export * from "./Main";
-export * from "./MainBanner";
+export { Main } from "./Main";

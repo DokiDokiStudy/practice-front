@@ -3,7 +3,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Autoplay } from "swiper/modules";
 
-function MainBanner() {
+export function MainBanner() {
   const bannerImages = [
     "/images/개발자농담1.png",
     "/images/just_joke.jpg",
@@ -32,5 +32,3 @@ function MainBanner() {
     </div>
   );
 }
-
-export default MainBanner;

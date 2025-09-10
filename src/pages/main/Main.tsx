@@ -1,7 +1,7 @@
 import { CardButton } from "@/shared/ui";
-import MainBanner from "./MainBanner";
+import { MainBanner } from "@/widgets/main";
 
-function Main() {
+export function Main() {
   return (
     <div className="flex-1 flex flex-col bg-gradient-to-b from-white via-blue-50 to-blue-100">
       <MainBanner />
@@ -12,7 +12,6 @@ function Main() {
             title="🐳 Docker Docs"
             description="도커 개발 환경 구성 및 실행 방법을 확인할 수 있습니다."
           />
-
           {[2, 3].map((i) => (
             <CardButton
               key={i}
@@ -25,5 +24,3 @@ function Main() {
     </div>
   );
 }
-
-export default Main;
