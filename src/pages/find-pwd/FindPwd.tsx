@@ -1,10 +1,10 @@
-import { FindUserForm } from "@/features/auth";
+import { FindPwdForm } from "@/features/auth";
 import { AuthLayout } from "@/widgets/_common";
 
-export function FindUser() {
+export function FindPwd() {
   return (
     <AuthLayout>
-      <FindUserForm />
+      <FindPwdForm />
     </AuthLayout>
   );
 }

@@ -1,5 +1,5 @@
 import { LoginForm } from "@/features/auth";
-import AuthLayout from "@/widgets/layout/ui/AuthLayout";
+import { AuthLayout } from "@/widgets/_common";
 
 export function Login() {
   return (

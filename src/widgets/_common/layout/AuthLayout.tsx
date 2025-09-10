@@ -1,7 +1,7 @@
 import { useTheme } from "@/shared/theme";
 import { ReactNode } from "react";
 
-const AuthLayout = ({ children }: { children: ReactNode }) => {
+export const AuthLayout = ({ children }: { children: ReactNode }) => {
   const { classes } = useTheme();
 
   return (
@@ -12,5 +12,3 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
     </div>
   );
 };
-
-export default AuthLayout;

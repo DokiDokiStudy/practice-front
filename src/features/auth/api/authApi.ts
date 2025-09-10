@@ -22,3 +22,19 @@ export const checkEmailExists = async (email: string): Promise<boolean> => {
     return false;
   }
 };
+
+export const findPassword = async (
+  email: string,
+  id: string
+): Promise<boolean> => {
+  try {
+    const res = await api.post("/auth/find-password", {
+      email,
+      name: id,
+    });
+
+    return res.status === 201 || res.data?.statusCode === 201;
+  } catch (error) {
+    throw error;
+  }
+};

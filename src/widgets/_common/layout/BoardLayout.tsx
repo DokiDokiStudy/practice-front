@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-function BoardLayout({ children }: { children: ReactNode }) {
+export function BoardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="bg-gray-100 flex-1 py-12 px-4">
       <div className="max-w-4xl mx-auto">
@@ -20,5 +20,3 @@ function BoardLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
-export default BoardLayout;

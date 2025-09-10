@@ -1,5 +1,5 @@
 import { usePost } from "@/features/board/model/usePosts";
-import { BoardLayout } from "@/widgets";
+import { BoardLayout } from "@/widgets/_common";
 import { Link, useNavigate, useParams } from "@tanstack/react-router";
 
 function BoardDetail() {

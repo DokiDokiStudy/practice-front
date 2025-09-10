@@ -1,5 +1,5 @@
 import { RegisterForm } from "@/features/auth";
-import { AuthLayout } from "@/widgets";
+import { AuthLayout } from "@/widgets/_common";
 
 export function Register() {
   return (

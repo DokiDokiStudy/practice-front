@@ -1,4 +1,10 @@
-export { login, register, checkEmailExists } from "./api";
+export { login, register, checkEmailExists, findPassword } from "./api";
 export type { LoginParams, RegisterParams, AuthResponse, User } from "./model";
-export { useAuth, useLogin, useRegister, useFindUser } from "./model";
-export { LoginForm, RegisterForm, FindUserForm } from "./ui";
+export {
+  useAuth,
+  useLogin,
+  useRegister,
+  useFindUser,
+  useFindPwd,
+} from "./model";
+export { LoginForm, RegisterForm, FindUserForm, FindPwdForm } from "./ui";

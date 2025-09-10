@@ -3,3 +3,4 @@ export { useAuth } from "./useAuth";
 export { useLogin } from "./useLogin";
 export { useRegister } from "./useRegister";
 export { useFindUser } from "./useFindUser";
+export { useFindPwd } from "./useFindPwd";
