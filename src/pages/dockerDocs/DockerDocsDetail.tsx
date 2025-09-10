@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useLocation, useNavigate, useParams } from "@tanstack/react-router";
-import { docsData, SelectedStepThread, useDocsData } from "@/features";
 import { NestedSidebar } from "@/shared/ui";
+import {
+  docsData,
+  SelectedStepThread,
+  useDocsData,
+} from "@/features/docker-docs";
 
 export default function DockerDocsDetail() {
   const location = useLocation();

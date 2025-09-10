@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { NestedSidebar } from "@/shared/ui";
 import { ArrowLeft, Save } from "lucide-react";
-import { docsData, useAuth, useDockerCategories } from "@/features";
 import { useCreateThread } from "@/features/thread/model/useThreads";
 import { useTheme } from "@/shared/theme";
+import { useAuth } from "@/features/auth";
+import { docsData, useDockerCategories } from "@/features/docker-docs";
 
 const ThreadWrite = () => {
   const navigate = useNavigate();

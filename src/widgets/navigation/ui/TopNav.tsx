@@ -1,4 +1,4 @@
-import { useAuth } from "@/features";
+import { useAuth } from "@/features/auth";
 import { ROUTES } from "@/shared/config";
 import { useTheme } from "@/shared/theme";
 import { Link, useNavigate } from "@tanstack/react-router";

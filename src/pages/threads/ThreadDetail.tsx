@@ -8,9 +8,11 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import { CommentList, docsData, useAuth, usePostReaction } from "@/features";
 import { useDeleteThread, useThread } from "@/features/thread/model/useThreads";
 import { useTheme } from "@/shared/theme";
+import { useAuth } from "@/features/auth";
+import { usePostReaction } from "@/features/board";
+import { CommentList, docsData } from "@/features/docker-docs";
 
 const ThreadDetail = () => {
   const { id } = useParams({ from: "/thread/$id" });
