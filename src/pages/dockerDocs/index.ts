@@ -1,2 +1,1 @@
-export * from "./DockerDocsDetail";
-export * from "./DockerDocsOverview";
+export { DockerDocsOverview } from "./DockerDocsOverview";

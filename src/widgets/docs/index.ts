@@ -1,0 +1,1 @@
+export { DocsChapterContent } from "./DocsChapterContent";
