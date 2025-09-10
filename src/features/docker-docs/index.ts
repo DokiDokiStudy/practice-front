@@ -4,4 +4,5 @@ export {
   CommentWrite,
   SelectedStepThread,
   ThreadCard,
+  DocsSectionList,
 } from "./ui";

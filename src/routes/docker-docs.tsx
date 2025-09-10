@@ -1,6 +1,6 @@
-import { DockerDocsOverview } from "@/pages/dockerDocs";
+import { DockerDocsPage } from "@/pages/docker-docs";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/docker-docs")({
-  component: DockerDocsOverview,
+  component: DockerDocsPage,
 });

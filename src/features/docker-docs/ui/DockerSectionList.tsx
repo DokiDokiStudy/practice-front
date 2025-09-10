@@ -1,11 +1,8 @@
-"use client";
-
-import { useDocsData } from "@/features/docker-docs";
 import { useNavigate } from "@tanstack/react-router";
+import type { DocsSection } from "../model/types";
 
-export const DockerDocsSectionList = () => {
+export function DocsSectionList({ docs }: { docs: DocsSection[] }) {
   const navigate = useNavigate();
-  const docs = useDocsData();
 
   const goToDetail = (
     projectId: string,
@@ -51,4 +48,4 @@ export const DockerDocsSectionList = () => {
       ))}
     </>
   );
-};
+}
