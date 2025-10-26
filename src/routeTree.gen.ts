@@ -9,12 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as RegisterRouteImport } from './routes/register'
 import { Route as MainRouteImport } from './routes/main'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as FindUserRouteImport } from './routes/find-user'
-import { Route as FindPwdRouteImport } from './routes/find-pwd'
 import { Route as DockerDocsRouteImport } from './routes/docker-docs'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ThreadIndexRouteImport } from './routes/thread/index'
 import { Route as BoardIndexRouteImport } from './routes/board/index'
@@ -26,34 +23,19 @@ import { Route as ThreadThreadIdEditRouteImport } from './routes/thread/$threadI
 import { Route as DocsProjectIdChapterIdRouteImport } from './routes/docs/$projectId/$chapterId'
 import { Route as BoardIdEditRouteImport } from './routes/board/$id/edit'
 
-const RegisterRoute = RegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const MainRoute = MainRouteImport.update({
   id: '/main',
   path: '/main',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FindUserRoute = FindUserRouteImport.update({
-  id: '/find-user',
-  path: '/find-user',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FindPwdRoute = FindPwdRouteImport.update({
-  id: '/find-pwd',
-  path: '/find-pwd',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DockerDocsRoute = DockerDocsRouteImport.update({
   id: '/docker-docs',
   path: '/docker-docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -109,12 +91,9 @@ const BoardIdEditRoute = BoardIdEditRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/docker-docs': typeof DockerDocsRoute
-  '/find-pwd': typeof FindPwdRoute
-  '/find-user': typeof FindUserRoute
-  '/login': typeof LoginRoute
   '/main': typeof MainRoute
-  '/register': typeof RegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
   '/board/write': typeof BoardWriteRoute
   '/thread/$threadId': typeof ThreadThreadIdRouteWithChildren
@@ -127,12 +106,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/docker-docs': typeof DockerDocsRoute
-  '/find-pwd': typeof FindPwdRoute
-  '/find-user': typeof FindUserRoute
-  '/login': typeof LoginRoute
   '/main': typeof MainRoute
-  '/register': typeof RegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
   '/board/write': typeof BoardWriteRoute
   '/thread/$threadId': typeof ThreadThreadIdRouteWithChildren
@@ -146,12 +122,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/docker-docs': typeof DockerDocsRoute
-  '/find-pwd': typeof FindPwdRoute
-  '/find-user': typeof FindUserRoute
-  '/login': typeof LoginRoute
   '/main': typeof MainRoute
-  '/register': typeof RegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
   '/board/write': typeof BoardWriteRoute
   '/thread/$threadId': typeof ThreadThreadIdRouteWithChildren
@@ -166,12 +139,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/docker-docs'
-    | '/find-pwd'
-    | '/find-user'
-    | '/login'
     | '/main'
-    | '/register'
     | '/board/$id'
     | '/board/write'
     | '/thread/$threadId'
@@ -184,12 +154,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/docker-docs'
-    | '/find-pwd'
-    | '/find-user'
-    | '/login'
     | '/main'
-    | '/register'
     | '/board/$id'
     | '/board/write'
     | '/thread/$threadId'
@@ -202,12 +169,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/auth'
     | '/docker-docs'
-    | '/find-pwd'
-    | '/find-user'
-    | '/login'
     | '/main'
-    | '/register'
     | '/board/$id'
     | '/board/write'
     | '/thread/$threadId'
@@ -221,12 +185,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   DockerDocsRoute: typeof DockerDocsRoute
-  FindPwdRoute: typeof FindPwdRoute
-  FindUserRoute: typeof FindUserRoute
-  LoginRoute: typeof LoginRoute
   MainRoute: typeof MainRoute
-  RegisterRoute: typeof RegisterRoute
   BoardIdRoute: typeof BoardIdRouteWithChildren
   BoardWriteRoute: typeof BoardWriteRoute
   ThreadThreadIdRoute: typeof ThreadThreadIdRouteWithChildren
@@ -238,13 +199,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/main': {
       id: '/main'
       path: '/main'
@@ -252,32 +206,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MainRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/find-user': {
-      id: '/find-user'
-      path: '/find-user'
-      fullPath: '/find-user'
-      preLoaderRoute: typeof FindUserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/find-pwd': {
-      id: '/find-pwd'
-      path: '/find-pwd'
-      fullPath: '/find-pwd'
-      preLoaderRoute: typeof FindPwdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/docker-docs': {
       id: '/docker-docs'
       path: '/docker-docs'
       fullPath: '/docker-docs'
       preLoaderRoute: typeof DockerDocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -378,12 +318,9 @@ const ThreadThreadIdRouteWithChildren = ThreadThreadIdRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   DockerDocsRoute: DockerDocsRoute,
-  FindPwdRoute: FindPwdRoute,
-  FindUserRoute: FindUserRoute,
-  LoginRoute: LoginRoute,
   MainRoute: MainRoute,
-  RegisterRoute: RegisterRoute,
   BoardIdRoute: BoardIdRouteWithChildren,
   BoardWriteRoute: BoardWriteRoute,
   ThreadThreadIdRoute: ThreadThreadIdRouteWithChildren,

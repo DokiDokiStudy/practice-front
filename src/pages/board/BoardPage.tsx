@@ -47,7 +47,7 @@ export function BoardPage() {
             size="md"
             color="gray"
             disabled
-            onClick={() => navigate({ to: "/login" })}
+            onClick={() => navigate({ to: "/auth", search: { mode: "login" } })}
           >
             로그인 후 쓰기 가능
           </Button>

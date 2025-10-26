@@ -57,7 +57,8 @@ export function TopNav() {
             <>
               <li>
                 <Link
-                  to="/login"
+                  to="/auth"
+                  search={{ mode: "login" }}
                   className={`transition-colors ${classes.navHover}`}
                 >
                   로그인
@@ -65,7 +66,8 @@ export function TopNav() {
               </li>
               <li>
                 <Link
-                  to="/register"
+                  to="/auth"
+                  search={{ mode: "register" }}
                   className={`transition-colors ${classes.navHover}`}
                 >
                   회원가입

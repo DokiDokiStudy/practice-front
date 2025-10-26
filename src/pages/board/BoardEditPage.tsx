@@ -28,7 +28,7 @@ export function BoardEditPage() {
 
     if (!user) {
       toast.warn("로그인 후 접근 가능합니다.");
-      navigate({ to: "/login" });
+      navigate({ to: "/auth", search: { mode: "login" } });
       return;
     }
 

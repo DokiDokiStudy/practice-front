@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useTheme } from "@/shared/theme";
-import { useLogin } from "@/features/auth/model/useLogin";
+import { useLogin } from "../model";
 
 export const LoginForm = () => {
   const { classes } = useTheme();
@@ -85,7 +85,8 @@ export const LoginForm = () => {
 
       <div className="flex justify-between items-center mb-2">
         <Link
-          to="/register"
+          to="/auth"
+          search={{ mode: "register" }}
           className={`hover:underline font-semibold text-sm`}
           style={classes.textSecondaryStyle}
         >
@@ -93,7 +94,8 @@ export const LoginForm = () => {
         </Link>
         <div className="flex items-center gap-2 text-sm">
           <Link
-            to="/find-user"
+            to="/auth"
+            search={{ mode: "find-user" }}
             className="hover:underline font-semibold"
             style={classes.textSecondaryStyle}
           >
@@ -101,7 +103,8 @@ export const LoginForm = () => {
           </Link>
           <span style={classes.textSecondaryStyle}>|</span>
           <Link
-            to="/find-pwd"
+            to="/auth"
+            search={{ mode: "find-pwd" }}
             className="hover:underline font-semibold"
             style={classes.textSecondaryStyle}
           >

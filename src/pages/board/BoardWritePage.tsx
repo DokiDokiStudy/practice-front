@@ -21,7 +21,7 @@ export function BoardWritePage() {
     if (authLoading) return;
     if (!user) {
       toast.warn("로그인 후 글쓰기가 가능합니다.");
-      navigate({ to: "/login" });
+      navigate({ to: "/auth", search: { mode: "login" } });
     }
   }, [user, authLoading, navigate]);
 

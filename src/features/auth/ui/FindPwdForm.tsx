@@ -67,7 +67,7 @@ export const FindPwdForm = () => {
           </p>
           <button
             type="button"
-            onClick={() => navigate({ to: "/login" })}
+            onClick={() => navigate({ to: "/auth", search: { mode: "login" } })}
             className="bg-gradient-to-r from-blue-500 to-blue-400 text-white py-3 px-6 rounded-2xl font-bold shadow-md hover:from-blue-600 hover:to-blue-500 transition"
           >
             로그인 페이지로 이동
