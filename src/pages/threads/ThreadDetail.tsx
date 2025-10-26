@@ -1,9 +1,4 @@
-import NestedSidebar from "@/components/common/NestedSidebar";
-import { docsData } from "@/data/docsData";
-import CommentList from "@/components/dockerDocs/CommentList";
-import { useThread, useDeleteThread } from "@/hooks/useThreads";
-import { useTheme } from "@/themes/useTheme";
-import { useAuth } from "@/hooks/useAuth";
+import { NestedSidebar } from "@/shared/ui";
 import {
   MessageSquare,
   ThumbsUp,
@@ -12,8 +7,12 @@ import {
   Trash2,
   ArrowLeft,
 } from "lucide-react";
-import { usePostReaction } from "@/hooks/usePostReaction";
 import { useNavigate, useParams } from "@tanstack/react-router";
+import { useDeleteThread, useThread } from "@/features/thread/model/useThreads";
+import { useTheme } from "@/shared/theme";
+import { useAuth } from "@/features/auth";
+import { usePostReaction } from "@/features/board";
+import { CommentList, docsData } from "@/features/docker-docs";
 
 const ThreadDetail = () => {
   const { id } = useParams({ from: "/thread/$id" });

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import NestedSidebar from "@/components/common/NestedSidebar";
-import { docsData } from "@/data/docsData";
-import { useThread, useUpdateThread } from "@/hooks/useThreads";
-import { useTheme } from "@/themes/useTheme";
-import { useAuth } from "@/hooks/useAuth";
+import { NestedSidebar } from "@/shared/ui";
 import { useQuery } from "@tanstack/react-query";
-import { fetchCategories } from "@/api/Categories";
 import { ArrowLeft, Save } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
+import { fetchCategories } from "@/entities/category";
+import { useThread, useUpdateThread } from "@/features/thread/model/useThreads";
+import { useTheme } from "@/shared/theme";
+import { useAuth } from "@/features/auth";
+import { docsData } from "@/features/docker-docs";
 
 const ThreadEdit = () => {
   const { id } = useParams({ from: "/thread/$id/edit" });

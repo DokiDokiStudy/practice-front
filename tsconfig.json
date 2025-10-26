@@ -6,10 +6,7 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],               // "@/foo" → "src/foo"
-      "@lib/*": ["src/lib/*"],        // "@lib/api" → "src/lib/api"
-      "@api/*": ["src/api/*"],        // "@api/posts" → "src/api/posts"
-      "@types": ["src/types/index"]   // "@types" → "src/types/index.ts"
+      "@/*": ["src/*"]
     },
     "allowJs": true,
     "esModuleInterop": true,

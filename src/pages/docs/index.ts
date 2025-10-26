@@ -1,0 +1,1 @@
+export { DockerDocsDetail } from "./DockerDocsDetail";

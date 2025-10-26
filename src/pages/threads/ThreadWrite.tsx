@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import NestedSidebar from "@/components/common/NestedSidebar";
-import { docsData } from "@/data/docsData";
-import { useCreateThread } from "@/hooks/useThreads";
-import { useDockerCategories } from "@/hooks/useDockerCategories";
-import { useTheme } from "@/themes/useTheme";
-import { useAuth } from "@/hooks/useAuth";
+import { NestedSidebar } from "@/shared/ui";
 import { ArrowLeft, Save } from "lucide-react";
+import { useCreateThread } from "@/features/thread/model/useThreads";
+import { useTheme } from "@/shared/theme";
+import { useAuth } from "@/features/auth";
+import { docsData, useDockerCategories } from "@/features/docker-docs";
 
 const ThreadWrite = () => {
   const navigate = useNavigate();
@@ -290,7 +289,6 @@ const ThreadWrite = () => {
               </div>
             </div>
 
-            {/* 나중에 Button 컴포넌트 가져다가 쓰기 */}
             <div className="flex justify-end gap-3">
               <button
                 type="button"

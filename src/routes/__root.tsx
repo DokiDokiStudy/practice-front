@@ -1,12 +1,14 @@
+import { ThemeProvider } from "@/shared/theme";
+import { TopNav } from "@/widgets/_common";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
-import TopNav from "@/components/common/TopNav";
-import { ThemeProvider } from "@/themes/ThemeProvider";
 
 export const Route = createRootRoute({
   component: () => (
     <ThemeProvider>
-      <TopNav />
-      <Outlet />
+      <div className="min-h-screen flex flex-col">
+        <TopNav />
+        <Outlet />
+      </div>
     </ThemeProvider>
   ),
 });
