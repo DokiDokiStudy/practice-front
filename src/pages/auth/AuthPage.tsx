@@ -1,7 +1,11 @@
 import { AuthLayout } from "@/shared/ui";
-import { RegisterForm, FindUserForm, FindPwdForm } from "@/features/auth";
+import {
+  RegisterForm,
+  FindUserForm,
+  FindPwdForm,
+  LoginForm,
+} from "@/features/auth";
 import { useSearch } from "@tanstack/react-router";
-import { LoginForm } from "@/features/auth/ui/LoginForm";
 
 type AuthMode = "login" | "register" | "find-user" | "find-pwd";
 
