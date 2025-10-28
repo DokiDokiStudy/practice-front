@@ -1,87 +1,80 @@
-import { useState } from "react";
-import { useRegister } from "../model";
+import { useTheme } from "@/shared/theme";
+import { FormInput, FormButton } from "@/shared/ui";
+import { useRegisterForm } from "../model";
 
 export const RegisterForm = () => {
-  const { handleRegister, isLoading, error } = useRegister();
-
-  const [id, setId] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
-  const [nickName, setNickName] = useState("");
-
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await handleRegister({ email, password, nickName, confirm });
-  };
+  const { classes } = useTheme();
+  const {
+    id,
+    email,
+    password,
+    confirm,
+    nickName,
+    setId,
+    setEmail,
+    setPassword,
+    setConfirm,
+    setNickName,
+    onSubmit,
+    isLoading,
+    error,
+  } = useRegisterForm();
 
   return (
     <form
       onSubmit={onSubmit}
-      className="bg-white/90 backdrop-blur-md p-10 rounded-3xl shadow-2xl w-full border border-blue-100"
+      className={`p-10 pt-16 rounded-3xl shadow-2xl w-full max-w-md ${classes.surface} ${classes.surfaceBorder}`}
+      style={classes.surfaceBorderStyle}
     >
-      <h2 className="text-3xl font-extrabold text-center text-blue-700 mb-8 tracking-tight drop-shadow-sm">
+      <h2
+        className={`text-3xl text-center mb-8 ${classes.title}`}
+        style={classes.titleStyle}
+      >
         회원가입
       </h2>
 
-      <div className="mb-6">
-        <label className="text-blue-900 font-semibold block mb-2">닉네임</label>
-        <input
-          type="text"
-          value={nickName}
-          onChange={(e) => setNickName(e.target.value)}
-          className="w-full rounded-2xl border border-blue-200 px-5 py-3 bg-blue-50 text-blue-900 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition shadow-sm"
-          required
-        />
-      </div>
+      <FormInput
+        label="닉네임"
+        type="text"
+        value={nickName}
+        onChange={(e) => setNickName(e.target.value)}
+        required
+      />
 
-      <div className="mb-6">
-        <label className="text-blue-900 font-semibold block mb-2">아이디</label>
-        <input
-          type="text"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-          className="w-full rounded-2xl border border-blue-200 px-5 py-3 bg-blue-50 text-blue-900 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition shadow-sm"
-          required
-        />
-      </div>
+      <FormInput
+        label="아이디"
+        type="text"
+        value={id}
+        onChange={(e) => setId(e.target.value)}
+        required
+      />
 
-      <div className="mb-6">
-        <label className="text-blue-900 font-semibold block mb-2">이메일</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-2xl border border-blue-200 px-5 py-3 bg-blue-50 text-blue-900 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition shadow-sm"
-          required
-        />
-      </div>
+      <FormInput
+        label="이메일"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="example@email.com"
+        required
+      />
 
-      <div className="mb-6">
-        <label className="text-blue-900 font-semibold block mb-2">
-          비밀번호
-        </label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-2xl border border-blue-200 px-5 py-3 bg-blue-50 text-blue-900 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition shadow-sm"
-          required
-        />
-      </div>
+      <FormInput
+        label="비밀번호"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="비밀번호 입력"
+        required
+      />
 
-      <div className="mb-8">
-        <label className="text-blue-900 font-semibold block mb-2">
-          비밀번호 확인
-        </label>
-        <input
-          type="password"
-          value={confirm}
-          onChange={(e) => setConfirm(e.target.value)}
-          className="w-full rounded-2xl border border-blue-200 px-5 py-3 bg-blue-50 text-blue-900 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition shadow-sm"
-          required
-        />
-      </div>
+      <FormInput
+        label="비밀번호 확인"
+        type="password"
+        value={confirm}
+        onChange={(e) => setConfirm(e.target.value)}
+        placeholder="비밀번호 확인"
+        required
+      />
 
       {error && (
         <p className="text-red-500 text-base mb-6 text-center font-semibold">
@@ -89,17 +82,9 @@ export const RegisterForm = () => {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={isLoading}
-        className={`w-full py-3 rounded-2xl font-bold text-lg shadow-md transition ${
-          isLoading
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-gradient-to-r from-blue-500 to-blue-400 text-white hover:from-blue-600 hover:to-blue-500"
-        }`}
-      >
-        {isLoading ? "처리 중..." : "회원가입"}
-      </button>
+      <FormButton type="submit" isLoading={isLoading}>
+        회원가입
+      </FormButton>
     </form>
   );
 };

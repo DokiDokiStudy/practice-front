@@ -1,19 +1,12 @@
-import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useTheme } from "@/shared/theme";
-import { useLogin } from "../model";
+import { FormInput, FormButton } from "@/shared/ui";
+import { useLoginForm } from "../model";
 
 export const LoginForm = () => {
   const { classes } = useTheme();
-  const { handleLogin, isLoading, error } = useLogin();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleLogin({ email, password });
-  };
+  const { email, password, setEmail, setPassword, onSubmit, isLoading, error } =
+    useLoginForm();
 
   return (
     <form
@@ -28,45 +21,23 @@ export const LoginForm = () => {
         로그인
       </h2>
 
-      <label className="block mb-6">
-        <span className={`${classes.label}`} style={classes.labelStyle}>
-          이메일
-        </span>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={`mt-2 block w-full rounded-2xl px-5 py-3 transition shadow-sm ${classes.inputBorder} ${classes.inputFocus}`}
-          style={{
-            ...classes.inputBackgroundStyle,
-            ...classes.inputBorderStyle,
-            ...classes.inputTextStyle,
-            ...classes.inputPlaceholderStyle,
-          }}
-          placeholder="example@docker.com"
-          required
-        />
-      </label>
+      <FormInput
+        label="이메일"
+        type="text"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="example@docker.com"
+        required
+      />
 
-      <label className="block mb-8">
-        <span className={`${classes.label}`} style={classes.labelStyle}>
-          비밀번호
-        </span>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className={`mt-2 block w-full rounded-2xl px-5 py-3 transition shadow-sm ${classes.inputBorder} ${classes.inputFocus}`}
-          style={{
-            ...classes.inputBackgroundStyle,
-            ...classes.inputBorderStyle,
-            ...classes.inputTextStyle,
-            ...classes.inputPlaceholderStyle,
-          }}
-          placeholder="비밀번호 입력"
-          required
-        />
-      </label>
+      <FormInput
+        label="비밀번호"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="비밀번호 입력"
+        required
+      />
 
       {error && (
         <p className="text-red-500 text-base mb-6 text-center font-semibold">
@@ -74,14 +45,9 @@ export const LoginForm = () => {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={isLoading}
-        className={`w-full py-3 rounded-2xl text-lg mb-4 disabled:opacity-50 ${classes.buttonPrimary}`}
-        style={classes.buttonPrimaryStyle}
-      >
-        {isLoading ? "로그인 중..." : "로그인"}
-      </button>
+      <FormButton type="submit" isLoading={isLoading} loadingText="로그인 중...">
+        로그인
+      </FormButton>
 
       <div className="flex justify-between items-center mb-2">
         <Link
