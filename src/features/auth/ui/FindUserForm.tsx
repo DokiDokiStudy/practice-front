@@ -1,22 +1,16 @@
-import { useTheme } from "@/shared/theme";
 import { FormInput, FormButton } from "@/shared/ui";
 import { useFindUserForm } from "../model";
 
 export const FindUserForm = () => {
-  const { classes } = useTheme();
   const { email, setEmail, onSubmit, submitted, isLoading, navigate } =
     useFindUserForm();
 
   return (
     <form
       onSubmit={onSubmit}
-      className={`p-10 pt-16 rounded-3xl shadow-2xl w-full max-w-md ${classes.surface} ${classes.surfaceBorder}`}
-      style={classes.surfaceBorderStyle}
+      className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md border border-gray-200"
     >
-      <h2
-        className={`text-3xl text-center mb-8 ${classes.title}`}
-        style={classes.titleStyle}
-      >
+      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
         아이디 찾기
       </h2>
 

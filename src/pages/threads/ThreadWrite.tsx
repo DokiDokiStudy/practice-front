@@ -3,13 +3,11 @@ import { useNavigate } from "@tanstack/react-router";
 import { NestedSidebar } from "@/shared/ui";
 import { ArrowLeft, Save } from "lucide-react";
 import { useCreateThread } from "@/features/thread/model/useThreads";
-import { useTheme } from "@/shared/theme";
 import { useAuth } from "@/features/auth";
 import { docsData, useDockerCategories } from "@/features/docker-docs";
 
 const ThreadWrite = () => {
   const navigate = useNavigate();
-  const { classes } = useTheme();
   const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -113,10 +111,7 @@ const ThreadWrite = () => {
                 <ArrowLeft size={16} />
                 목록으로
               </button>
-              <h1
-                className={`text-2xl font-bold ${classes.title}`}
-                style={classes.titleStyle}
-              >
+              <h1 className="text-2xl font-bold text-gray-900">
                 🐳 Docker 학습 쓰레드 작성
               </h1>
             </div>
@@ -124,14 +119,10 @@ const ThreadWrite = () => {
 
           <form
             onSubmit={handleSubmit}
-            className={`rounded-lg shadow-lg p-8 ${classes.surface}`}
-            style={classes.surfaceBorderStyle}
+            className="rounded-lg shadow-lg p-8 bg-white border border-gray-200"
           >
             <div className="mb-6">
-              <label
-                className={`block text-sm font-medium mb-4 ${classes.label}`}
-                style={classes.labelStyle}
-              >
+              <label className="block text-sm font-medium mb-4 text-gray-700">
                 카테고리 선택 *{" "}
                 <span className="text-xs text-gray-500">
                   (소분류까지 반드시 선택해주세요)
@@ -243,10 +234,7 @@ const ThreadWrite = () => {
             </div>
 
             <div className="mb-6">
-              <label
-                className={`block text-sm font-medium mb-2 ${classes.label}`}
-                style={classes.labelStyle}
-              >
+              <label className="block text-sm font-medium mb-2 text-gray-700">
                 제목 *
               </label>
               <input
@@ -258,19 +246,13 @@ const ThreadWrite = () => {
                 required
                 maxLength={200}
               />
-              <div
-                className={`text-sm mt-1 ${classes.textSecondary}`}
-                style={classes.textSecondaryStyle}
-              >
+              <div className="text-sm mt-1 text-gray-500">
                 {title.length}/200
               </div>
             </div>
 
             <div className="mb-8">
-              <label
-                className={`block text-sm font-medium mb-2 ${classes.label}`}
-                style={classes.labelStyle}
-              >
+              <label className="block text-sm font-medium mb-2 text-gray-700">
                 내용 *
               </label>
               <textarea
@@ -281,10 +263,7 @@ const ThreadWrite = () => {
                 rows={12}
                 required
               />
-              <div
-                className={`text-sm mt-1 ${classes.textSecondary}`}
-                style={classes.textSecondaryStyle}
-              >
+              <div className="text-sm mt-1 text-gray-500">
                 {content.length} 자
               </div>
             </div>

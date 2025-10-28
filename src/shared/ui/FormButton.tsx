@@ -1,5 +1,3 @@
-import { useTheme } from "@/shared/theme";
-
 interface FormButtonProps {
   type?: "submit" | "button";
   isLoading?: boolean;
@@ -17,15 +15,12 @@ export const FormButton = ({
   onClick,
   disabled = false,
 }: FormButtonProps) => {
-  const { classes } = useTheme();
-
   return (
     <button
       type={type}
       disabled={isLoading || disabled}
       onClick={onClick}
-      className={`w-full py-3 rounded-2xl text-lg mb-4 disabled:opacity-50 ${classes.buttonPrimary}`}
-      style={classes.buttonPrimaryStyle}
+      className="w-full py-2.5 rounded-lg text-base font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition mb-4"
     >
       {isLoading ? loadingText : children}
     </button>

@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { useDeleteThread, useThread } from "@/features/thread/model/useThreads";
-import { useTheme } from "@/shared/theme";
 import { useAuth } from "@/features/auth";
 import { usePostReaction } from "@/features/board";
 import { CommentList, docsData } from "@/features/docker-docs";
@@ -17,7 +16,6 @@ import { CommentList, docsData } from "@/features/docker-docs";
 const ThreadDetail = () => {
   const { id } = useParams({ from: "/thread/$id" });
   const navigate = useNavigate();
-  const { classes } = useTheme();
   const { user } = useAuth();
 
   const threadId = parseInt(id || "0");
@@ -127,22 +125,13 @@ const ThreadDetail = () => {
             )}
           </div>
 
-          <article
-            className={`rounded-lg shadow-lg p-8 mb-8 ${classes.surface}`}
-            style={classes.surfaceBorderStyle}
-          >
+          <article className="rounded-lg shadow-lg p-8 mb-8 bg-white border border-gray-200">
             <header className="border-b pb-4 mb-6">
-              <h1
-                className={`text-3xl font-bold mb-4 ${classes.title}`}
-                style={classes.titleStyle}
-              >
+              <h1 className="text-3xl font-bold mb-4 text-gray-900">
                 {thread.title}
               </h1>
               <div className="flex justify-between items-center text-sm">
-                <div
-                  className={`${classes.textSecondary}`}
-                  style={classes.textSecondaryStyle}
-                >
+                <div className="text-gray-600">
                   <span className="font-medium">
                     {thread.user?.nickName || "익명"}
                   </span>
@@ -160,10 +149,7 @@ const ThreadDetail = () => {
               </div>
             </header>
 
-            <div
-              className={`prose max-w-none mb-6 ${classes.textPrimary}`}
-              style={classes.textPrimaryStyle}
-            >
+            <div className="prose max-w-none mb-6 text-gray-800">
               <div className="whitespace-pre-wrap leading-relaxed">
                 {thread.content}
               </div>
@@ -203,14 +189,8 @@ const ThreadDetail = () => {
             </div>
           </article>
 
-          <section
-            className={`rounded-lg shadow-lg p-6 ${classes.surface}`}
-            style={classes.surfaceBorderStyle}
-          >
-            <h2
-              className={`text-xl font-bold mb-6 ${classes.title}`}
-              style={classes.titleStyle}
-            >
+          <section className="rounded-lg shadow-lg p-6 bg-white border border-gray-200">
+            <h2 className="text-xl font-bold mb-6 text-gray-900">
               💬 댓글
             </h2>
             <CommentList threadId={threadId} comments={thread.comments} />

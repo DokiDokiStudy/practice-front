@@ -1,9 +1,7 @@
-import { useTheme } from "@/shared/theme";
 import { FormInput, FormButton } from "@/shared/ui";
 import { useRegisterForm } from "../model";
 
 export const RegisterForm = () => {
-  const { classes } = useTheme();
   const {
     id,
     email,
@@ -23,13 +21,9 @@ export const RegisterForm = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className={`p-10 pt-16 rounded-3xl shadow-2xl w-full max-w-md ${classes.surface} ${classes.surfaceBorder}`}
-      style={classes.surfaceBorderStyle}
+      className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md border border-gray-200"
     >
-      <h2
-        className={`text-3xl text-center mb-8 ${classes.title}`}
-        style={classes.titleStyle}
-      >
+      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
         회원가입
       </h2>
 
@@ -77,7 +71,7 @@ export const RegisterForm = () => {
       />
 
       {error && (
-        <p className="text-red-500 text-base mb-6 text-center font-semibold">
+        <p className="text-red-500 text-sm mb-4 text-center">
           {error}
         </p>
       )}
