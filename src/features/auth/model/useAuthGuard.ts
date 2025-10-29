@@ -11,7 +11,7 @@ type UseAuthGuardOptions = {
 
 export const useAuthGuard = (options: UseAuthGuardOptions = {}) => {
   const {
-    redirectTo = "/auth",
+    redirectTo = "/auth/login",
     message = "로그인 후 접근 가능합니다.",
     enabled = true,
   } = options;
@@ -24,7 +24,7 @@ export const useAuthGuard = (options: UseAuthGuardOptions = {}) => {
 
     if (!user) {
       toast.warn(message);
-      navigate({ to: redirectTo, search: { mode: "login" } });
+      navigate({ to: redirectTo });
     }
   }, [user, isLoading, navigate, redirectTo, message, enabled]);
 

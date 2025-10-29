@@ -36,7 +36,7 @@ export const FindUserForm = () => {
           </p>
           <FormButton
             type="button"
-            onClick={() => navigate({ to: "/auth", search: { mode: "login" } })}
+            onClick={() => navigate({ to: "/auth/login" })}
           >
             로그인 페이지로 이동
           </FormButton>

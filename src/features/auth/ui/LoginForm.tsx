@@ -45,24 +45,21 @@ export const LoginForm = () => {
 
       <div className="flex justify-between items-center text-sm text-gray-600">
         <Link
-          to="/auth"
-          search={{ mode: "register" }}
+          to="/auth/register"
           className="hover:underline hover:text-blue-600 font-medium"
         >
           회원가입
         </Link>
         <div className="flex items-center gap-2">
           <Link
-            to="/auth"
-            search={{ mode: "find-user" }}
+            to="/auth/find-user"
             className="hover:underline hover:text-blue-600 font-medium"
           >
             아이디 찾기
           </Link>
           <span>|</span>
           <Link
-            to="/auth"
-            search={{ mode: "find-pwd" }}
+            to="/auth/find-pwd"
             className="hover:underline hover:text-blue-600 font-medium"
           >
             비밀번호 찾기

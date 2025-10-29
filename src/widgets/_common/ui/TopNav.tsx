@@ -21,18 +21,12 @@ export function TopNav() {
       {!isLoading && (
         <ul className="flex space-x-6 font-semibold text-gray-700">
           <li>
-            <Link
-              to="/main"
-              className="transition-colors hover:text-blue-600"
-            >
+            <Link to="/main" className="transition-colors hover:text-blue-600">
               메인
             </Link>
           </li>
           <li>
-            <Link
-              to="/board"
-              className="transition-colors hover:text-blue-600"
-            >
+            <Link to="/board" className="transition-colors hover:text-blue-600">
               게시판
             </Link>
           </li>
@@ -50,8 +44,7 @@ export function TopNav() {
             <>
               <li>
                 <Link
-                  to="/auth"
-                  search={{ mode: "login" }}
+                  to="/auth/login"
                   className="transition-colors hover:text-blue-600"
                 >
                   로그인
@@ -59,8 +52,7 @@ export function TopNav() {
               </li>
               <li>
                 <Link
-                  to="/auth"
-                  search={{ mode: "register" }}
+                  to="/auth/register"
                   className="transition-colors hover:text-blue-600"
                 >
                   회원가입
