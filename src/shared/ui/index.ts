@@ -13,3 +13,5 @@ export { AuthLayout } from "./AuthLayout";
 
 export { FormInput } from "./FormInput";
 export { FormButton } from "./FormButton";
+
+export { CategorySelect } from "./CategorySelect";
