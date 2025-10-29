@@ -13,7 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchThreadById } from "@/entities/thread";
 import { usePostReaction } from "@/features/board";
 
-type ThreadCardProps = {
+interface ThreadCardProps {
   threadId: string;
   title: string;
   summary: string; // 요약 (앞부분 일부)
@@ -22,7 +22,7 @@ type ThreadCardProps = {
   dislikes: number;
   comments: string[];
   userId?: number;
-};
+}
 
 const ThreadCard = ({
   threadId,

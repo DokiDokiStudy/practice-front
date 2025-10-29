@@ -3,11 +3,11 @@ import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 import { useAuth } from "./useAuth";
 
-type UseAuthGuardOptions = {
+interface UseAuthGuardOptions {
   redirectTo?: string;
   message?: string;
   enabled?: boolean;
-};
+}
 
 export const useAuthGuard = (options: UseAuthGuardOptions = {}) => {
   const {

@@ -3,9 +3,9 @@ import { Send } from "lucide-react";
 import { useAuth } from "@/features/auth";
 import { useCreateComment } from "@/features/thread/model/useComments";
 
-type CommentWriteProps = {
+interface CommentWriteProps {
   threadId: number;
-};
+}
 
 const CommentWrite = ({ threadId }: CommentWriteProps) => {
   const { user } = useAuth();

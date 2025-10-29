@@ -1,16 +1,16 @@
-type SelectOption = {
+interface SelectOption {
   id: number;
   name: string;
-};
+}
 
-type CategorySelectProps = {
+interface CategorySelectProps {
   value: number;
   onChange: (value: number) => void;
   options: SelectOption[];
   placeholder?: string;
   isLoading?: boolean;
   className?: string;
-};
+}
 
 export const CategorySelect = ({
   value,

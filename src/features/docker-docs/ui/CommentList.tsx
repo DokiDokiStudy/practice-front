@@ -1,10 +1,10 @@
 import CommentWrite from "./CommentWrite";
 import { Comment } from "@/entities/thread";
 
-type CommentListProps = {
+interface CommentListProps {
   threadId: number;
   comments?: Comment[]; // Thread에서 받은 댓글 배열
-};
+}
 
 const CommentList = ({ threadId, comments = [] }: CommentListProps) => {
   return (
