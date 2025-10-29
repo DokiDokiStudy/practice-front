@@ -4,9 +4,9 @@ import { NestedSidebar } from "@/shared/ui";
 import { ArrowLeft, Save } from "lucide-react";
 import { useCreateThread } from "@/features/thread/model/useThreads";
 import { useAuth } from "@/features/auth";
-import { docsData, useDockerCategories } from "@/features/docker-docs";
+import { docsData, useDockerCategories } from "@/features/docs";
 
-const ThreadWrite = () => {
+export const ThreadWrite = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [title, setTitle] = useState("");
@@ -291,5 +291,3 @@ const ThreadWrite = () => {
     </div>
   );
 };
-
-export default ThreadWrite;

@@ -1,1 +1,2 @@
-export { DockerDocsDetail } from "./DockerDocsDetail";
+export { DocsChapterDetail } from "./DocsChapterDetail";
+export { DocsCategoryPage } from "./DocsCategoryPage";

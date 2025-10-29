@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const queryClient = new QueryClient();
 
-function App() {
+export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
@@ -15,4 +15,3 @@ function App() {
     </QueryClientProvider>
   );
 }
-export default App;

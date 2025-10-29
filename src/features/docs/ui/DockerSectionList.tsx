@@ -4,14 +4,10 @@ import type { DocsSection } from "../model/types";
 export function DocsSectionList({ docs }: { docs: DocsSection[] }) {
   const navigate = useNavigate();
 
-  const goToDetail = (
-    projectId: string,
-    chapterId: string,
-    stepId?: string
-  ) => {
+  const goToDetail = (category: string, chapterId: string, stepId?: string) => {
     navigate({
-      to: "/docs/$projectId/$chapterId",
-      params: { projectId, chapterId },
+      to: "/docs/$category/$chapterId",
+      params: { category, chapterId },
       hash: stepId,
     });
   };
@@ -20,9 +16,6 @@ export function DocsSectionList({ docs }: { docs: DocsSection[] }) {
     <>
       {docs.map((section) => (
         <div key={section.id} className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-            {section.title}
-          </h2>
           {section.chapters.map((chapter) => (
             <div key={chapter.id} className="mb-6">
               <h3

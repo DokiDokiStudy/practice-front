@@ -7,9 +7,9 @@ import {
   docsData,
   ThreadCard,
   useDockerCategories,
-} from "@/features/docker-docs";
+} from "@/features/docs";
 
-const ThreadList = () => {
+export const ThreadList = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -207,5 +207,3 @@ const ThreadList = () => {
     </div>
   );
 };
-
-export default ThreadList;

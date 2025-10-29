@@ -6,9 +6,9 @@ import { useNavigate, useParams } from "@tanstack/react-router";
 import { fetchCategories } from "@/entities/category";
 import { useThread, useUpdateThread } from "@/features/thread/model/useThreads";
 import { useAuth } from "@/features/auth";
-import { docsData } from "@/features/docker-docs";
+import { docsData } from "@/features/docs";
 
-const ThreadEdit = () => {
+export const ThreadEdit = () => {
   const { id } = useParams({ from: "/thread/$id/edit" });
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -262,5 +262,3 @@ const ThreadEdit = () => {
     </div>
   );
 };
-
-export default ThreadEdit;

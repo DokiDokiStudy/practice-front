@@ -7,7 +7,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import CommentList from "./CommentList";
+import { CommentList } from "./CommentList";
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchThreadById } from "@/entities/thread";
@@ -24,7 +24,7 @@ interface ThreadCardProps {
   userId?: number;
 }
 
-const ThreadCard = ({
+export const ThreadCard = ({
   threadId,
   title,
   summary,
@@ -149,5 +149,3 @@ const ThreadCard = ({
     </div>
   );
 };
-
-export default ThreadCard;

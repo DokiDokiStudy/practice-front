@@ -33,43 +33,62 @@ export function NestedSidebar({ data }: Props) {
           <li key={project.id}>
             <div className="font-bold text-gray-800 mb-1">{project.title}</div>
             <ul className="ml-2 space-y-1">
-              {project.chapters.map((chapter) => (
-                <li key={chapter.id}>
-                  <div className="text-gray-700 font-semibold">
-                    {chapter.title}
-                  </div>
-                  <ul className="ml-4 space-y-0.5 mt-1">
-                    {chapter.steps?.map((step) => {
-                      const isActive = state.location.pathname.includes(
-                        step.id
-                      );
+              {project.chapters.map((chapter) => {
+                const isChapterActive = state.location.pathname.includes(
+                  `/docs/${project.id}/${chapter.id}`
+                );
 
-                      return (
-                        <li
-                          key={step.id}
-                          className={`cursor-pointer hover:underline ${
-                            isActive
-                              ? "text-blue-600 font-semibold"
-                              : "text-gray-700"
-                          }`}
-                          onClick={() =>
-                            router.navigate({
-                              to: "/docs/$projectId/$chapterId",
-                              params: {
-                                projectId: project.id,
-                                chapterId: chapter.id,
-                              },
-                              hash: step.id,
-                            })
-                          }
-                        >
-                          {step.title}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </li>
-              ))}
+                return (
+                  <li key={chapter.id}>
+                    <div
+                      className={`cursor-pointer hover:underline font-semibold ${
+                        isChapterActive
+                          ? "text-blue-600"
+                          : "text-gray-700"
+                      }`}
+                      onClick={() =>
+                        router.navigate({
+                          to: "/docs/$category/$chapterId",
+                          params: {
+                            category: project.id,
+                            chapterId: chapter.id,
+                          },
+                        })
+                      }
+                    >
+                      {chapter.title}
+                    </div>
+                    <ul className="ml-4 space-y-0.5 mt-1">
+                      {chapter.steps?.map((step) => {
+                        const isStepActive = state.location.hash === `#${step.id}`;
+
+                        return (
+                          <li
+                            key={step.id}
+                            className={`cursor-pointer hover:underline ${
+                              isStepActive
+                                ? "text-blue-600 font-semibold"
+                                : "text-gray-700"
+                            }`}
+                            onClick={() =>
+                              router.navigate({
+                                to: "/docs/$category/$chapterId",
+                                params: {
+                                  category: project.id,
+                                  chapterId: chapter.id,
+                                },
+                                hash: step.id,
+                              })
+                            }
+                          >
+                            {step.title}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </li>
+                );
+              })}
             </ul>
           </li>
         ))}

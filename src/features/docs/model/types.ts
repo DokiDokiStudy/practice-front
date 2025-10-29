@@ -1,6 +1,7 @@
 export interface Step {
   id: string;
   title: string;
+  content?: string;
 }
 
 export interface Chapter {

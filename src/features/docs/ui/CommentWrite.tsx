@@ -7,7 +7,7 @@ interface CommentWriteProps {
   threadId: number;
 }
 
-const CommentWrite = ({ threadId }: CommentWriteProps) => {
+export const CommentWrite = ({ threadId }: CommentWriteProps) => {
   const { user } = useAuth();
   const [content, setContent] = useState("");
   const createCommentMutation = useCreateComment(threadId);
@@ -44,7 +44,6 @@ const CommentWrite = ({ threadId }: CommentWriteProps) => {
     }
   };
 
-  // 로그인하지 않은 경우 로그인 안내 표시
   if (!user) {
     return (
       <div className="bg-gray-50 rounded-lg p-4 text-center">
@@ -56,9 +55,6 @@ const CommentWrite = ({ threadId }: CommentWriteProps) => {
     );
   }
 
-  {
-    /* TODO: 버튼 컴포넌트 사용하기 */
-  }
   return (
     <form onSubmit={handleSubmit} className="bg-gray-50 rounded-lg p-4">
       <div className="flex gap-3">
@@ -91,5 +87,3 @@ const CommentWrite = ({ threadId }: CommentWriteProps) => {
     </form>
   );
 };
-
-export default CommentWrite;

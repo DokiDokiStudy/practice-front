@@ -1,4 +1,4 @@
-import CommentWrite from "./CommentWrite";
+import { CommentWrite } from "./CommentWrite";
 import { Comment } from "@/entities/thread";
 
 interface CommentListProps {
@@ -6,7 +6,7 @@ interface CommentListProps {
   comments?: Comment[]; // Thread에서 받은 댓글 배열
 }
 
-const CommentList = ({ threadId, comments = [] }: CommentListProps) => {
+export const CommentList = ({ threadId, comments = [] }: CommentListProps) => {
   return (
     <div className="space-y-4">
       <CommentWrite threadId={threadId} />
@@ -42,5 +42,3 @@ const CommentList = ({ threadId, comments = [] }: CommentListProps) => {
     </div>
   );
 };
-
-export default CommentList;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
-import ThreadCard from "./ThreadCard";
+import { ThreadCard } from "./ThreadCard";
 import { api } from "@/shared/api";
 
 const dummyThreads = [
@@ -30,7 +30,7 @@ interface Props {
 
 interface Thread {
   id?: number;
-  threadId?: string; // 더미용
+  threadId?: string;
   title: string;
   summary: string;
   likes: number;
@@ -38,7 +38,7 @@ interface Thread {
   comments: string[];
 }
 
-const SelectedStepThread = ({ stepId, onClose }: Props) => {
+export const SelectedStepThread = ({ stepId, onClose }: Props) => {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -112,5 +112,3 @@ const SelectedStepThread = ({ stepId, onClose }: Props) => {
     </motion.div>
   );
 };
-
-export default SelectedStepThread;

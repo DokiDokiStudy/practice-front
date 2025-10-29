@@ -11,9 +11,9 @@ import { useNavigate, useParams } from "@tanstack/react-router";
 import { useDeleteThread, useThread } from "@/features/thread/model/useThreads";
 import { useAuth } from "@/features/auth";
 import { usePostReaction } from "@/features/board";
-import { CommentList, docsData } from "@/features/docker-docs";
+import { CommentList, docsData } from "@/features/docs";
 
-const ThreadDetail = () => {
+export const ThreadDetail = () => {
   const { id } = useParams({ from: "/thread/$id" });
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -200,5 +200,3 @@ const ThreadDetail = () => {
     </div>
   );
 };
-
-export default ThreadDetail;
