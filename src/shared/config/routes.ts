@@ -26,13 +26,18 @@ const THREAD = {
   },
 } as const;
 
+const AUTH = {
+  ROOT: "/auth",
+  LOGIN: "/auth",
+  REGISTER: "/auth",
+  FIND_USER: "/auth",
+  FIND_PWD: "/auth",
+} as const;
+
 export const ROUTES = {
   HOME: "/",
   MAIN: "/main",
-  LOGIN: "/login",
-  REGISTER: "/register",
-  FIND_USER: "/find-user",
-  FIND_PWD: "/find-pwd",
+  LOGIN: "/auth",
 
   DOCKER_DOCS: "/docker-docs",
   DOCS_DETAIL: {
@@ -41,6 +46,7 @@ export const ROUTES = {
       `/docs/${projectId}/${chapterId}`,
   },
 
+  AUTH,
   BOARD,
   THREAD,
 } as const;

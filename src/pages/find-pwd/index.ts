@@ -1,1 +1,0 @@
-export { FindPwd } from "./FindPwd";

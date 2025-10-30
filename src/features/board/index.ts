@@ -7,4 +7,4 @@ export {
   usePostReaction,
 } from "./model";
 
-export { BoardForm, BoardView } from "./ui";
+export { BoardForm, BoardView, BoardList, BoardPagination } from "./ui";

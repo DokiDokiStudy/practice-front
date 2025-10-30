@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-type User = {
+interface User {
   nickName: string;
   token: string;
-};
+}
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);

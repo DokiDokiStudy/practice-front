@@ -5,14 +5,12 @@ import { ArrowLeft, Save } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { fetchCategories } from "@/entities/category";
 import { useThread, useUpdateThread } from "@/features/thread/model/useThreads";
-import { useTheme } from "@/shared/theme";
 import { useAuth } from "@/features/auth";
-import { docsData } from "@/features/docker-docs";
+import { docsData } from "@/features/docs";
 
-const ThreadEdit = () => {
+export const ThreadEdit = () => {
   const { id } = useParams({ from: "/thread/$id/edit" });
   const navigate = useNavigate();
-  const { classes } = useTheme();
   const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -168,10 +166,7 @@ const ThreadEdit = () => {
                 <ArrowLeft size={16} />
                 상세로
               </button>
-              <h1
-                className={`text-2xl font-bold ${classes.title}`}
-                style={classes.titleStyle}
-              >
+              <h1 className="text-2xl font-bold text-gray-900">
                 🧵 쓰레드 수정
               </h1>
             </div>
@@ -180,15 +175,11 @@ const ThreadEdit = () => {
           {/* 수정 폼 */}
           <form
             onSubmit={handleSubmit}
-            className={`rounded-lg shadow-lg p-8 ${classes.surface}`}
-            style={classes.surfaceBorderStyle}
+            className="rounded-lg shadow-lg p-8 bg-white border border-gray-200"
           >
             {/* 카테고리 선택 */}
             <div className="mb-6">
-              <label
-                className={`block text-sm font-medium mb-2 ${classes.label}`}
-                style={classes.labelStyle}
-              >
+              <label className="block text-sm font-medium mb-2 text-gray-700">
                 카테고리 *
               </label>
               <select
@@ -212,10 +203,7 @@ const ThreadEdit = () => {
 
             {/* 제목 입력 */}
             <div className="mb-6">
-              <label
-                className={`block text-sm font-medium mb-2 ${classes.label}`}
-                style={classes.labelStyle}
-              >
+              <label className="block text-sm font-medium mb-2 text-gray-700">
                 제목 *
               </label>
               <input
@@ -227,20 +215,14 @@ const ThreadEdit = () => {
                 required
                 maxLength={200}
               />
-              <div
-                className={`text-sm mt-1 ${classes.textSecondary}`}
-                style={classes.textSecondaryStyle}
-              >
+              <div className="text-sm mt-1 text-gray-500">
                 {title.length}/200
               </div>
             </div>
 
             {/* 내용 입력 */}
             <div className="mb-8">
-              <label
-                className={`block text-sm font-medium mb-2 ${classes.label}`}
-                style={classes.labelStyle}
-              >
+              <label className="block text-sm font-medium mb-2 text-gray-700">
                 내용 *
               </label>
               <textarea
@@ -251,10 +233,7 @@ const ThreadEdit = () => {
                 rows={12}
                 required
               />
-              <div
-                className={`text-sm mt-1 ${classes.textSecondary}`}
-                style={classes.textSecondaryStyle}
-              >
+              <div className="text-sm mt-1 text-gray-500">
                 {content.length} 자
               </div>
             </div>
@@ -283,5 +262,3 @@ const ThreadEdit = () => {
     </div>
   );
 };
-
-export default ThreadEdit;

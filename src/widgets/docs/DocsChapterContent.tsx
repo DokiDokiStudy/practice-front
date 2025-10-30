@@ -2,16 +2,12 @@ import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useLocation, useNavigate, useParams } from "@tanstack/react-router";
 import { NestedSidebar } from "@/shared/ui";
-import {
-  docsData,
-  SelectedStepThread,
-  useDocsData,
-} from "@/features/docker-docs";
+import { docsData, SelectedStepThread, useDocsData } from "@/features/docs";
 
 export const DocsChapterContent = () => {
   const location = useLocation();
-  const { projectId = "docker", chapterId = "1" } = useParams({
-    from: "/docs/$projectId/$chapterId",
+  const { category = "docker", chapterId = "1" } = useParams({
+    from: "/docs/$category/$chapterId",
   });
   const navigate = useNavigate();
   const [selectedStepId, setSelectedStepId] = useState<string | null>(null);
@@ -19,11 +15,16 @@ export const DocsChapterContent = () => {
   const docs = useDocsData();
   const activeDocs = docs.length > 0 ? docs : docsData;
 
-  const project = activeDocs.find((p) => p.id === projectId);
-  const chapter = project?.chapters.find((c) => c.id === chapterId);
+  const categoryDoc = activeDocs.find((doc) => doc.id === category);
+  const chapter = categoryDoc?.chapters.find((c) => c.id === chapterId);
 
-  const flatChapters = project?.chapters ?? [];
+  const flatChapters = categoryDoc?.chapters ?? [];
   const currentIndex = flatChapters.findIndex((c) => c.id === chapterId);
+
+  console.log("category:", category);
+  console.log("chapterId:", chapterId);
+  console.log("activeDocs:", activeDocs);
+  console.log("categoryDoc:", categoryDoc);
 
   useEffect(() => {
     if (location.hash) {
@@ -35,8 +36,8 @@ export const DocsChapterContent = () => {
   const goToPrev = () => {
     if (currentIndex > 0) {
       navigate({
-        to: "/docs/$projectId/$chapterId",
-        params: { projectId, chapterId: flatChapters[currentIndex - 1].id },
+        to: "/docs/$category/$chapterId",
+        params: { category, chapterId: flatChapters[currentIndex - 1].id },
       });
     }
   };
@@ -44,15 +45,17 @@ export const DocsChapterContent = () => {
   const goToNext = () => {
     if (currentIndex < flatChapters.length - 1) {
       navigate({
-        to: "/docs/$projectId/$chapterId",
-        params: { projectId, chapterId: flatChapters[currentIndex + 1].id },
+        to: "/docs/$category/$chapterId",
+        params: { category, chapterId: flatChapters[currentIndex + 1].id },
       });
     }
   };
+  console.log("hi");
+  console.log("categoryDoc:", categoryDoc);
 
   return (
     <div className="flex flex-1 bg-white">
-      <NestedSidebar data={activeDocs} />
+      <NestedSidebar data={categoryDoc ? [categoryDoc] : []} />
 
       <main className="flex-1 relative px-6 py-10 max-w-4xl mx-auto">
         {currentIndex > 0 && (
@@ -84,7 +87,9 @@ export const DocsChapterContent = () => {
                   >
                     {step.title}
                   </h2>
-                  <p className="text-gray-800 leading-relaxed">내용 없음</p>
+                  <p className="text-gray-800 leading-relaxed">
+                    {step.content || "내용 없음"}
+                  </p>
                 </section>
               ))}
             </div>

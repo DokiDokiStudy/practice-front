@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { useTheme } from "@/shared/theme";
 import { useThreadsByCategory } from "@/features/thread/model/useThreads";
 import { NestedSidebar } from "@/shared/ui";
 import { useAuth } from "@/features/auth";
@@ -8,12 +7,11 @@ import {
   docsData,
   ThreadCard,
   useDockerCategories,
-} from "@/features/docker-docs";
+} from "@/features/docs";
 
-const ThreadList = () => {
+export const ThreadList = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { classes } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
 
@@ -75,10 +73,7 @@ const ThreadList = () => {
       {/* TODO: 추후 컴포넌트화 + props로 카테고리 받아서 여러 대분류 카테고리를 한번에 표현, 또는 각 카테고리별로 표현할 수 있어야겠다요. */}
       <main className="max-w-4xl px-4 py-10 mx-auto w-full">
         <div className="flex justify-between items-center mb-6">
-          <h1
-            className={`text-2xl font-bold ${classes.title}`}
-            style={classes.titleStyle}
-          >
+          <h1 className="text-2xl font-bold text-gray-900">
             🐳 Docker 학습 쓰레드
             {(selectedChapter || selectedCategory) && (
               <div className="text-sm font-normal text-gray-600 mt-1">
@@ -109,8 +104,7 @@ const ThreadList = () => {
           {user && (
             <button
               onClick={() => navigate({ to: "/thread/write" })}
-              className={`px-4 py-2 rounded transition-colors ${classes.buttonPrimary}`}
-              style={classes.buttonPrimaryStyle}
+              className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors"
             >
               글쓰기
             </button>
@@ -213,5 +207,3 @@ const ThreadList = () => {
     </div>
   );
 };
-
-export default ThreadList;

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export type ButtonProps = {
+export interface ButtonProps {
   children: ReactNode;
   color?: string;
   size?: string;
@@ -8,7 +8,7 @@ export type ButtonProps = {
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   loading?: boolean;
-};
+}
 
 const colorClasses = {
   blue: "bg-blue-600 text-white hover:bg-blue-700",

@@ -2,6 +2,7 @@ export { login, register, checkEmailExists, findPassword } from "./api";
 export type { LoginParams, RegisterParams, AuthResponse, User } from "./model";
 export {
   useAuth,
+  useAuthGuard,
   useLogin,
   useRegister,
   useFindUser,

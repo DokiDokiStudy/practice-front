@@ -1,63 +1,45 @@
-import { useState } from "react";
-import { useFindUser } from "@/features/auth/model/useFindUser";
+import { FormInput, FormButton } from "@/shared/ui";
+import { useFindUserForm } from "../model";
 
 export const FindUserForm = () => {
-  const { submitted, isLoading, handleFindUser, navigate } = useFindUser();
-  const [email, setEmail] = useState("");
-
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await handleFindUser(email);
-  };
+  const { email, setEmail, onSubmit, submitted, isLoading, navigate } =
+    useFindUserForm();
 
   return (
     <form
       onSubmit={onSubmit}
-      className="bg-white/90 backdrop-blur-md p-10 rounded-3xl shadow-2xl w-full border border-blue-100"
+      className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md border border-gray-200"
     >
-      <h2 className="text-3xl font-extrabold text-center text-blue-700 mb-8 tracking-tight drop-shadow-sm">
+      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
         아이디 찾기
       </h2>
 
       {!submitted ? (
         <>
-          <div className="mb-8">
-            <label className="text-blue-900 font-semibold block mb-2">
-              가입된 이메일
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-2xl border border-blue-200 px-5 py-3 bg-blue-50 text-blue-900 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition shadow-sm"
-              required
-            />
-          </div>
+          <FormInput
+            label="가입된 이메일"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="example@email.com"
+            required
+          />
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className={`w-full py-3 rounded-2xl font-bold text-lg shadow-md transition ${
-              isLoading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-blue-500 to-blue-400 text-white hover:from-blue-600 hover:to-blue-500"
-            }`}
-          >
-            {isLoading ? "처리 중..." : "아이디 찾기"}
-          </button>
+          <FormButton type="submit" isLoading={isLoading}>
+            아이디 찾기
+          </FormButton>
         </>
       ) : (
         <div className="text-center">
           <p className="text-green-600 font-semibold mb-6">
             입력한 이메일로 아이디 정보를 전송했습니다.
           </p>
-          <button
+          <FormButton
             type="button"
-            onClick={() => navigate({ to: "/login" })}
-            className="bg-gradient-to-r from-blue-500 to-blue-400 text-white py-3 px-6 rounded-2xl font-bold shadow-md hover:from-blue-600 hover:to-blue-500 transition"
+            onClick={() => navigate({ to: "/auth/login" })}
           >
             로그인 페이지로 이동
-          </button>
+          </FormButton>
         </div>
       )}
     </form>

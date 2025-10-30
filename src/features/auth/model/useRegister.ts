@@ -36,7 +36,7 @@ export const useRegister = () => {
 
       if (res.accessToken && res.user) {
         toast.success("회원가입 성공!");
-        navigate({ to: "/login" });
+        navigate({ to: "/auth/login" });
         return true;
       } else {
         toast.error("회원가입 실패");

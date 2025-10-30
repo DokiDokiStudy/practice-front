@@ -1,6 +1,11 @@
 export type { LoginParams, RegisterParams, AuthResponse, User } from "./types";
 export { useAuth } from "./useAuth";
+export { useAuthGuard } from "./useAuthGuard";
 export { useLogin } from "./useLogin";
 export { useRegister } from "./useRegister";
 export { useFindUser } from "./useFindUser";
 export { useFindPwd } from "./useFindPwd";
+export { useLoginForm } from "./useLoginForm";
+export { useRegisterForm } from "./useRegisterForm";
+export { useFindUserForm } from "./useFindUserForm";
+export { useFindPwdForm } from "./useFindPwdForm";
