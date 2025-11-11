@@ -16,12 +16,12 @@ export const useLogin = () => {
     try {
       const res = await login(params);
 
-      if (res.accessToken && res.user) {
+      if (res.token && res.nickName) {
         localStorage.setItem(
           "user",
           JSON.stringify({
-            token: res.accessToken,
-            nickName: res.user.nickName,
+            token: res.token,
+            nickName: res.nickName,
           })
         );
         toast.success("로그인 성공!");
@@ -33,6 +33,7 @@ export const useLogin = () => {
         return false;
       }
     } catch (err) {
+      console.error(err);
       setError("아이디 또는 비밀번호를 다시 확인해주세요.");
       toast.error("로그인 실패");
       return false;

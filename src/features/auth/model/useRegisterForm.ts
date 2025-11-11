@@ -11,7 +11,7 @@ export const useRegisterForm = () => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await handleRegister({ email, password, nickName, confirm });
+    await handleRegister({ email, password, nickName, confirm, name: id });
   };
 
   return {

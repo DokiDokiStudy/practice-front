@@ -10,7 +10,7 @@ export interface RegisterParams {
 }
 
 export interface AuthResponse {
-  accessToken: string;
+  token: string;
   user: {
     id: number;
     nickName: string;
