@@ -40,16 +40,16 @@ export const LoginForm = () => {
       >
         로그인
       </FormButton>
-
-      <div className="flex justify-between items-center text-sm text-gray-600">
+      {/* TODO: 아이디 찾기, 비밀번호 찾기 논의 필요 */}
+      {/* <div className="flex justify-between items-center text-sm text-gray-600">
         <Link
           to="/auth/register"
           className="hover:underline hover:text-blue-600 font-medium"
         >
           회원가입
         </Link>
-        {/* TODO: 아이디 찾기, 비밀번호 찾기 논의 필요 */}
-        {/* <div className="flex items-center gap-2">
+
+        <div className="flex items-center gap-2">
           <Link
             to="/auth/find-user"
             className="hover:underline hover:text-blue-600 font-medium"
@@ -63,8 +63,8 @@ export const LoginForm = () => {
           >
             비밀번호 찾기
           </Link>
-        </div> */}
-      </div>
+        </div>
+      </div> */}
     </form>
   );
 };
