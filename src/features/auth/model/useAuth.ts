@@ -1,28 +1,19 @@
 import { useEffect, useState } from "react";
 
-interface User {
-  nickName: string;
-  token: string;
-}
-
 export const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLogin, setIsLogin] = useState<string | null>(null);
 
   useEffect(() => {
-    const userJson = localStorage.getItem("user");
-    if (userJson) {
-      setUser(JSON.parse(userJson));
-    } else {
-      setUser(null);
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLogin(JSON.parse(token));
     }
-    setIsLoading(false);
   }, []);
 
   const logout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+    localStorage.removeItem("token");
+    setIsLogin(null);
   };
 
-  return { user, isLoading, logout };
+  return { isLogin, logout };
 };

@@ -3,14 +3,10 @@ import { useNavigate } from "@tanstack/react-router";
 import { useThreadsByCategory } from "@/features/thread/model/useThreads";
 import { NestedSidebar } from "@/shared/ui";
 import { useAuth } from "@/features/auth";
-import {
-  docsData,
-  ThreadCard,
-  useDockerCategories,
-} from "@/features/docs";
+import { docsData, ThreadCard, useDockerCategories } from "@/features/docs";
 
 export const ThreadList = () => {
-  const { user } = useAuth();
+  const { isLogin } = useAuth();
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
@@ -101,7 +97,7 @@ export const ThreadList = () => {
               </div>
             )}
           </h1>
-          {user && (
+          {isLogin && (
             <button
               onClick={() => navigate({ to: "/thread/write" })}
               className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors"

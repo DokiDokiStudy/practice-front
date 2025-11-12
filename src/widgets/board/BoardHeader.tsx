@@ -4,16 +4,12 @@ import { useAuth } from "@/features/auth";
 
 export const BoardHeader = () => {
   const navigate = useNavigate();
-  const { user, isLoading: authLoading } = useAuth();
+  const { isLogin } = useAuth();
 
   return (
     <div className="flex justify-between items-center mb-6">
       <h2 className="text-2xl font-bold text-gray-900">📌 게시판</h2>
-      {authLoading ? (
-        <Button size="md" color="gray" disabled>
-          …
-        </Button>
-      ) : user ? (
+      {isLogin ? (
         <Link to="/board/write">
           <Button size="md" color="teal">
             글쓰기

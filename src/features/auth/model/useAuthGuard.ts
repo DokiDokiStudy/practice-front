@@ -17,16 +17,15 @@ export const useAuthGuard = (options: UseAuthGuardOptions = {}) => {
   } = options;
 
   const navigate = useNavigate();
-  const { user, isLoading } = useAuth();
+  const { isLogin } = useAuth();
 
   useEffect(() => {
-    if (!enabled || isLoading) return;
+    if (!enabled) return;
 
-    if (!user) {
+    if (!isLogin) {
       toast.warn(message);
       navigate({ to: redirectTo });
     }
-  }, [user, isLoading, navigate, redirectTo, message, enabled]);
-
-  return { user, isLoading, isAuthenticated: !!user };
+  }, [isLogin, navigate, redirectTo, message, enabled]);
+  return { isLogin };
 };

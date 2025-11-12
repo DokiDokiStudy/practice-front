@@ -48,7 +48,8 @@ export const LoginForm = () => {
         >
           회원가입
         </Link>
-        <div className="flex items-center gap-2">
+        {/* TODO: 아이디 찾기, 비밀번호 찾기 논의 필요 */}
+        {/* <div className="flex items-center gap-2">
           <Link
             to="/auth/find-user"
             className="hover:underline hover:text-blue-600 font-medium"
@@ -62,7 +63,7 @@ export const LoginForm = () => {
           >
             비밀번호 찾기
           </Link>
-        </div>
+        </div> */}
       </div>
     </form>
   );
