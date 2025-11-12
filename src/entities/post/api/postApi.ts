@@ -1,12 +1,16 @@
 import { api } from "@/shared/api";
-import { Post, PostsResponse } from "../model";
+import type { GetResponse } from "@/shared/types/getResponse";
+import type { Post, PostListGetResponse } from "../model";
 
-export const fetchPosts = (page = 1, limit = 10): Promise<PostsResponse> =>
+export const fetchPosts = (
+  page = 1,
+  limit = 10
+): Promise<PostListGetResponse> =>
   api
-    .get<PostsResponse>(`/post?page=${page}&limit=${limit}`)
-    .then((res) => res.data);
+    .get<GetResponse<PostListGetResponse>>(`/posts?page=${page}&limit=${limit}`)
+    .then((res) => res.data.data);
 
-export const fetchPost = (id: number): Promise<Post> =>
+export const fetchPost = (id: number): Promise<GetResponse<Post>> =>
   api.get(`/post/${id}`).then((res) => res.data.data);
 
 export const createPost = (payload: {
