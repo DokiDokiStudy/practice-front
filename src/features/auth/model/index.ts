@@ -1,4 +1,4 @@
-export type { LoginParams, RegisterParams, AuthResponse, User } from "./types";
+export type { LoginParams, RegisterParams, AuthResponse, LoginResponse, User } from "./types";
 export { useAuth } from "./useAuth";
 export { useAuthGuard } from "./useAuthGuard";
 export { useLogin } from "./useLogin";

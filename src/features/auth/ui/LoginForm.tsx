@@ -3,7 +3,7 @@ import { FormInput, FormButton } from "@/shared/ui";
 import { useLoginForm } from "../model";
 
 export const LoginForm = () => {
-  const { email, password, setEmail, setPassword, onSubmit, isLoading, error } =
+  const { email, password, setEmail, setPassword, onSubmit, isLoading } =
     useLoginForm();
 
   return (
@@ -33,13 +33,11 @@ export const LoginForm = () => {
         required
       />
 
-      {error && (
-        <p className="text-red-500 text-sm mb-4 text-center">
-          {error}
-        </p>
-      )}
-
-      <FormButton type="submit" isLoading={isLoading} loadingText="로그인 중...">
+      <FormButton
+        type="submit"
+        isLoading={isLoading}
+        loadingText="로그인 중..."
+      >
         로그인
       </FormButton>
 

@@ -1,8 +1,8 @@
 import { api } from "@/shared/api";
-import { LoginParams, AuthResponse, RegisterParams } from "../model";
+import { LoginParams, AuthResponse, LoginResponse, RegisterParams } from "../model";
 
-export const login = async (data: LoginParams): Promise<AuthResponse> => {
-  const res = await api.post<AuthResponse>("/auth/login", data);
+export const login = async (data: LoginParams): Promise<LoginResponse> => {
+  const res = await api.post<LoginResponse>("/auth/login", data);
   return res.data;
 };
 

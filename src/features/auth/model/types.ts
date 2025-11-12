@@ -10,6 +10,17 @@ export interface RegisterParams {
   nickName: string;
 }
 
+export interface LoginResponse {
+  statusCode: number;
+  message: string;
+  data: {
+    email: string;
+    nickName: string;
+    role: string;
+    token: string;
+  };
+}
+
 export interface AuthResponse {
   message: string;
   user: {

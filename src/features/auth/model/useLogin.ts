@@ -7,39 +7,32 @@ import type { LoginParams } from "@/features/auth/model";
 export const useLogin = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async (params: LoginParams) => {
     setIsLoading(true);
-    setError(null);
 
     try {
       const res = await login(params);
 
-      if (res.accessToken && res.user) {
+      if (res && res.data && res.data.token) {
         localStorage.setItem(
-          "user",
+          "token",
           JSON.stringify({
-            token: res.accessToken,
-            nickName: res.user.nickName,
+            token: res.data.token,
           })
         );
-        toast.success("로그인 성공!");
+        toast.success("로그인에 성공하였습니다.");
         navigate({ to: "/main" });
-        return true;
       } else {
-        setError("로그인 실패 다시 시도 해주세요.");
-        toast.error("로그인 실패");
-        return false;
+        toast.error("다시 시도 해주세요.");
       }
     } catch (err) {
-      setError("아이디 또는 비밀번호를 다시 확인해주세요.");
-      toast.error("로그인 실패");
-      return false;
+      console.error("로그인 에러:", err);
+      toast.error("다시 시도 해주세요.");
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { handleLogin, isLoading, error };
+  return { handleLogin, isLoading };
 };
