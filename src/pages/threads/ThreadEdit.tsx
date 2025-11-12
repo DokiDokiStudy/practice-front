@@ -5,7 +5,7 @@ import { ArrowLeft, Save } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { fetchCategories } from "@/entities/category";
 import { useThread, useUpdateThread } from "@/features/thread/model/useThreads";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 import { docsData } from "@/features/docs";
 
 export const ThreadEdit = () => {

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/shared/ui";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 
 export const BoardHeader = () => {
   const navigate = useNavigate();

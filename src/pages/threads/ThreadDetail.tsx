@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { useDeleteThread, useThread } from "@/features/thread/model/useThreads";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 import { usePostReaction } from "@/features/board";
 import { CommentList, docsData } from "@/features/docs";
 

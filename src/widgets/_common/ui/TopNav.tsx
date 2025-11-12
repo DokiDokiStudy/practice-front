@@ -1,9 +1,7 @@
-import { useAuth } from "@/features/auth";
-import { ROUTES } from "@/shared/config";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
+import { useAuth } from "@/shared/lib/auth";
 
 export function TopNav() {
-  const navigate = useNavigate();
   const { isLogin, logout } = useAuth();
 
   return (

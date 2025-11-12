@@ -3,10 +3,12 @@ import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 import { login } from "@/features/auth/api";
 import type { LoginParams } from "@/features/auth/model";
+import { useAuth } from "@/shared/lib/auth";
 
 export const useLogin = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const { setIsLogin } = useAuth();
 
   const handleLogin = async (params: LoginParams) => {
     setIsLoading(true);
@@ -15,12 +17,11 @@ export const useLogin = () => {
       const res = await login(params);
 
       if (res && res.data && res.data.token) {
-        localStorage.setItem(
-          "token",
-          JSON.stringify({
-            token: res.data.token,
-          })
-        );
+        const tokenData = JSON.stringify({
+          token: res.data.token,
+        });
+        localStorage.setItem("token", tokenData);
+        setIsLogin(tokenData);
         toast.success("로그인에 성공하였습니다.");
         navigate({ to: "/main" });
       } else {

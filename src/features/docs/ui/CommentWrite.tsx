@@ -1,6 +1,6 @@
 import { useState, KeyboardEvent, FormEvent } from "react";
 import { Send } from "lucide-react";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 import { useCreateComment } from "@/features/thread/model/useComments";
 
 interface CommentWriteProps {

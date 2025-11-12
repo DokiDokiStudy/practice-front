@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useThreadsByCategory } from "@/features/thread/model/useThreads";
 import { NestedSidebar } from "@/shared/ui";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 import { docsData, ThreadCard, useDockerCategories } from "@/features/docs";
 
 export const ThreadList = () => {

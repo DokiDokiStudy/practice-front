@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { togglePostReaction, type ReactionType } from "@/entities/like";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 
 export const usePostReaction = (initialLikes = 0, initialDislikes = 0) => {
   const { isLogin } = useAuth();

@@ -3,7 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { NestedSidebar } from "@/shared/ui";
 import { ArrowLeft, Save } from "lucide-react";
 import { useCreateThread } from "@/features/thread/model/useThreads";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 import { docsData, useDockerCategories } from "@/features/docs";
 
 export const ThreadWrite = () => {
