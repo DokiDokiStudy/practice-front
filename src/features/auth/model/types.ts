@@ -5,15 +5,17 @@ export interface LoginParams {
 
 export interface RegisterParams {
   email: string;
+  name: string;
   password: string;
   nickName: string;
 }
 
 export interface AuthResponse {
-  accessToken: string;
+  message: string;
   user: {
     id: number;
     nickName: string;
+    createdAt: string;
   };
 }
 

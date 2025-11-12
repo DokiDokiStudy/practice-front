@@ -3,19 +3,16 @@ import { useRegisterForm } from "../model";
 
 export const RegisterForm = () => {
   const {
-    id,
+    name,
     email,
     password,
-    confirm,
     nickName,
-    setId,
+    setName,
     setEmail,
     setPassword,
-    setConfirm,
     setNickName,
     onSubmit,
     isLoading,
-    error,
   } = useRegisterForm();
 
   return (
@@ -28,27 +25,29 @@ export const RegisterForm = () => {
       </h2>
 
       <FormInput
-        label="닉네임"
-        type="text"
-        value={nickName}
-        onChange={(e) => setNickName(e.target.value)}
-        required
-      />
-
-      <FormInput
-        label="아이디"
-        type="text"
-        value={id}
-        onChange={(e) => setId(e.target.value)}
-        required
-      />
-
-      <FormInput
         label="이메일"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="example@email.com"
+        required
+      />
+
+      <FormInput
+        label="이름"
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="이름을 입력하세요"
+        required
+      />
+
+      <FormInput
+        label="닉네임"
+        type="text"
+        value={nickName}
+        onChange={(e) => setNickName(e.target.value)}
+        placeholder="닉네임을 입력하세요"
         required
       />
 
@@ -60,21 +59,6 @@ export const RegisterForm = () => {
         placeholder="비밀번호 입력"
         required
       />
-
-      <FormInput
-        label="비밀번호 확인"
-        type="password"
-        value={confirm}
-        onChange={(e) => setConfirm(e.target.value)}
-        placeholder="비밀번호 확인"
-        required
-      />
-
-      {error && (
-        <p className="text-red-500 text-sm mb-4 text-center">
-          {error}
-        </p>
-      )}
 
       <FormButton type="submit" isLoading={isLoading}>
         회원가입
