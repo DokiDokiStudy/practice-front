@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchPosts, PostListGetResponse } from "@/entities/post";
+import { fetchPosts, type PostsResponse } from "@/entities/post";
 
-export function usePosts(page = 1, limit = 10) {
-  const query = useQuery<PostListGetResponse>({
+export function useBoardList(page = 1, limit = 10) {
+  const query = useQuery<PostsResponse>({
     queryKey: ["posts", page, limit],
     queryFn: () => fetchPosts(page, limit),
     retry: 1,
@@ -11,7 +11,7 @@ export function usePosts(page = 1, limit = 10) {
 
   return {
     ...query,
-    posts: query.data?.posts ?? [],
+    posts: query.data?.data ?? [],
     totalPages: query.data?.meta?.totalPages ?? 1,
     total: query.data?.meta?.total ?? 0,
   };

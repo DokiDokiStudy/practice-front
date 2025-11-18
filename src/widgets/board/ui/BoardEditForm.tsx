@@ -3,7 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 import { LoadingMsg } from "@/shared/ui";
 import { useAuthGuard } from "@/features/auth";
-import { BoardForm, usePost, useUpdatePost } from "@/features/board";
+import { BoardForm, useBoardDetail, useUpdatePost } from "@/features/board";
 
 interface BoardEditFormProps {
   postId: number;
@@ -17,7 +17,7 @@ export const BoardEditForm = ({ postId }: BoardEditFormProps) => {
     data: post,
     isLoading: postLoading,
     isError,
-  } = usePost(postId);
+  } = useBoardDetail(postId);
   const { mutate: update, isPending: isUpdating } = useUpdatePost();
 
   const [title, setTitle] = useState("");
@@ -32,14 +32,14 @@ export const BoardEditForm = ({ postId }: BoardEditFormProps) => {
       return;
     }
 
-    if (post.author !== user?.nickName) {
+    if (post.data.author !== user?.nickName) {
       toast.warn("수정 권한이 없습니다.");
       navigate({ to: `/board/${postId}` });
       return;
     }
 
-    setTitle(post.title);
-    setContent(post.content);
+    setTitle(post.data.title);
+    setContent(post.data.content);
   }, [authLoading, postLoading, user, post, isError, navigate, postId]);
 
   const handleSubmit = (e: React.FormEvent) => {

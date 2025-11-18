@@ -1,6 +1,6 @@
 import { api } from "@/shared/api";
 import type { GetResponse } from "@/shared/types/getResponse";
-import type { Post, PostListGetResponse } from "../model";
+import type { Post, PostListGetResponse } from "@/entities/post/model";
 
 export const fetchPosts = (
   page = 1,

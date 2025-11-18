@@ -1,3 +1,6 @@
-export { useCreatePost, useUpdatePost, useDeletePost } from "./useMutatePost";
 export { usePostReaction } from "./usePostReaction";
-export { usePosts, usePost } from "./usePosts";
+export { useBoardDetail } from "./useBoardDetail";
+export { useBoardList } from "./useBoardList";
+export { useCreatePost } from "../model/useCreatePost";
+export { useUpdatePost } from "../model/useUpdatePost";
+export { useDeletePost } from "../model/useDeletePost";

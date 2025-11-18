@@ -1,4 +1,4 @@
-import { Post } from "./types";
+import type { Post } from "@/entities/post";
 
 export type PostListItem = Omit<Post, "user" | "category" | "views">;
 

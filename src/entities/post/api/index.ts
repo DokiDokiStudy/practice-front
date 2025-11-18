@@ -4,4 +4,4 @@ export {
   createPost,
   updatePost,
   deletePost,
-} from "./postApi";
+} from "@/entities/post/api/postApi";

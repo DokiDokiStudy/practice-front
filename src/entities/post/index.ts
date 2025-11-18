@@ -11,3 +11,4 @@ export {
   updatePost,
   deletePost,
 } from "./api/postApi";
+export { PostDetail, PostList } from "@/entities/post/ui";

@@ -1,11 +1,11 @@
-import { BoardLayout } from "@/widgets/_common";
-import { BoardHeader, BoardListContent } from "@/features/board/list";
+import { BoardListPage } from "@/features/board";
+import { BoardLayout, BoardHeader } from "@/widgets/board";
 
 export function BoardPage() {
   return (
     <BoardLayout>
       <BoardHeader />
-      <BoardListContent />
+      <BoardListPage />
     </BoardLayout>
   );
 }

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { Post } from "@/entities/post";
 
-export function BoardList({ posts }: { posts: Post[] }) {
+export function PostList({ posts }: { posts: Post[] }) {
   return (
     <table className="w-full text-left table-fixed border-t border-gray-300 mb-4">
       <thead>

@@ -1,10 +1,9 @@
 export {
-  usePosts,
-  usePost,
+  useBoardList,
+  useBoardDetail,
   useCreatePost,
   useUpdatePost,
   useDeletePost,
   usePostReaction,
 } from "./model";
-
-export { BoardForm, BoardView, BoardList, BoardPagination } from "./ui";
+export { BoardForm, BoardListPage, BoardPagination } from "./ui";
