@@ -9,14 +9,14 @@ import {
 } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { useDeleteThread, useThread } from "@/features/thread/model/useThreads";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 import { usePostReaction } from "@/features/board";
 import { CommentList, docsData } from "@/features/docs";
 
 export const ThreadDetail = () => {
   const { id } = useParams({ from: "/thread/$id" });
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { isLogin } = useAuth();
 
   const threadId = parseInt(id || "0");
 
@@ -104,7 +104,7 @@ export const ThreadDetail = () => {
               목록으로
             </button>
 
-            {user && (
+            {isLogin && (
               <div className="flex gap-2">
                 <button
                   onClick={() => navigate({ to: `/thread/edit/${thread.id}` })}
@@ -190,9 +190,7 @@ export const ThreadDetail = () => {
           </article>
 
           <section className="rounded-lg shadow-lg p-6 bg-white border border-gray-200">
-            <h2 className="text-xl font-bold mb-6 text-gray-900">
-              💬 댓글
-            </h2>
+            <h2 className="text-xl font-bold mb-6 text-gray-900">💬 댓글</h2>
             <CommentList threadId={threadId} comments={thread.comments} />
           </section>
         </main>

@@ -19,8 +19,6 @@ import { Route as BoardWriteRouteImport } from './routes/board/write'
 import { Route as BoardIdRouteImport } from './routes/board/$id'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
-import { Route as AuthFindUserRouteImport } from './routes/auth/find-user'
-import { Route as AuthFindPwdRouteImport } from './routes/auth/find-pwd'
 import { Route as DocsCategoryIndexRouteImport } from './routes/docs/$category/index'
 import { Route as ThreadThreadIdEditRouteImport } from './routes/thread/$threadId/edit'
 import { Route as DocsCategoryChapterIdRouteImport } from './routes/docs/$category/$chapterId'
@@ -76,16 +74,6 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthFindUserRoute = AuthFindUserRouteImport.update({
-  id: '/auth/find-user',
-  path: '/auth/find-user',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthFindPwdRoute = AuthFindPwdRouteImport.update({
-  id: '/auth/find-pwd',
-  path: '/auth/find-pwd',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DocsCategoryIndexRoute = DocsCategoryIndexRouteImport.update({
   id: '/docs/$category/',
   path: '/docs/$category/',
@@ -110,8 +98,6 @@ const BoardIdEditRoute = BoardIdEditRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/main': typeof MainRoute
-  '/auth/find-pwd': typeof AuthFindPwdRoute
-  '/auth/find-user': typeof AuthFindUserRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
@@ -128,8 +114,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/main': typeof MainRoute
-  '/auth/find-pwd': typeof AuthFindPwdRoute
-  '/auth/find-user': typeof AuthFindUserRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
@@ -147,8 +131,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/main': typeof MainRoute
-  '/auth/find-pwd': typeof AuthFindPwdRoute
-  '/auth/find-user': typeof AuthFindUserRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
@@ -167,8 +149,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/main'
-    | '/auth/find-pwd'
-    | '/auth/find-user'
     | '/auth/login'
     | '/auth/register'
     | '/board/$id'
@@ -185,8 +165,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/main'
-    | '/auth/find-pwd'
-    | '/auth/find-user'
     | '/auth/login'
     | '/auth/register'
     | '/board/$id'
@@ -203,8 +181,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/main'
-    | '/auth/find-pwd'
-    | '/auth/find-user'
     | '/auth/login'
     | '/auth/register'
     | '/board/$id'
@@ -222,8 +198,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MainRoute: typeof MainRoute
-  AuthFindPwdRoute: typeof AuthFindPwdRoute
-  AuthFindUserRoute: typeof AuthFindUserRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
   BoardIdRoute: typeof BoardIdRouteWithChildren
@@ -308,20 +282,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/find-user': {
-      id: '/auth/find-user'
-      path: '/auth/find-user'
-      fullPath: '/auth/find-user'
-      preLoaderRoute: typeof AuthFindUserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/find-pwd': {
-      id: '/auth/find-pwd'
-      path: '/auth/find-pwd'
-      fullPath: '/auth/find-pwd'
-      preLoaderRoute: typeof AuthFindPwdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/docs/$category/': {
       id: '/docs/$category/'
       path: '/docs/$category'
@@ -379,8 +339,6 @@ const ThreadThreadIdRouteWithChildren = ThreadThreadIdRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MainRoute: MainRoute,
-  AuthFindPwdRoute: AuthFindPwdRoute,
-  AuthFindUserRoute: AuthFindUserRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
   BoardIdRoute: BoardIdRouteWithChildren,

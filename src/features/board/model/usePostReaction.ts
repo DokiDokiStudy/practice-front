@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { togglePostReaction, type ReactionType } from "@/entities/like";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 
 export const usePostReaction = (initialLikes = 0, initialDislikes = 0) => {
-  const { user } = useAuth();
+  const { isLogin } = useAuth();
   const queryClient = useQueryClient();
   const [userReaction, setUserReaction] = useState<"like" | "dislike" | null>(
     null
@@ -30,7 +30,7 @@ export const usePostReaction = (initialLikes = 0, initialDislikes = 0) => {
     postId: number,
     type: "like" | "dislike"
   ) => {
-    if (!user) {
+    if (!isLogin) {
       alert("로그인이 필요한 기능입니다.");
       return;
     }

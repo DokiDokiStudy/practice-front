@@ -4,7 +4,7 @@ import { useLogin } from "./useLogin";
 export const useLoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { handleLogin, isLoading, error } = useLogin();
+  const { handleLogin, isLoading } = useLogin();
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -18,6 +18,5 @@ export const useLoginForm = () => {
     setPassword,
     onSubmit,
     isLoading,
-    error,
   };
 };
