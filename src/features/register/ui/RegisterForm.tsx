@@ -1,19 +1,18 @@
 import { FormInput, FormButton } from "@/shared/ui";
-import { useRegisterForm } from "../model";
+import { useRegister } from "../model";
+import { FormEvent, useState } from "react";
 
 export const RegisterForm = () => {
-  const {
-    name,
-    email,
-    password,
-    nickName,
-    setName,
-    setEmail,
-    setPassword,
-    setNickName,
-    onSubmit,
-    isLoading,
-  } = useRegisterForm();
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [nickName, setNickName] = useState("");
+  const [password, setPassword] = useState("");
+  const { handleRegister, isLoading } = useRegister();
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    handleRegister({ email, name, password, nickName });
+  };
 
   return (
     <form
@@ -60,7 +59,7 @@ export const RegisterForm = () => {
         required
       />
 
-      <FormButton type="submit" isLoading={isLoading}>
+      <FormButton type="submit" isLoading={isLoading} loadingText="가입 중...">
         회원가입
       </FormButton>
     </form>
