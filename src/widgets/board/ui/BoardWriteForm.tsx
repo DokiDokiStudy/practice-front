@@ -2,16 +2,11 @@ import { useState, FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 import { CategorySelect } from "@/shared/ui";
-import { useAuthGuard } from "@/features/auth";
 import { useCreatePost, BoardForm } from "@/features/board";
 import { useCategories } from "@/features/category";
 
 export const BoardWriteForm = () => {
   const navigate = useNavigate();
-  const { isLoading: authLoading } = useAuthGuard({
-    message: "로그인 후 글쓰기가 가능합니다.",
-  });
-
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [categoryId, setCategoryId] = useState(0);
@@ -36,7 +31,6 @@ export const BoardWriteForm = () => {
   return (
     <>
       <h2 className="text-2xl font-bold text-center mb-6">새 글 작성</h2>
-
       <div className="mb-4">
         <CategorySelect
           value={categoryId}
@@ -57,7 +51,7 @@ export const BoardWriteForm = () => {
           color: "green",
           size: "md",
           loading: isCreating,
-          disabled: authLoading || isCreating,
+          disabled: isCreating,
         }}
       />
     </>

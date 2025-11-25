@@ -5,13 +5,13 @@ import { ArrowLeft, Save } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { fetchCategories } from "@/entities/category";
 import { useThread, useUpdateThread } from "@/features/thread/model/useThreads";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 import { docsData } from "@/features/docs";
 
 export const ThreadEdit = () => {
   const { id } = useParams({ from: "/thread/$id/edit" });
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { isLogin } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -61,7 +61,7 @@ export const ThreadEdit = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!user) {
+    if (!isLogin) {
       alert("로그인이 필요합니다.");
       return;
     }
@@ -99,7 +99,7 @@ export const ThreadEdit = () => {
     }
   };
 
-  if (!user) {
+  if (!isLogin) {
     return (
       <div className="flex flex-col min-h-screen">
         <div className="flex flex-1">

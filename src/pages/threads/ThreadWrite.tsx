@@ -3,12 +3,12 @@ import { useNavigate } from "@tanstack/react-router";
 import { NestedSidebar } from "@/shared/ui";
 import { ArrowLeft, Save } from "lucide-react";
 import { useCreateThread } from "@/features/thread/model/useThreads";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 import { docsData, useDockerCategories } from "@/features/docs";
 
 export const ThreadWrite = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { isLogin } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null); // 소분류 (최종 선택)
@@ -25,7 +25,7 @@ export const ThreadWrite = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!user) {
+    if (!isLogin) {
       alert("로그인이 필요합니다.");
       return;
     }
@@ -62,7 +62,7 @@ export const ThreadWrite = () => {
     }
   };
 
-  if (!user) {
+  if (!isLogin) {
     return (
       <div className="flex flex-col min-h-screen">
         <div className="flex flex-1">

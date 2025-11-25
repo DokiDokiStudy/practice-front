@@ -1,6 +1,6 @@
 import { useState, KeyboardEvent, FormEvent } from "react";
 import { Send } from "lucide-react";
-import { useAuth } from "@/features/auth";
+import { useAuth } from "@/shared/lib/auth";
 import { useCreateComment } from "@/features/thread/model/useComments";
 
 interface CommentWriteProps {
@@ -8,7 +8,7 @@ interface CommentWriteProps {
 }
 
 export const CommentWrite = ({ threadId }: CommentWriteProps) => {
-  const { user } = useAuth();
+  const { isLogin } = useAuth();
   const [content, setContent] = useState("");
   const createCommentMutation = useCreateComment(threadId);
 
@@ -27,7 +27,7 @@ export const CommentWrite = ({ threadId }: CommentWriteProps) => {
       return;
     }
 
-    if (!user) {
+    if (!isLogin) {
       alert("로그인이 필요합니다.");
       return;
     }
@@ -44,7 +44,7 @@ export const CommentWrite = ({ threadId }: CommentWriteProps) => {
     }
   };
 
-  if (!user) {
+  if (!isLogin) {
     return (
       <div className="bg-gray-50 rounded-lg p-4 text-center">
         <p className="text-gray-600 text-sm">

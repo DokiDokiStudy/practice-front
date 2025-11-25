@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 import { LoadingMsg } from "@/shared/ui";
-import { useAuthGuard } from "@/features/auth";
 import { BoardForm, useBoardDetail, useUpdatePost } from "@/features/board";
 
 interface BoardEditFormProps {
@@ -11,7 +10,6 @@ interface BoardEditFormProps {
 
 export const BoardEditForm = ({ postId }: BoardEditFormProps) => {
   const navigate = useNavigate();
-  const { user, isLoading: authLoading } = useAuthGuard();
 
   const {
     data: post,
@@ -23,24 +21,24 @@ export const BoardEditForm = ({ postId }: BoardEditFormProps) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  useEffect(() => {
-    if (authLoading || postLoading) return;
+  // useEffect(() => {
+  //   if (authLoading || postLoading) return;
 
-    if (isError || !post) {
-      toast.error("게시글을 불러올 수 없습니다.");
-      navigate({ to: "/board" });
-      return;
-    }
+  //   if (isError || !post) {
+  //     toast.error("게시글을 불러올 수 없습니다.");
+  //     navigate({ to: "/board" });
+  //     return;
+  //   }
 
-    if (post.data.author !== user?.nickName) {
-      toast.warn("수정 권한이 없습니다.");
-      navigate({ to: `/board/${postId}` });
-      return;
-    }
+  //   if (post.data.author !== user?.nickName) {
+  //     toast.warn("수정 권한이 없습니다.");
+  //     navigate({ to: `/board/${postId}` });
+  //     return;
+  //   }
 
-    setTitle(post.data.title);
-    setContent(post.data.content);
-  }, [authLoading, postLoading, user, post, isError, navigate, postId]);
+  //   setTitle(post.data.title);
+  //   setContent(post.data.content);
+  // }, [authLoading, postLoading, user, post, isError, navigate, postId]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +56,7 @@ export const BoardEditForm = ({ postId }: BoardEditFormProps) => {
     );
   };
 
-  if (authLoading || postLoading) {
+  if (postLoading) {
     return <LoadingMsg />;
   }
 
