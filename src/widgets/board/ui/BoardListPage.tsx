@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { ErrorMessage, LoadingMsg } from "@/shared/ui";
 import { PostList } from "@/entities/post/ui";
-import { useBoardList, BoardPagination } from "@/features/board";
+import { BoardPagination } from "@/features/boardPagination";
+import { useBoardList } from "../model";
 
 export const BoardListPage = () => {
   const [page, setPage] = useState(1);

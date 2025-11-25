@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "@tanstack/react-router";
 import { ErrorMessage, LoadingMsg, Button } from "@/shared/ui";
 import { PostDetail } from "@/entities/post";
-import { useBoardDetail } from "@/features/board";
+import { useBoard } from "../model";
 
 interface BoardDetailContentProps {
   postId: number;
@@ -9,7 +9,7 @@ interface BoardDetailContentProps {
 
 export const BoardDetailContent = ({ postId }: BoardDetailContentProps) => {
   const navigate = useNavigate();
-  const { data: post, isLoading, isError, error } = useBoardDetail(postId);
+  const { data: post, isLoading, isError, error } = useBoard(postId);
 
   if (isLoading) {
     return <LoadingMsg />;

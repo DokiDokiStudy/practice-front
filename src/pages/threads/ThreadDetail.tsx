@@ -10,7 +10,7 @@ import {
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { useDeleteThread, useThread } from "@/features/thread/model/useThreads";
 import { useAuth } from "@/shared/lib/auth";
-import { usePostReaction } from "@/features/board";
+import { usePostReaction } from "@/features/boardForm";
 import { CommentList, docsData } from "@/features/docs";
 
 export const ThreadDetail = () => {

@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 import { LoadingMsg } from "@/shared/ui";
-import { BoardForm, useBoardDetail, useUpdatePost } from "@/features/board";
+import { BoardForm, useUpdatePost } from "@/features/boardForm";
+import { useBoard } from "../model";
 
 interface BoardEditFormProps {
   postId: number;
@@ -11,11 +12,7 @@ interface BoardEditFormProps {
 export const BoardEditForm = ({ postId }: BoardEditFormProps) => {
   const navigate = useNavigate();
 
-  const {
-    data: post,
-    isLoading: postLoading,
-    isError,
-  } = useBoardDetail(postId);
+  const { data: post, isLoading: postLoading, isError } = useBoard(postId);
   const { mutate: update, isPending: isUpdating } = useUpdatePost();
 
   const [title, setTitle] = useState("");
