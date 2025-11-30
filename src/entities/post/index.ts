@@ -1,7 +1,14 @@
-export type { Post, PostsResponse } from "./model";
+export type {
+  Post,
+  PostsResponse,
+  PostListItem,
+  PostListGetResponse,
+} from "./model";
+export { PostDetail, PostList } from "@/entities/post/ui";
 export {
-  fetchPosts,
-  fetchPost,
+  postKeys,
+  getPost,
+  getPostList,
   createPost,
   updatePost,
   deletePost,

@@ -1,6 +1,7 @@
 import { useNavigate, Link } from "@tanstack/react-router";
 import { ErrorMessage, LoadingMsg, Button } from "@/shared/ui";
-import { usePost, BoardView } from "@/features/board";
+import { PostDetail } from "@/entities/post";
+import { useBoard } from "../model";
 
 interface BoardDetailContentProps {
   postId: number;
@@ -8,7 +9,7 @@ interface BoardDetailContentProps {
 
 export const BoardDetailContent = ({ postId }: BoardDetailContentProps) => {
   const navigate = useNavigate();
-  const { data: post, isLoading, isError, error } = usePost(postId);
+  const { data: post, isLoading, isError, error } = useBoard(postId);
 
   if (isLoading) {
     return <LoadingMsg />;
@@ -22,19 +23,21 @@ export const BoardDetailContent = ({ postId }: BoardDetailContentProps) => {
     return <ErrorMessage message="게시글을 찾을 수 없습니다." />;
   }
 
+  const { id, title, author, createdAt, content } = post.data;
+
   return (
     <>
-      <BoardView
-        title={post.title}
-        author={post.author || post.user?.nickName || "익명"}
-        date={new Date(post.createdAt).toLocaleDateString("ko-KR")}
-        content={post.content}
+      <PostDetail
+        title={title}
+        author={author || "익명"}
+        date={new Date(createdAt).toLocaleDateString("ko-KR")}
+        content={content}
       />
 
       <div className="flex space-x-2 mt-6">
         <Link
           to="/board/$id/edit"
-          params={{ id: post.id }}
+          params={{ id }}
           className="px-4 py-2 bg-green-500 text-white rounded"
         >
           수정
