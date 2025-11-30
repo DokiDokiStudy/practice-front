@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useLocation, useNavigate, useParams } from "@tanstack/react-router";
 import { NestedSidebar } from "@/shared/ui";
-import { docsData, SelectedStepThread, useDocsData } from "@/features/docs";
+import { SelectedStepThread, useDocsData } from "@/features/docs";
 
 export const DocsChapterContent = () => {
   const location = useLocation();
@@ -13,18 +13,12 @@ export const DocsChapterContent = () => {
   const [selectedStepId, setSelectedStepId] = useState<string | null>(null);
 
   const docs = useDocsData();
-  const activeDocs = docs.length > 0 ? docs : docsData;
 
-  const categoryDoc = activeDocs.find((doc) => doc.id === category);
+  const categoryDoc = docs.find((doc) => doc.id === category);
   const chapter = categoryDoc?.chapters.find((c) => c.id === chapterId);
 
   const flatChapters = categoryDoc?.chapters ?? [];
   const currentIndex = flatChapters.findIndex((c) => c.id === chapterId);
-
-  console.log("category:", category);
-  console.log("chapterId:", chapterId);
-  console.log("activeDocs:", activeDocs);
-  console.log("categoryDoc:", categoryDoc);
 
   useEffect(() => {
     if (location.hash) {
@@ -50,8 +44,6 @@ export const DocsChapterContent = () => {
       });
     }
   };
-  console.log("hi");
-  console.log("categoryDoc:", categoryDoc);
 
   return (
     <div className="flex flex-1 bg-white">

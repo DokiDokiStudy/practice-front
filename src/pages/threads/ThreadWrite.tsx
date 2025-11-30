@@ -4,11 +4,12 @@ import { NestedSidebar } from "@/shared/ui";
 import { ArrowLeft, Save } from "lucide-react";
 import { useCreateThread } from "@/features/thread/model/useThreads";
 import { useAuth } from "@/shared/lib/auth";
-import { docsData, useDockerCategories } from "@/features/docs";
+import { useDocsData, useDockerCategories } from "@/features/docs";
 
 export const ThreadWrite = () => {
   const navigate = useNavigate();
   const { isLogin } = useAuth();
+  const docsData = useDocsData();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null); // 소분류 (최종 선택)

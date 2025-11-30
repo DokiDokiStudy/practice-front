@@ -2,8 +2,7 @@ import { useParams } from "@tanstack/react-router";
 import { DocsSectionList, useDocsData } from "@/features/docs";
 
 export function DocsCategoryPage() {
-  console.log("DocsCategoryPage is rendering!!!");
-  const { category } = useParams({ from: "/docs/$category" });
+  const { category } = useParams({ from: "/docs/$category/" });
   const allDocs = useDocsData();
 
   const categoryDoc = allDocs.find((doc) => doc.id === category);

@@ -1,2 +1,2 @@
-export { DocsChapterDetail } from "./DocsChapterDetail";
-export { DocsCategoryPage } from "./DocsCategoryPage";
+export { DocsChapterPage } from "./detail/DocsChapterPage";
+export { DocsCategoryPage } from "./list/DocsCategoryPage";

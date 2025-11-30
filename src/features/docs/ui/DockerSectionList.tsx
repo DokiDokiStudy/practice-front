@@ -1,7 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
-import type { DocsSection } from "../model/types";
+import type { DocsCategory } from "@/entities/docs-categories";
 
-export function DocsSectionList({ docs }: { docs: DocsSection[] }) {
+export function DocsSectionList({ docs }: { docs: DocsCategory[] }) {
   const navigate = useNavigate();
 
   const goToDetail = (category: string, chapterId: string, stepId?: string) => {

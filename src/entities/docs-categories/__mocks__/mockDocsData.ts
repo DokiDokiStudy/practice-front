@@ -1,4 +1,6 @@
-export const docsData = [
+import type { DocsCategory } from "../model/types";
+
+export const mockDocsData: DocsCategory[] = [
   {
     id: "docker",
     title: "도커",

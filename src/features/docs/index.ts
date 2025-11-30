@@ -1,4 +1,4 @@
-export { useDockerCategories, useDocsData, docsData } from "./model";
+export { useDockerCategories, useDocsData } from "./model";
 export {
   CommentList,
   CommentWrite,

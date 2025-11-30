@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
-import { docsData } from "./data";
-import type { DocsSection } from "./types";
+import {
+  fetchDocsCategories,
+  type DocsCategory,
+} from "@/entities/docs-categories";
 
-export function useDocsData(): DocsSection[] {
-  const [docs, setDocs] = useState<DocsSection[]>(docsData);
+export function useDocsData(): DocsCategory[] {
+  const [docs, setDocs] = useState<DocsCategory[]>([]);
 
   useEffect(() => {
     const fetchDocs = async () => {
       try {
-        setDocs(docsData);
-        return;
+        const data = await fetchDocsCategories();
+        setDocs(data);
       } catch (err) {
-        setDocs(docsData);
+        console.error("Failed to fetch docs:", err);
+        setDocs([]);
       }
     };
 

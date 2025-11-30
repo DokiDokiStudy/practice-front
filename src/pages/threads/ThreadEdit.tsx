@@ -6,12 +6,13 @@ import { useNavigate, useParams } from "@tanstack/react-router";
 import { fetchCategories } from "@/entities/category";
 import { useThread, useUpdateThread } from "@/features/thread/model/useThreads";
 import { useAuth } from "@/shared/lib/auth";
-import { docsData } from "@/features/docs";
+import { useDocsData } from "@/features/docs";
 
 export const ThreadEdit = () => {
   const { id } = useParams({ from: "/thread/$id/edit" });
   const navigate = useNavigate();
   const { isLogin } = useAuth();
+  const docsData = useDocsData();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);

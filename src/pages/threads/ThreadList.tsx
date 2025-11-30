@@ -3,11 +3,12 @@ import { useNavigate } from "@tanstack/react-router";
 import { useThreadsByCategory } from "@/features/thread/model/useThreads";
 import { NestedSidebar } from "@/shared/ui";
 import { useAuth } from "@/shared/lib/auth";
-import { docsData, ThreadCard, useDockerCategories } from "@/features/docs";
+import { ThreadCard, useDockerCategories, useDocsData } from "@/features/docs";
 
 export const ThreadList = () => {
   const { isLogin } = useAuth();
   const navigate = useNavigate();
+  const docsData = useDocsData();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
 
