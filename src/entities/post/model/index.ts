@@ -1,1 +1,2 @@
-export type { Post, PostsResponse } from "./types";
+export type { Post, PostsResponse } from "./post";
+export type { PostListItem, PostListGetResponse } from "./postListItem";

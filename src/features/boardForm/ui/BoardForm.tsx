@@ -1,5 +1,5 @@
-import { Button, type ButtonProps } from "@/shared/ui";
 import React from "react";
+import { Button, type ButtonProps } from "@/shared/ui";
 
 interface BoardFormProps {
   titleValue: string;

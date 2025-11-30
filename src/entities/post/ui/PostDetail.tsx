@@ -1,11 +1,11 @@
-interface BoardViewProps {
+interface PostDetailProps {
   title: string;
   author: string;
   date: string;
   content: string;
 }
 
-export function BoardView({ title, author, date, content }: BoardViewProps) {
+export function PostDetail({ title, author, date, content }: PostDetailProps) {
   return (
     <div className="space-y-4">
       <div>

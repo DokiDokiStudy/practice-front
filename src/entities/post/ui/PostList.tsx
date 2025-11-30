@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import type { Post } from "@/entities/post";
+import type { PostListItem } from "@/entities/post";
 
-export function BoardList({ posts }: { posts: Post[] }) {
+export function PostList({ posts }: { posts: PostListItem[] }) {
   return (
     <table className="w-full text-left table-fixed border-t border-gray-300 mb-4">
       <thead>
@@ -28,9 +28,7 @@ export function BoardList({ posts }: { posts: Post[] }) {
                   {post.title}
                 </Link>
               </td>
-              <td className="py-3 text-center">
-                {post.author || post.user?.nickName || "익명"}
-              </td>
+              <td className="py-3 text-center">{post.author || "익명"}</td>
               <td className="py-3 text-center">
                 {new Date(post.createdAt).toLocaleDateString("ko-KR")}
               </td>

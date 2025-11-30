@@ -2,7 +2,7 @@ import { useState, FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 import { CategorySelect } from "@/shared/ui";
-import { useCreatePost, BoardForm } from "@/features/board";
+import { useCreatePost, BoardForm } from "@/features/boardForm";
 import { useCategories } from "@/features/category";
 
 export const BoardWriteForm = () => {
