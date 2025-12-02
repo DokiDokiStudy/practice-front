@@ -7,10 +7,10 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CommentList } from "./CommentList";
 import { Link } from "@tanstack/react-router";
 import { usePostReaction } from "@/features/boardForm";
-import { useThreadList } from "@/widgets/thread/model";
+import { CommentList } from "@/features/docs";
+import { useThreadList } from "../model";
 
 // TODO: threadCard docs ui에서 분리 작업 필요
 

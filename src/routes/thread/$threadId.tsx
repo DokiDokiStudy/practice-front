@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ThreadDetail } from "@/pages/threads";
+import { ThreadDetailPage } from "@/pages/threads";
 
 export const Route = createFileRoute("/thread/$threadId")({
-  component: ThreadDetail,
+  component: ThreadDetailPage,
 });
