@@ -9,7 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as MainRouteImport } from './routes/main'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ThreadIndexRouteImport } from './routes/thread/index'
 import { Route as BoardIndexRouteImport } from './routes/board/index'
@@ -17,16 +19,24 @@ import { Route as ThreadWriteRouteImport } from './routes/thread/write'
 import { Route as ThreadThreadIdRouteImport } from './routes/thread/$threadId'
 import { Route as BoardWriteRouteImport } from './routes/board/write'
 import { Route as BoardIdRouteImport } from './routes/board/$id'
-import { Route as AuthRegisterRouteImport } from './routes/auth/register'
-import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as DocsCategoryIndexRouteImport } from './routes/docs/$category/index'
 import { Route as ThreadThreadIdEditRouteImport } from './routes/thread/$threadId/edit'
 import { Route as DocsCategoryChapterIdRouteImport } from './routes/docs/$category/$chapterId'
 import { Route as BoardIdEditRouteImport } from './routes/board/$id/edit'
 
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MainRoute = MainRouteImport.update({
   id: '/main',
   path: '/main',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -64,16 +74,6 @@ const BoardIdRoute = BoardIdRouteImport.update({
   path: '/board/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRegisterRoute = AuthRegisterRouteImport.update({
-  id: '/auth/register',
-  path: '/auth/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: '/auth/login',
-  path: '/auth/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DocsCategoryIndexRoute = DocsCategoryIndexRouteImport.update({
   id: '/docs/$category/',
   path: '/docs/$category/',
@@ -97,9 +97,9 @@ const BoardIdEditRoute = BoardIdEditRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/main': typeof MainRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth/register': typeof AuthRegisterRoute
+  '/register': typeof RegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
   '/board/write': typeof BoardWriteRoute
   '/thread/$threadId': typeof ThreadThreadIdRouteWithChildren
@@ -113,9 +113,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/main': typeof MainRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth/register': typeof AuthRegisterRoute
+  '/register': typeof RegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
   '/board/write': typeof BoardWriteRoute
   '/thread/$threadId': typeof ThreadThreadIdRouteWithChildren
@@ -130,9 +130,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/main': typeof MainRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth/register': typeof AuthRegisterRoute
+  '/register': typeof RegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
   '/board/write': typeof BoardWriteRoute
   '/thread/$threadId': typeof ThreadThreadIdRouteWithChildren
@@ -148,9 +148,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
     | '/main'
-    | '/auth/login'
-    | '/auth/register'
+    | '/register'
     | '/board/$id'
     | '/board/write'
     | '/thread/$threadId'
@@ -164,9 +164,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/login'
     | '/main'
-    | '/auth/login'
-    | '/auth/register'
+    | '/register'
     | '/board/$id'
     | '/board/write'
     | '/thread/$threadId'
@@ -180,9 +180,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/login'
     | '/main'
-    | '/auth/login'
-    | '/auth/register'
+    | '/register'
     | '/board/$id'
     | '/board/write'
     | '/thread/$threadId'
@@ -197,9 +197,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
   MainRoute: typeof MainRoute
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthRegisterRoute: typeof AuthRegisterRoute
+  RegisterRoute: typeof RegisterRoute
   BoardIdRoute: typeof BoardIdRouteWithChildren
   BoardWriteRoute: typeof BoardWriteRoute
   ThreadThreadIdRoute: typeof ThreadThreadIdRouteWithChildren
@@ -212,11 +212,25 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/main': {
       id: '/main'
       path: '/main'
       fullPath: '/main'
       preLoaderRoute: typeof MainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -266,20 +280,6 @@ declare module '@tanstack/react-router' {
       path: '/board/$id'
       fullPath: '/board/$id'
       preLoaderRoute: typeof BoardIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/register': {
-      id: '/auth/register'
-      path: '/auth/register'
-      fullPath: '/auth/register'
-      preLoaderRoute: typeof AuthRegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/login': {
-      id: '/auth/login'
-      path: '/auth/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/docs/$category/': {
@@ -338,9 +338,9 @@ const ThreadThreadIdRouteWithChildren = ThreadThreadIdRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
   MainRoute: MainRoute,
-  AuthLoginRoute: AuthLoginRoute,
-  AuthRegisterRoute: AuthRegisterRoute,
+  RegisterRoute: RegisterRoute,
   BoardIdRoute: BoardIdRouteWithChildren,
   BoardWriteRoute: BoardWriteRoute,
   ThreadThreadIdRoute: ThreadThreadIdRouteWithChildren,

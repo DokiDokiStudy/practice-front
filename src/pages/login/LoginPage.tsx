@@ -1,5 +1,5 @@
 import { AuthLayout } from "@/shared/ui";
-import { LoginForm } from "@/features/auth";
+import { LoginForm } from "@/features/login";
 
 export const LoginPage = () => {
   return (

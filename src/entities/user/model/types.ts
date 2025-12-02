@@ -29,8 +29,3 @@ export interface AuthResponse {
     createdAt: string;
   };
 }
-
-export interface User {
-  nickName: string;
-  token: string;
-}

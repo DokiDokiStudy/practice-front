@@ -37,7 +37,7 @@ export function TopNav() {
           <>
             <li>
               <Link
-                to="/auth/login"
+                to="/login"
                 className="transition-colors hover:text-blue-600"
               >
                 로그인
@@ -45,7 +45,7 @@ export function TopNav() {
             </li>
             <li>
               <Link
-                to="/auth/register"
+                to="/register"
                 className="transition-colors hover:text-blue-600"
               >
                 회원가입

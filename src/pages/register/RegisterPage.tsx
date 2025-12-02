@@ -1,5 +1,5 @@
 import { AuthLayout } from "@/shared/ui";
-import { RegisterForm } from "@/features/auth";
+import { RegisterForm } from "@/features/register";
 
 export const RegisterPage = () => {
   return (

@@ -1,9 +1,16 @@
 import { FormInput, FormButton } from "@/shared/ui";
-import { useLoginForm } from "../model";
+import { useLogin } from "../model";
+import { FormEvent, useState } from "react";
 
 export const LoginForm = () => {
-  const { email, password, setEmail, setPassword, onSubmit, isLoading } =
-    useLoginForm();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { handleLogin, isLoading } = useLogin();
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    handleLogin({ email, password });
+  };
 
   return (
     <form

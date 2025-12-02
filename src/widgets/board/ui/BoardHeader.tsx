@@ -20,7 +20,7 @@ export const BoardHeader = () => {
           size="md"
           color="gray"
           disabled
-          onClick={() => navigate({ to: "/auth/login" })}
+          onClick={() => navigate({ to: "/login" })}
         >
           로그인 후 쓰기 가능
         </Button>
