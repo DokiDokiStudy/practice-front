@@ -2,7 +2,7 @@ import { api } from "@/shared/api";
 import { PostListGetResponse } from "../model";
 import type { GetResponse } from "@/shared/types/getResponse";
 
-export const getPostList = (
+export const readPostList = (
   page = 1,
   limit = 10
 ): Promise<PostListGetResponse> =>

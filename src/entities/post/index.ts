@@ -7,8 +7,8 @@ export type {
 export { PostDetail, PostList } from "@/entities/post/ui";
 export {
   postKeys,
-  getPost,
-  getPostList,
+  readPost,
+  readPostList,
   createPost,
   updatePost,
   deletePost,

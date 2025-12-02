@@ -1,13 +1,13 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getPost } from "./getPost";
-import { getPostList } from "./getPostList";
+import { readPost } from "./read-post";
+import { readPostList } from "./read-post-list";
 
 export const postKeys = {
   all: ["postList"] as const,
   list: (page = 1, limit = 10) =>
     queryOptions({
       queryKey: [...postKeys.all, "list", page, limit],
-      queryFn: () => getPostList(page, limit),
+      queryFn: () => readPostList(page, limit),
       // 이 구조는 entity에서 다루는 것은 좀 과하다고 생각 추후 검토
       // select: (data) => ({
       //   posts: data.posts,
@@ -21,7 +21,7 @@ export const postKeys = {
   detail: (id: number) =>
     queryOptions({
       queryKey: [...postKeys.all, "detail", id],
-      queryFn: () => getPost(id),
+      queryFn: () => readPost(id),
       retry: 1,
       placeholderData: (prev) => prev,
     }),
