@@ -11,7 +11,7 @@ import { CommentList } from "./CommentList";
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchThreadById } from "@/entities/thread";
-import { usePostReaction } from "@/features/board";
+import { usePostReaction } from "@/features/boardForm";
 
 interface ThreadCardProps {
   threadId: string;

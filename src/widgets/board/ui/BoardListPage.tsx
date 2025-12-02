@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { ErrorMessage, LoadingMsg } from "@/shared/ui";
-import { usePosts, BoardList, BoardPagination } from "@/features/board";
+import { PostList } from "@/entities/post/ui";
+import { BoardPagination } from "@/features/boardPagination";
+import { useBoardList } from "../model";
 
-export const BoardListContent = () => {
+export const BoardListPage = () => {
   const [page, setPage] = useState(1);
-  const { posts, totalPages, isLoading, isError, error } = usePosts(page, 10);
+  const { posts, totalPages, isLoading, isError, error } = useBoardList(
+    page,
+    10
+  );
 
   if (isLoading) {
     return <LoadingMsg />;
@@ -16,7 +21,7 @@ export const BoardListContent = () => {
 
   return (
     <>
-      <BoardList posts={posts} />
+      <PostList posts={posts} />
       <BoardPagination
         page={page}
         totalPages={totalPages}
