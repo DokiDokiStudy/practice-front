@@ -1,2 +1,3 @@
-export type { Category } from "./model";
-export { fetchCategories } from "./api";
+export { fetchCategories } from "./api/categoryApi";
+export { categoryKeys } from "./api/category.query";
+export type { Category } from "./model/types";

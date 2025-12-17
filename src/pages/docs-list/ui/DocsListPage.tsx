@@ -1,10 +1,10 @@
 import { useParams } from "@tanstack/react-router";
-import { DocsSectionList, useDocsData } from "@/features/docs";
+import { DocsSectionList } from "./DocsList";
+import { useGetDocsList } from "../api/useGetDocsList";
 
-export function DocsCategoryPage() {
+export function DocsListPage() {
   const { category } = useParams({ from: "/docs/$category/" });
-  const allDocs = useDocsData();
-
+  const allDocs = useGetDocsList();
   const categoryDoc = allDocs.find((doc) => doc.id === category);
 
   if (!categoryDoc) {

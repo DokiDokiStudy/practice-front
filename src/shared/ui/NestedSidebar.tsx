@@ -1,5 +1,5 @@
 import { useRouter, useRouterState } from "@tanstack/react-router";
-import type { DocsCategory } from "@/entities/docs-categories";
+import type { DocsCategory } from "@/shared/types";
 
 interface Props {
   data: DocsCategory[];

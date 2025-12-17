@@ -11,13 +11,14 @@ import { useNavigate, useParams } from "@tanstack/react-router";
 import { useDeleteThread, useThread } from "@/features/thread/model/useThreads";
 import { useAuth } from "@/shared/lib/auth";
 import { usePostReaction } from "@/features/boardForm";
-import { CommentList, useDocsData } from "@/features/docs";
+import { CommentList } from "@/features/docs";
+import { useGetDocsList } from "@/pages/docs-list/api/useGetDocsList";
 
 export const ThreadDetail = () => {
   const { id } = useParams({ from: "/thread/$id" });
   const navigate = useNavigate();
   const { isLogin } = useAuth();
-  const docsData = useDocsData();
+  const docsData = useGetDocsList();
 
   const threadId = parseInt(id || "0");
 

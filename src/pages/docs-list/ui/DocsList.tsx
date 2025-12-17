@@ -1,14 +1,13 @@
 import { useNavigate } from "@tanstack/react-router";
-import type { DocsCategory } from "@/entities/docs-categories";
+import type { DocsCategory } from "@/shared/types";
 
 export function DocsSectionList({ docs }: { docs: DocsCategory[] }) {
   const navigate = useNavigate();
 
-  const goToDetail = (category: string, chapterId: string, stepId?: string) => {
+  const goToDetail = (category: string, chapterId: string) => {
     navigate({
       to: "/docs/$category/$chapterId",
       params: { category, chapterId },
-      hash: stepId,
     });
   };
 
@@ -18,10 +17,7 @@ export function DocsSectionList({ docs }: { docs: DocsCategory[] }) {
         <div key={section.id} className="mb-12">
           {section.chapters.map((chapter) => (
             <div key={chapter.id} className="mb-6">
-              <h3
-                className="text-xl font-semibold mb-2 cursor-pointer hover:underline"
-                onClick={() => goToDetail(section.id, chapter.id)}
-              >
+              <h3 className="text-xl font-semibold mb-2">
                 {chapter.title}
               </h3>
               <ul className="space-y-1 ml-4">
@@ -29,7 +25,7 @@ export function DocsSectionList({ docs }: { docs: DocsCategory[] }) {
                   <li
                     key={step.id}
                     className="text-sm text-blue-700 hover:underline cursor-pointer"
-                    onClick={() => goToDetail(section.id, chapter.id, step.id)}
+                    onClick={() => goToDetail(section.id, step.id)}
                   >
                     {step.title}
                   </li>
