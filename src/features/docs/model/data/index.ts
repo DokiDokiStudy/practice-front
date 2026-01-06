@@ -1,1 +1,0 @@
-export { docsData } from "./docsData";

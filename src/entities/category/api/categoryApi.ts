@@ -1,5 +1,5 @@
 import { api } from "@/shared/api";
-import { Category } from "../model";
+import { Category } from "../model/types";
 
 export async function fetchCategories(): Promise<Category[]> {
   try {

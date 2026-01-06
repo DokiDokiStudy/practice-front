@@ -1,24 +1,8 @@
 import { useRouter, useRouterState } from "@tanstack/react-router";
-
-interface Step {
-  id: string;
-  title: string;
-}
-
-interface Chapter {
-  id: string;
-  title: string;
-  steps?: Step[];
-}
-
-interface Project {
-  id: string;
-  title: string;
-  chapters: Chapter[];
-}
+import type { DocsCategory } from "@/shared/types";
 
 interface Props {
-  data: Project[];
+  data: DocsCategory[];
 }
 
 export function NestedSidebar({ data }: Props) {
