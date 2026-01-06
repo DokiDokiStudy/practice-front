@@ -1,7 +1,7 @@
 import { api } from "@/shared/api";
 import { Category } from "../model/types";
 
-export async function fetchCategories(): Promise<Category[]> {
+export const getCategories = async (): Promise<Category[]> => {
   try {
     const res = await api.get("/categories");
     const categories = res.data.data?.categories || res.data.categories || [];
@@ -15,4 +15,4 @@ export async function fetchCategories(): Promise<Category[]> {
   } catch (error) {
     return [];
   }
-}
+};

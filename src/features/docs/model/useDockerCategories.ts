@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Category, fetchCategories } from "@/entities/category";
+import { Category, getCategories } from "@/entities/category";
 
 export const useDockerCategories = () => {
   const {
@@ -9,7 +9,7 @@ export const useDockerCategories = () => {
     error,
   } = useQuery({
     queryKey: ["categories"],
-    queryFn: fetchCategories,
+    queryFn: getCategories,
     placeholderData: [],
   });
 

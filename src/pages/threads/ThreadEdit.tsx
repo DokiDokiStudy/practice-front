@@ -3,7 +3,7 @@ import { NestedSidebar } from "@/shared/ui";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Save } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import { fetchCategories } from "@/entities/category";
+import { getCategories } from "@/entities/category";
 import { useThread, useUpdateThread } from "@/features/thread/model/useThreads";
 import { useAuth } from "@/shared/lib/auth";
 import { useGetDocsList } from "@/pages/docs-list/api/useGetDocsList";
@@ -29,7 +29,7 @@ export const ThreadEdit = () => {
   // 카테고리 데이터 가져오기
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
-    queryFn: fetchCategories,
+    queryFn: getCategories,
     placeholderData: [],
   });
 

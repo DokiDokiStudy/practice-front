@@ -1,12 +1,12 @@
 import { queryOptions } from "@tanstack/react-query";
-import { fetchCategories } from "./categoryApi";
+import { getCategories } from "./categoryApi";
 
 export const categoryKeys = {
   all: ["categories"] as const,
   list: () =>
     queryOptions({
       queryKey: [...categoryKeys.all, "list"],
-      queryFn: () => fetchCategories(),
+      queryFn: () => getCategories(),
       placeholderData: (prev) => prev,
     }),
 };
