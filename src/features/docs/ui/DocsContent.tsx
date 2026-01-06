@@ -1,9 +1,11 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import type { Post } from "@/entities/post";
 
 interface DocsContentProps {
-  post: Post;
+  post: {
+    title: string;
+    content: string;
+  };
 }
 
 export function DocsContent({ post }: DocsContentProps) {
