@@ -15,7 +15,6 @@ export const useLogin = () => {
         throw new Error("로그인에 실패하였습니다.", { cause: response });
       }
 
-      console.log("로그인 성공 응답:", response);
       const tokenData = JSON.stringify({
         token: response.data.token,
       });

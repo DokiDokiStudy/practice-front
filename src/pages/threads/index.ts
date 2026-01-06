@@ -1,4 +1,4 @@
-export * from "./ThreadDetail";
-export * from "./ThreadEdit";
-export * from "./ThreadWrite";
-export * from "./ThreadList";
+export { ThreadList } from "./ThreadList";
+export { ThreadDetail } from "./ThreadDetail";
+export { ThreadEdit } from "./ThreadEdit";
+export { ThreadWrite } from "./ThreadWrite";

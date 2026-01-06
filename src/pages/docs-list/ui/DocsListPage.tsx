@@ -1,8 +1,7 @@
 import { useParams } from "@tanstack/react-router";
-import { DocsSectionList } from "./DocsList";
-import { useGetDocsList } from "../api/useGetDocsList";
+import { DocsList, useGetDocsList } from "@/features/docs";
 
-export function DocsListPage() {
+export const DocsListPage = () => {
   const { category } = useParams({ from: "/docs/$category/" });
 
   const allDocs = useGetDocsList();
@@ -14,7 +13,7 @@ export function DocsListPage() {
         {categoryDoc ? (
           <>
             <h1 className="text-3xl font-bold mb-6">{categoryDoc.title}</h1>
-            <DocsSectionList docs={[categoryDoc]} />
+            <DocsList docs={[categoryDoc]} />
           </>
         ) : (
           <p className="text-red-500 text-center">
@@ -24,4 +23,4 @@ export function DocsListPage() {
       </div>
     </div>
   );
-}
+};

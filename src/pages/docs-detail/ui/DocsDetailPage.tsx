@@ -1,6 +1,6 @@
 import { useParams } from "@tanstack/react-router";
 import { NestedSidebar } from "@/shared/ui";
-import { useGetDocsList } from "@/pages/docs-list/api/useGetDocsList";
+import { useGetDocsList } from "@/features/docs";
 import { useGetDocsDetail } from "../api/useGetDocsDetail";
 import { DocsContent } from "./DocsContent";
 

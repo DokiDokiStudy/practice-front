@@ -4,6 +4,7 @@ import { Category } from "../model/types";
 export const getCategories = async (): Promise<Category[]> => {
   try {
     const res = await api.get("/categories");
+
     const categories = res.data.data?.categories || res.data.categories || [];
 
     if (!Array.isArray(categories)) {
@@ -13,6 +14,6 @@ export const getCategories = async (): Promise<Category[]> => {
 
     return categories;
   } catch (error) {
-    return [];
+    throw new Error("Failed to fetch categories");
   }
 };
