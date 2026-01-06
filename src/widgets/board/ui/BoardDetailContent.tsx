@@ -23,10 +23,10 @@ export const BoardDetailContent = ({ postId }: BoardDetailContentProps) => {
     return <ErrorMessage message="게시글을 찾을 수 없습니다." />;
   }
 
-  const { id, title, author, createdAt, content } = post.data;
+  const { id, title, author, createdAt, content } = post;
 
   return (
-    <>
+    <div className="flex flex-col h-full space-y-4 min-h-0">
       <PostDetail
         title={title}
         author={author || "익명"}
@@ -34,7 +34,7 @@ export const BoardDetailContent = ({ postId }: BoardDetailContentProps) => {
         content={content}
       />
 
-      <div className="flex space-x-2 mt-6">
+      <div className="flex space-x-2 mt-4">
         <Link
           to="/board/$id/edit"
           params={{ id }}
@@ -46,6 +46,6 @@ export const BoardDetailContent = ({ postId }: BoardDetailContentProps) => {
           목록으로
         </Button>
       </div>
-    </>
+    </div>
   );
 };

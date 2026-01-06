@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 import { LoadingMsg } from "@/shared/ui";
+import MDEditor from "@uiw/react-md-editor";
 import { BoardForm, useUpdatePost } from "@/features/boardForm";
 import { useBoard } from "../model";
 
@@ -74,6 +75,7 @@ export const BoardEditForm = ({ postId }: BoardEditFormProps) => {
           disabled: isUpdating,
         }}
       />
+      <MDEditor value={content} onChange={(value) => setContent(value || "")} />
     </>
   );
 };
