@@ -1,3 +1,5 @@
+import { Comment } from "@/entities/comment";
+
 export interface Post {
   id: number;
   title: string;
@@ -15,6 +17,7 @@ export interface Post {
     id: number;
     nickName: string;
   };
+  comments: Comment[];
 }
 
 export interface PostsResponse {

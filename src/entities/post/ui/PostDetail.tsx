@@ -1,14 +1,25 @@
+import { Comment } from "@/entities/comment";
+import { BoardComment } from "@/pages/board/boardComment/ui/boardComment";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 interface PostDetailProps {
+  postId: number;
   title: string;
   author: string;
   date: string;
   content: string;
+  comments: Comment[];
 }
 
-export function PostDetail({ title, author, date, content }: PostDetailProps) {
+export function PostDetail({
+  postId,
+  title,
+  author,
+  date,
+  content,
+  comments,
+}: PostDetailProps) {
   return (
     <>
       <div>
@@ -21,8 +32,11 @@ export function PostDetail({ title, author, date, content }: PostDetailProps) {
         <span>{date}</span>
       </div>
 
-      <div className="bg-[#fffde7] p-6 rounded-xl text-gray-800 flex-1 min-h-0 overflow-y-auto prose prose-sm max-w-none">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+      <div className="bg-[#fffde7] p-6 rounded-xl text-gray-800 flex-1 min-h-0 overflow-y-auto max-w-none">
+        <div className="text-gray-800 prose prose-sm max-w-none">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+        </div>
+        <BoardComment postId={postId} comments={comments} />
       </div>
     </>
   );

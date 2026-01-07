@@ -1,10 +1,11 @@
 import { useState, FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
-import { CategorySelect } from "@/shared/ui";
-import { useCreatePost, BoardForm } from "@/features/boardForm";
+import { Button, CategorySelect } from "@/shared/ui";
+import { useCreatePost } from "@/features/boardForm";
 import { useQuery } from "@tanstack/react-query";
 import { categoryKeys } from "@/entities/category";
+import MDEditor from "@uiw/react-md-editor";
 
 export const BoardWriteForm = () => {
   const navigate = useNavigate();
@@ -43,6 +44,17 @@ export const BoardWriteForm = () => {
         />
       </div>
 
+      <div className="mb-4">
+        <label className="block text-gray-700 font-semibold mb-1">제목</label>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full border border-gray-300 rounded-xl px-4 py-2"
+          required
+        />
+      </div>
+      {/* TODO: 추후 md형식과 일반 형식 나누어서 처리하기
       <BoardForm
         titleValue={title}
         contentValue={content}
@@ -56,7 +68,27 @@ export const BoardWriteForm = () => {
           loading: isCreating,
           disabled: isCreating,
         }}
+      /> */}
+
+      <MDEditor
+        value={content}
+        onChange={(value) => setContent(value || "")}
+        height="100%"
+        data-color-mode="dark"
+        style={{ marginTop: "1rem" }}
       />
+      <div className="flex space-x-2 mt-4">
+        <Button
+          color="green"
+          onClick={(event) => handleSubmit(event)}
+          disabled={isCreating}
+        >
+          저장하기
+        </Button>
+        <Button color="gray" onClick={() => navigate({ to: "/board" })}>
+          목록으로
+        </Button>
+      </div>
     </>
   );
 };
