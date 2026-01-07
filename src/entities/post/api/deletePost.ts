@@ -1,4 +1,9 @@
 import { api } from "@/shared/api";
 
-export const deletePost = (id: number): Promise<void> =>
-  api.delete<void>(`/post/${id}`).then(() => {});
+export const deletePost = async (id: number): Promise<void> => {
+  try {
+    await api.delete<void>(`/posts/${id}`);
+  } catch (error) {
+    throw error;
+  }
+};
