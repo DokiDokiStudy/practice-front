@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { useThreadsByCategory } from "@/features/thread/model/useThreads";
-import { NestedSidebar } from "@/shared/ui";
 import { useAuth } from "@/shared/lib/auth";
-import { docsData, ThreadCard, useDockerCategories } from "@/features/docs";
+import { NestedSidebar } from "@/shared/ui";
+import { docsData, useDockerCategories } from "@/features/docs";
+import { ThreadCard } from "./ThreadCard";
+import { useThreadList } from "../model";
 
 export const ThreadList = () => {
-  const { isLogin } = useAuth();
-  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
 
-  // TODO : 나중에는.. 대분류 카테고리별로 가져올 수 있어야 할 것 같다.
+  const { isLogin } = useAuth();
+  const navigate = useNavigate();
   const {
     dockerCategory,
     flatDockerCategories,
@@ -22,7 +22,7 @@ export const ThreadList = () => {
     isLoading: threadsLoading,
     error,
     isError: hasError,
-  } = useThreadsByCategory(
+  } = useThreadList(
     selectedCategory || selectedChapter || 0 // 소분류 > 중분류 > 전체 순서로 우선순위
   );
 

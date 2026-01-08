@@ -6,11 +6,10 @@ export type {
 } from "./model";
 
 export {
-  fetchThreads,
-  fetchThreadsByCategory,
-  fetchThreadById,
+  threadKeys,
+  readThreadList,
+  readThread,
   createThread,
   updateThread,
   deleteThread,
-  fetchCommentsByThreadId,
 } from "./api";

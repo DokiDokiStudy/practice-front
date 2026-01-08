@@ -8,13 +8,19 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import { useDeleteThread, useThread } from "@/features/thread/model/useThreads";
+import { useDeleteThread } from "@/features/thread/model/useThreads";
 import { useAuth } from "@/shared/lib/auth";
 import { usePostReaction } from "@/features/boardForm";
 import { CommentList, docsData } from "@/features/docs";
+import { useThread } from "../model";
+import { ThreadLoading } from "./ThreadLoading";
+import { ThreadError } from "./ThreadError";
 
-export const ThreadDetail = () => {
-  const { id } = useParams({ from: "/thread/$id" });
+interface ThreadDetailProps {
+  id: string;
+}
+
+export const ThreadDetail = ({ id }: ThreadDetailProps) => {
   const navigate = useNavigate();
   const { isLogin } = useAuth();
 
@@ -55,39 +61,8 @@ export const ThreadDetail = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex flex-col min-h-screen">
-        <div className="flex flex-1">
-          <NestedSidebar data={docsData} />
-          <main className="max-w-4xl px-4 py-10 mx-auto w-full">
-            <div className="flex justify-center items-center h-64">
-              <div className="text-lg text-gray-600">
-                쓰레드를 불러오고 있습니다...
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    );
-  }
-
-  if (isError || !thread) {
-    return (
-      <div className="flex flex-col min-h-screen">
-        <div className="flex flex-1">
-          <NestedSidebar data={docsData} />
-          <main className="max-w-4xl px-4 py-10 mx-auto w-full">
-            <div className="flex justify-center items-center h-64">
-              <div className="text-lg text-red-600">
-                쓰레드를 찾을 수 없습니다: {error?.message}
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    );
-  }
+  if (isLoading) return <ThreadLoading />;
+  if (isError || !thread) return <ThreadError />;
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -128,7 +103,7 @@ export const ThreadDetail = () => {
           <article className="rounded-lg shadow-lg p-8 mb-8 bg-white border border-gray-200">
             <header className="border-b pb-4 mb-6">
               <h1 className="text-3xl font-bold mb-4 text-gray-900">
-                {thread.title}
+                {thread!.title}
               </h1>
               <div className="flex justify-between items-center text-sm">
                 <div className="text-gray-600">
