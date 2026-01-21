@@ -1,5 +1,6 @@
 import { Comment } from "@/entities/comment";
-import { BoardComment } from "@/pages/board/boardComment/ui/boardComment";
+import { BoardComment } from "@/pages/board/boardComment/ui/BoardComment";
+
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
