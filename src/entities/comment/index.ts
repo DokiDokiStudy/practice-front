@@ -1,2 +1,2 @@
 export type { Comment } from "./model";
-export { fetchComments, createComment } from "./api";
+export { fetchComments, createComment, deleteComment } from "./api";

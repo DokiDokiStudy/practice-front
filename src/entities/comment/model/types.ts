@@ -3,4 +3,8 @@ export interface Comment {
   content: string;
   author: string;
   createdAt: string;
+  parentId: number | null;
+  depth: number;
+  likeCount: number;
+  updatedAt: string;
 }

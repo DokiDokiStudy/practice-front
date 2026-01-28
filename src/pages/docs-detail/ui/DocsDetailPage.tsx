@@ -1,30 +1,30 @@
 import { useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { postKeys } from "@/entities/post";
-// import { useGetDocsList, DocsSidebar, DocsContent } from "@/features/docs";
+import { useGetDocsList, DocsSidebar, DocsContent } from "@/features/docs";
+import { extractChapterNumber } from "@/features/docs/lib/transformCategoriesToDocs";
 
 export function DocsDetailPage() {
-  const { chapterId } = useParams({
+  const { category, chapterId } = useParams({
     from: "/docs/$category/$chapterId",
   });
 
-  // const docsData = useGetDocsList();
-
-  const searchParams = new URLSearchParams({ categoryId: chapterId });
+  const searchParams = new URLSearchParams({ categoryId: category });
   const {
     data: postListData,
     isLoading,
     error,
-  } = useQuery(postKeys.list(searchParams));
+  } = useQuery(postKeys.listFilterWithCategory(searchParams));
+  console.log(postListData);
 
-  const currentPost = postListData?.posts?.[0];
+  const postList = postListData?.posts;
 
   const renderContent = () => {
     if (isLoading) {
       return <div className="text-center text-gray-600">로딩 중...</div>;
     }
 
-    if (error || !currentPost) {
+    if (error || !postList) {
       return (
         <div className="text-center text-red-600">
           콘텐츠를 불러올 수 없습니다.
@@ -32,7 +32,13 @@ export function DocsDetailPage() {
       );
     }
 
-    // return <DocsContent post={currentPost} />;
+    const sortedPostList = postList.sort((a, b) => {
+      return a.title > b.title ? 1 : -1;
+    });
+
+    return sortedPostList.map((post) => (
+      <DocsContent key={post.id} post={post} />
+    ));
   };
 
   return (

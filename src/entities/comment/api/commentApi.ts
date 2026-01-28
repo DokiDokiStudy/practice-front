@@ -18,5 +18,9 @@ export async function updateComment(
   commentId: number,
   content: string
 ): Promise<void> {
-  await api.post(`/comments/${commentId}`, { content });
+  await api.patch(`/comments/${commentId}`, { content });
+}
+
+export async function deleteComment(commentId: number): Promise<void> {
+  await api.delete(`/comments/${commentId}`);
 }

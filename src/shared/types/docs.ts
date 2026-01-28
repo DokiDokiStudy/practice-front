@@ -15,3 +15,9 @@ export interface DocsCategory {
   title: string;
   chapters: Chapter[];
 }
+
+export interface DocsCategoryNew {
+  id: string;
+  name: string;
+  children: DocsCategoryNew[];
+}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ErrorMessage, LoadingMsg } from "@/shared/ui";
 import { PostList } from "@/entities/post/ui";
 import { BoardPagination } from "@/features/boardPagination";
