@@ -13,14 +13,10 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as MainRouteImport } from './routes/main'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ThreadIndexRouteImport } from './routes/thread/index'
 import { Route as BoardIndexRouteImport } from './routes/board/index'
-import { Route as ThreadWriteRouteImport } from './routes/thread/write'
-import { Route as ThreadThreadIdRouteImport } from './routes/thread/$threadId'
 import { Route as BoardWriteRouteImport } from './routes/board/write'
 import { Route as BoardIdRouteImport } from './routes/board/$id'
 import { Route as DocsCategoryIndexRouteImport } from './routes/docs/$category/index'
-import { Route as ThreadThreadIdEditRouteImport } from './routes/thread/$threadId/edit'
 import { Route as DocsCategoryChapterIdRouteImport } from './routes/docs/$category/$chapterId'
 import { Route as BoardIdEditRouteImport } from './routes/board/$id/edit'
 
@@ -44,24 +40,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ThreadIndexRoute = ThreadIndexRouteImport.update({
-  id: '/thread/',
-  path: '/thread/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BoardIndexRoute = BoardIndexRouteImport.update({
   id: '/board/',
   path: '/board/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ThreadWriteRoute = ThreadWriteRouteImport.update({
-  id: '/thread/write',
-  path: '/thread/write',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ThreadThreadIdRoute = ThreadThreadIdRouteImport.update({
-  id: '/thread/$threadId',
-  path: '/thread/$threadId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BoardWriteRoute = BoardWriteRouteImport.update({
@@ -78,11 +59,6 @@ const DocsCategoryIndexRoute = DocsCategoryIndexRouteImport.update({
   id: '/docs/$category/',
   path: '/docs/$category/',
   getParentRoute: () => rootRouteImport,
-} as any)
-const ThreadThreadIdEditRoute = ThreadThreadIdEditRouteImport.update({
-  id: '/edit',
-  path: '/edit',
-  getParentRoute: () => ThreadThreadIdRoute,
 } as any)
 const DocsCategoryChapterIdRoute = DocsCategoryChapterIdRouteImport.update({
   id: '/docs/$category/$chapterId',
@@ -102,13 +78,9 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
   '/board/write': typeof BoardWriteRoute
-  '/thread/$threadId': typeof ThreadThreadIdRouteWithChildren
-  '/thread/write': typeof ThreadWriteRoute
   '/board': typeof BoardIndexRoute
-  '/thread': typeof ThreadIndexRoute
   '/board/$id/edit': typeof BoardIdEditRoute
   '/docs/$category/$chapterId': typeof DocsCategoryChapterIdRoute
-  '/thread/$threadId/edit': typeof ThreadThreadIdEditRoute
   '/docs/$category': typeof DocsCategoryIndexRoute
 }
 export interface FileRoutesByTo {
@@ -118,13 +90,9 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
   '/board/write': typeof BoardWriteRoute
-  '/thread/$threadId': typeof ThreadThreadIdRouteWithChildren
-  '/thread/write': typeof ThreadWriteRoute
   '/board': typeof BoardIndexRoute
-  '/thread': typeof ThreadIndexRoute
   '/board/$id/edit': typeof BoardIdEditRoute
   '/docs/$category/$chapterId': typeof DocsCategoryChapterIdRoute
-  '/thread/$threadId/edit': typeof ThreadThreadIdEditRoute
   '/docs/$category': typeof DocsCategoryIndexRoute
 }
 export interface FileRoutesById {
@@ -135,13 +103,9 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/board/$id': typeof BoardIdRouteWithChildren
   '/board/write': typeof BoardWriteRoute
-  '/thread/$threadId': typeof ThreadThreadIdRouteWithChildren
-  '/thread/write': typeof ThreadWriteRoute
   '/board/': typeof BoardIndexRoute
-  '/thread/': typeof ThreadIndexRoute
   '/board/$id/edit': typeof BoardIdEditRoute
   '/docs/$category/$chapterId': typeof DocsCategoryChapterIdRoute
-  '/thread/$threadId/edit': typeof ThreadThreadIdEditRoute
   '/docs/$category/': typeof DocsCategoryIndexRoute
 }
 export interface FileRouteTypes {
@@ -153,13 +117,9 @@ export interface FileRouteTypes {
     | '/register'
     | '/board/$id'
     | '/board/write'
-    | '/thread/$threadId'
-    | '/thread/write'
     | '/board'
-    | '/thread'
     | '/board/$id/edit'
     | '/docs/$category/$chapterId'
-    | '/thread/$threadId/edit'
     | '/docs/$category'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -169,13 +129,9 @@ export interface FileRouteTypes {
     | '/register'
     | '/board/$id'
     | '/board/write'
-    | '/thread/$threadId'
-    | '/thread/write'
     | '/board'
-    | '/thread'
     | '/board/$id/edit'
     | '/docs/$category/$chapterId'
-    | '/thread/$threadId/edit'
     | '/docs/$category'
   id:
     | '__root__'
@@ -185,13 +141,9 @@ export interface FileRouteTypes {
     | '/register'
     | '/board/$id'
     | '/board/write'
-    | '/thread/$threadId'
-    | '/thread/write'
     | '/board/'
-    | '/thread/'
     | '/board/$id/edit'
     | '/docs/$category/$chapterId'
-    | '/thread/$threadId/edit'
     | '/docs/$category/'
   fileRoutesById: FileRoutesById
 }
@@ -202,10 +154,7 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   BoardIdRoute: typeof BoardIdRouteWithChildren
   BoardWriteRoute: typeof BoardWriteRoute
-  ThreadThreadIdRoute: typeof ThreadThreadIdRouteWithChildren
-  ThreadWriteRoute: typeof ThreadWriteRoute
   BoardIndexRoute: typeof BoardIndexRoute
-  ThreadIndexRoute: typeof ThreadIndexRoute
   DocsCategoryChapterIdRoute: typeof DocsCategoryChapterIdRoute
   DocsCategoryIndexRoute: typeof DocsCategoryIndexRoute
 }
@@ -240,32 +189,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/thread/': {
-      id: '/thread/'
-      path: '/thread'
-      fullPath: '/thread'
-      preLoaderRoute: typeof ThreadIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/board/': {
       id: '/board/'
       path: '/board'
       fullPath: '/board'
       preLoaderRoute: typeof BoardIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/thread/write': {
-      id: '/thread/write'
-      path: '/thread/write'
-      fullPath: '/thread/write'
-      preLoaderRoute: typeof ThreadWriteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/thread/$threadId': {
-      id: '/thread/$threadId'
-      path: '/thread/$threadId'
-      fullPath: '/thread/$threadId'
-      preLoaderRoute: typeof ThreadThreadIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/board/write': {
@@ -288,13 +216,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/docs/$category'
       preLoaderRoute: typeof DocsCategoryIndexRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/thread/$threadId/edit': {
-      id: '/thread/$threadId/edit'
-      path: '/edit'
-      fullPath: '/thread/$threadId/edit'
-      preLoaderRoute: typeof ThreadThreadIdEditRouteImport
-      parentRoute: typeof ThreadThreadIdRoute
     }
     '/docs/$category/$chapterId': {
       id: '/docs/$category/$chapterId'
@@ -324,18 +245,6 @@ const BoardIdRouteChildren: BoardIdRouteChildren = {
 const BoardIdRouteWithChildren =
   BoardIdRoute._addFileChildren(BoardIdRouteChildren)
 
-interface ThreadThreadIdRouteChildren {
-  ThreadThreadIdEditRoute: typeof ThreadThreadIdEditRoute
-}
-
-const ThreadThreadIdRouteChildren: ThreadThreadIdRouteChildren = {
-  ThreadThreadIdEditRoute: ThreadThreadIdEditRoute,
-}
-
-const ThreadThreadIdRouteWithChildren = ThreadThreadIdRoute._addFileChildren(
-  ThreadThreadIdRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
@@ -343,10 +252,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   BoardIdRoute: BoardIdRouteWithChildren,
   BoardWriteRoute: BoardWriteRoute,
-  ThreadThreadIdRoute: ThreadThreadIdRouteWithChildren,
-  ThreadWriteRoute: ThreadWriteRoute,
   BoardIndexRoute: BoardIndexRoute,
-  ThreadIndexRoute: ThreadIndexRoute,
   DocsCategoryChapterIdRoute: DocsCategoryChapterIdRoute,
   DocsCategoryIndexRoute: DocsCategoryIndexRoute,
 }

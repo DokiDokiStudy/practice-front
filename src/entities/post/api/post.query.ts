@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
-import { readPost } from "./read-post";
-import { readPostList } from "./read-post-list";
+import { getPost } from "./get-post";
+import { getPostList } from "./get-post-list";
 
 export const postKeys = {
   all: ["postList"] as const,
@@ -15,7 +15,7 @@ export const postKeys = {
   detail: (id: number) =>
     queryOptions({
       queryKey: [...postKeys.all, "detail", id],
-      queryFn: () => readPost(id),
+      queryFn: () => getPost(id),
       retry: 1,
       placeholderData: (prev) => prev,
     }),
