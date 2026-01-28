@@ -4,20 +4,17 @@ import { postKeys } from "@/entities/post";
 import { useGetDocsList, DocsSidebar, DocsContent } from "@/features/docs";
 
 export function DocsDetailPage() {
-  const { chapterId } = useParams({
-    from: "/docs/$category/$chapterId",
+  const { category, postId } = useParams({
+    from: "/docs/$category/$postId",
   });
 
-  const docsData = useGetDocsList();
+  const docs = useGetDocsList({ categoryName: category });
 
-  const searchParams = new URLSearchParams({ categoryId: chapterId });
   const {
-    data: postListData,
+    data: currentPost,
     isLoading,
     error,
-  } = useQuery(postKeys.list(searchParams));
-
-  const currentPost = postListData?.posts?.[0];
+  } = useQuery(postKeys.detail(Number(postId)));
 
   const renderContent = () => {
     if (isLoading) {
@@ -35,9 +32,17 @@ export function DocsDetailPage() {
     return <DocsContent post={currentPost} />;
   };
 
+  if (!docs) {
+    return (
+      <div className="flex-1 bg-white py-10 px-4 text-center text-red-500">
+        해당 카테고리를 찾을 수 없습니다.
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-1 bg-white">
-      <DocsSidebar docs={docsData} />
+      <DocsSidebar docs={docs} />
       <main className="flex-1 relative px-6 py-10 max-w-4xl mx-auto">
         {renderContent()}
       </main>

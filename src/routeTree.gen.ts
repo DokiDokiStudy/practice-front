@@ -17,7 +17,7 @@ import { Route as BoardIndexRouteImport } from './routes/board/index'
 import { Route as BoardWriteRouteImport } from './routes/board/write'
 import { Route as BoardIdRouteImport } from './routes/board/$id'
 import { Route as DocsCategoryIndexRouteImport } from './routes/docs/$category/index'
-import { Route as DocsCategoryChapterIdRouteImport } from './routes/docs/$category/$chapterId'
+import { Route as DocsCategoryPostIdRouteImport } from './routes/docs/$category/$postId'
 import { Route as BoardIdEditRouteImport } from './routes/board/$id/edit'
 
 const RegisterRoute = RegisterRouteImport.update({
@@ -60,9 +60,9 @@ const DocsCategoryIndexRoute = DocsCategoryIndexRouteImport.update({
   path: '/docs/$category/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DocsCategoryChapterIdRoute = DocsCategoryChapterIdRouteImport.update({
-  id: '/docs/$category/$chapterId',
-  path: '/docs/$category/$chapterId',
+const DocsCategoryPostIdRoute = DocsCategoryPostIdRouteImport.update({
+  id: '/docs/$category/$postId',
+  path: '/docs/$category/$postId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BoardIdEditRoute = BoardIdEditRouteImport.update({
@@ -80,7 +80,7 @@ export interface FileRoutesByFullPath {
   '/board/write': typeof BoardWriteRoute
   '/board': typeof BoardIndexRoute
   '/board/$id/edit': typeof BoardIdEditRoute
-  '/docs/$category/$chapterId': typeof DocsCategoryChapterIdRoute
+  '/docs/$category/$postId': typeof DocsCategoryPostIdRoute
   '/docs/$category': typeof DocsCategoryIndexRoute
 }
 export interface FileRoutesByTo {
@@ -92,7 +92,7 @@ export interface FileRoutesByTo {
   '/board/write': typeof BoardWriteRoute
   '/board': typeof BoardIndexRoute
   '/board/$id/edit': typeof BoardIdEditRoute
-  '/docs/$category/$chapterId': typeof DocsCategoryChapterIdRoute
+  '/docs/$category/$postId': typeof DocsCategoryPostIdRoute
   '/docs/$category': typeof DocsCategoryIndexRoute
 }
 export interface FileRoutesById {
@@ -105,7 +105,7 @@ export interface FileRoutesById {
   '/board/write': typeof BoardWriteRoute
   '/board/': typeof BoardIndexRoute
   '/board/$id/edit': typeof BoardIdEditRoute
-  '/docs/$category/$chapterId': typeof DocsCategoryChapterIdRoute
+  '/docs/$category/$postId': typeof DocsCategoryPostIdRoute
   '/docs/$category/': typeof DocsCategoryIndexRoute
 }
 export interface FileRouteTypes {
@@ -119,7 +119,7 @@ export interface FileRouteTypes {
     | '/board/write'
     | '/board'
     | '/board/$id/edit'
-    | '/docs/$category/$chapterId'
+    | '/docs/$category/$postId'
     | '/docs/$category'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -131,7 +131,7 @@ export interface FileRouteTypes {
     | '/board/write'
     | '/board'
     | '/board/$id/edit'
-    | '/docs/$category/$chapterId'
+    | '/docs/$category/$postId'
     | '/docs/$category'
   id:
     | '__root__'
@@ -143,7 +143,7 @@ export interface FileRouteTypes {
     | '/board/write'
     | '/board/'
     | '/board/$id/edit'
-    | '/docs/$category/$chapterId'
+    | '/docs/$category/$postId'
     | '/docs/$category/'
   fileRoutesById: FileRoutesById
 }
@@ -155,7 +155,7 @@ export interface RootRouteChildren {
   BoardIdRoute: typeof BoardIdRouteWithChildren
   BoardWriteRoute: typeof BoardWriteRoute
   BoardIndexRoute: typeof BoardIndexRoute
-  DocsCategoryChapterIdRoute: typeof DocsCategoryChapterIdRoute
+  DocsCategoryPostIdRoute: typeof DocsCategoryPostIdRoute
   DocsCategoryIndexRoute: typeof DocsCategoryIndexRoute
 }
 
@@ -217,11 +217,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsCategoryIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/docs/$category/$chapterId': {
-      id: '/docs/$category/$chapterId'
-      path: '/docs/$category/$chapterId'
-      fullPath: '/docs/$category/$chapterId'
-      preLoaderRoute: typeof DocsCategoryChapterIdRouteImport
+    '/docs/$category/$postId': {
+      id: '/docs/$category/$postId'
+      path: '/docs/$category/$postId'
+      fullPath: '/docs/$category/$postId'
+      preLoaderRoute: typeof DocsCategoryPostIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/board/$id/edit': {
@@ -253,7 +253,7 @@ const rootRouteChildren: RootRouteChildren = {
   BoardIdRoute: BoardIdRouteWithChildren,
   BoardWriteRoute: BoardWriteRoute,
   BoardIndexRoute: BoardIndexRoute,
-  DocsCategoryChapterIdRoute: DocsCategoryChapterIdRoute,
+  DocsCategoryPostIdRoute: DocsCategoryPostIdRoute,
   DocsCategoryIndexRoute: DocsCategoryIndexRoute,
 }
 export const routeTree = rootRouteImport
