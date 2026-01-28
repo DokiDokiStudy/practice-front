@@ -9,7 +9,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { usePostReaction } from "@/features/boardForm";
-import { CommentList } from "@/features/docs";
+// import { CommentList } from "@/features/docs";
 import { useThreadList } from "../model";
 
 // TODO: threadCard docs ui에서 분리 작업 필요
@@ -62,9 +62,9 @@ export const ThreadCard = ({
       return "전체 내용을 불러오고 있습니다";
     }
 
-    if (fullThread?.content) {
-      return fullThread.content;
-    }
+    // if (fullThread?.content) {
+    //   return fullThread.content;
+    // }
 
     return "전체 내용을 불러올 수 없습니다.";
   };
@@ -137,7 +137,7 @@ export const ThreadCard = ({
                 <MessageSquare size={14} />
                 댓글 ({comments.length})
               </h4>
-              <CommentList threadId={parseInt(threadId)} />
+              {/* <CommentList threadId={parseInt(threadId)} /> */}
             </div>
           </motion.div>
         )}

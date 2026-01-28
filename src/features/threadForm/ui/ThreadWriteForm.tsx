@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Save } from "lucide-react";
-import { NestedSidebar } from "@/shared/ui";
-import { docsData, useDockerCategories } from "@/features/docs";
+// import { NestedSidebar } from "@/shared/ui";
+// import { docsData, useDockerCategories } from "@/features/docs";
 import { useCreateThread } from "../model";
 
 export const ThreadWriteForm = () => {
@@ -12,11 +12,11 @@ export const ThreadWriteForm = () => {
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null); // 중분류 (챕터)
 
   const navigate = useNavigate();
-  const {
-    dockerCategory,
-    flatDockerCategories,
-    isLoading: categoriesLoading,
-  } = useDockerCategories();
+  // const {
+  //   dockerCategory,
+  //   flatDockerCategories,
+  //   isLoading: categoriesLoading,
+  // } = useDockerCategories();
   const createThreadMutation = useCreateThread();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,22 +54,22 @@ export const ThreadWriteForm = () => {
     }
   };
 
-  if (categoriesLoading) {
-    return (
-      <div className="flex flex-col min-h-screen">
-        <div className="flex flex-1">
-          <NestedSidebar data={docsData} />
-          <main className="max-w-4xl px-4 py-10 mx-auto w-full">
-            <div className="flex justify-center items-center h-64">
-              <div className="text-lg text-gray-600">
-                카테고리를 불러오고 있습니다...
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    );
-  }
+  // if (categoriesLoading) {
+  //   return (
+  //     <div className="flex flex-col min-h-screen">
+  //       <div className="flex flex-1">
+  //         <NestedSidebar data={docsData} />
+  //         <main className="max-w-4xl px-4 py-10 mx-auto w-full">
+  //           <div className="flex justify-center items-center h-64">
+  //             <div className="text-lg text-gray-600">
+  //               카테고리를 불러오고 있습니다...
+  //             </div>
+  //           </div>
+  //         </main>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <form
@@ -94,7 +94,7 @@ export const ThreadWriteForm = () => {
           </div>
         </div>
 
-        {dockerCategory?.children && dockerCategory.children.length > 0 && (
+        {/* {dockerCategory?.children && dockerCategory.children.length > 0 && (
           <div className="mb-4">
             <h4 className="text-sm font-medium text-gray-700 mb-2">
               📖 챕터별 주제
@@ -119,9 +119,9 @@ export const ThreadWriteForm = () => {
               ))}
             </div>
           </div>
-        )}
+        )} */}
 
-        {selectedChapter && dockerCategory?.children && (
+        {/* {selectedChapter && dockerCategory?.children && (
           <div className="mb-4">
             <h4 className="text-sm font-medium text-red-600 mb-2">
               📝 세부 내용 (필수 선택)
@@ -145,7 +145,7 @@ export const ThreadWriteForm = () => {
                 ))}
             </div>
           </div>
-        )}
+        )} */}
 
         {/* 현재 선택 상태 표시 */}
         {(selectedChapter || selectedCategory) && (
@@ -156,21 +156,21 @@ export const ThreadWriteForm = () => {
               {selectedChapter && (
                 <span className="text-green-600">
                   {" > "}
-                  {
+                  {/* {
                     dockerCategory?.children?.find(
                       (ch) => ch.id === selectedChapter
                     )?.name
-                  }
+                  } */}
                 </span>
               )}
               {selectedCategory && (
                 <span className="text-purple-600 font-medium">
                   {" > "}
-                  {
+                  {/* {
                     flatDockerCategories.find(
                       (cat) => cat.id === selectedCategory
                     )?.name
-                  }
+                  } */}
                 </span>
               )}
             </div>

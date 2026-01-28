@@ -1,4 +1,4 @@
-import { NestedSidebar } from "@/shared/ui";
+// import { NestedSidebar } from "@/shared/ui";
 import {
   MessageSquare,
   ThumbsUp,
@@ -11,7 +11,7 @@ import { useNavigate, useParams } from "@tanstack/react-router";
 import { useDeleteThread } from "@/features/thread/model/useThreads";
 import { useAuth } from "@/shared/lib/auth";
 import { usePostReaction } from "@/features/boardForm";
-import { CommentList, docsData } from "@/features/docs";
+// import { CommentList, docsData } from "@/features/docs";
 import { useThread } from "../model";
 import { ThreadLoading } from "./ThreadLoading";
 import { ThreadError } from "./ThreadError";
@@ -67,7 +67,7 @@ export const ThreadDetail = ({ id }: ThreadDetailProps) => {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex flex-1">
-        <NestedSidebar data={docsData} />
+        {/* <NestedSidebar data={docsData} /> */}
 
         <main className="max-w-4xl px-4 py-10 mx-auto w-full">
           <div className="flex items-center gap-4 mb-6">
@@ -166,7 +166,7 @@ export const ThreadDetail = ({ id }: ThreadDetailProps) => {
 
           <section className="rounded-lg shadow-lg p-6 bg-white border border-gray-200">
             <h2 className="text-xl font-bold mb-6 text-gray-900">💬 댓글</h2>
-            <CommentList threadId={threadId} comments={thread.comments} />
+            {/* <CommentList threadId={threadId} comments={thread.comments} /> */}
           </section>
         </main>
       </div>
