@@ -1,10 +1,15 @@
 import { api } from "@/shared/api";
 import { Post } from "../model";
 
-export const updatePost = (
+export const updatePost = async (
   id: number,
   payload: { title: string; content: string }
-): Promise<Post> =>
-  api
-    .patch<{ data: Post }>(`/post/${id}`, payload)
-    .then((res) => res.data.data);
+): Promise<Post> => {
+  try {
+    const res = await api.patch<{ data: Post }>(`/posts/${id}`, payload);
+
+    return res.data.data;
+  } catch (error) {
+    throw error;
+  }
+};

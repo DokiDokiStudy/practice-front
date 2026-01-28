@@ -1,1 +1,0 @@
-export { DocsChapterContent } from "./DocsChapterContent";

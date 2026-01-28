@@ -2,7 +2,12 @@ import { postKeys } from "@/entities/post";
 import { useQuery } from "@tanstack/react-query";
 
 export const useBoardList = (page: number, limit: number = 10) => {
-  const postQuery = useQuery(postKeys.list(page, limit));
+  const params = new URLSearchParams({
+    page: String(page),
+    limit: String(limit),
+  });
+
+  const postQuery = useQuery(postKeys.list(params));
 
   return {
     ...postQuery,

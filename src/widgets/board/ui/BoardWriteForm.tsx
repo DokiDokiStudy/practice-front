@@ -3,7 +3,8 @@ import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 import { CategorySelect } from "@/shared/ui";
 import { useCreatePost, BoardForm } from "@/features/boardForm";
-import { useCategories } from "@/features/category";
+import { useQuery } from "@tanstack/react-query";
+import { categoryKeys } from "@/entities/category";
 
 export const BoardWriteForm = () => {
   const navigate = useNavigate();
@@ -12,7 +13,9 @@ export const BoardWriteForm = () => {
   const [categoryId, setCategoryId] = useState(0);
 
   const { mutate: create, isPending: isCreating } = useCreatePost();
-  const { data: categories = [], isLoading: catLoading } = useCategories();
+  const { data: categories = [], isLoading: catLoading } = useQuery(
+    categoryKeys.list()
+  );
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
