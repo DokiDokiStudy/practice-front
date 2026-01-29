@@ -1,6 +1,6 @@
-import { DocsChapterDetail } from "@/pages/docs";
+import { DocsDetailPage } from "@/pages/docs-detail";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/docs/$category/$chapterId")({
-  component: DocsChapterDetail,
+  component: DocsDetailPage,
 });

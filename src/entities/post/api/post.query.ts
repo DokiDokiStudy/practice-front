@@ -1,23 +1,32 @@
 import { queryOptions } from "@tanstack/react-query";
 import { readPost } from "./read-post";
-import { readPostList } from "./read-post-list";
+import { readPostList, readPostListFilterWithCategory } from "./read-post-list";
+import { PostListGetResponse } from "../model";
 
 export const postKeys = {
   all: ["postList"] as const,
-  list: (page = 1, limit = 10) =>
-    queryOptions({
-      queryKey: [...postKeys.all, "list", page, limit],
-      queryFn: () => readPostList(page, limit),
-      // 이 구조는 entity에서 다루는 것은 좀 과하다고 생각 추후 검토
-      // select: (data) => ({
-      //   posts: data.posts,
-      //   meta: data.meta,
-      //   totalPages: data.meta.totalPages ?? 1,
-      //   total: data.meta.total ?? 0,
-      // }),
+  list: (params?: URLSearchParams) => {
+    return queryOptions({
+      queryKey: [...postKeys.all, "list", params?.toString()],
+      queryFn: async () => {
+        const page = params!.get("page")!;
+        return await readPostList(Number(page));
+      },
       retry: 1,
       placeholderData: (prev) => prev,
-    }),
+    });
+  },
+  listFilterWithCategory: (params: URLSearchParams) => {
+    return queryOptions({
+      queryKey: [...postKeys.all, "listFilterWithCategory", params?.toString()],
+      queryFn: async () => {
+        const categoryId = params.get("categoryId")!;
+        return await readPostListFilterWithCategory(Number(categoryId));
+      },
+      retry: 1,
+      placeholderData: (prev) => prev,
+    });
+  },
   detail: (id: number) =>
     queryOptions({
       queryKey: [...postKeys.all, "detail", id],

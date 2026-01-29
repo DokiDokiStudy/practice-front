@@ -7,7 +7,6 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CommentList } from "./CommentList";
 import { Link } from "@tanstack/react-router";
 import { usePostReaction } from "@/features/boardForm";
 import { useThreadList } from "@/widgets/thread/model";
@@ -62,8 +61,8 @@ export const ThreadCard = ({
       return "전체 내용을 불러오고 있습니다";
     }
 
-    if (fullThread?.content) {
-      return fullThread.content;
+    if (fullThread) {
+      return "";
     }
 
     return "전체 내용을 불러올 수 없습니다.";
@@ -137,7 +136,7 @@ export const ThreadCard = ({
                 <MessageSquare size={14} />
                 댓글 ({comments.length})
               </h4>
-              <CommentList threadId={parseInt(threadId)} />
+              {/* <CommentList threadId={parseInt(threadId)} /> */}
             </div>
           </motion.div>
         )}

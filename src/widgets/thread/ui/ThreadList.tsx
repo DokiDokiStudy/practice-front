@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/shared/lib/auth";
-import { NestedSidebar } from "@/shared/ui";
-import { docsData, useDockerCategories } from "@/features/docs";
+// import { NestedSidebar } from "@/shared/ui";
+// import { docsData, useDockerCategories } from "@/features/docs";
 import { ThreadCard } from "./ThreadCard";
 import { useThreadList } from "../model";
 
@@ -12,11 +12,11 @@ export const ThreadList = () => {
 
   const { isLogin } = useAuth();
   const navigate = useNavigate();
-  const {
-    dockerCategory,
-    flatDockerCategories,
-    isLoading: categoriesLoading,
-  } = useDockerCategories();
+  // const {
+  //   dockerCategory,
+  //   flatDockerCategories,
+  //   isLoading: categoriesLoading,
+  // } = useDockerCategories();
   const {
     data: threads = [],
     isLoading: threadsLoading,
@@ -26,13 +26,13 @@ export const ThreadList = () => {
     selectedCategory || selectedChapter || 0 // 소분류 > 중분류 > 전체 순서로 우선순위
   );
 
-  const isLoading = categoriesLoading || threadsLoading;
+  const isLoading = /* categoriesLoading || */ threadsLoading;
 
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen">
         <div className="flex flex-1">
-          <NestedSidebar data={docsData} />
+          {/* <NestedSidebar data={docsData} /> */}
           <main className="max-w-4xl px-4 py-10 mx-auto w-full">
             <div className="flex justify-center items-center h-64">
               <div className="text-lg text-gray-600">
@@ -49,7 +49,7 @@ export const ThreadList = () => {
     return (
       <div className="flex flex-col min-h-screen">
         <div className="flex flex-1">
-          <NestedSidebar data={docsData} />
+          {/* <NestedSidebar data={docsData} /> */}
           <main className="max-w-4xl px-4 py-10 mx-auto w-full">
             <div className="flex justify-center items-center h-64">
               <div className="text-lg text-red-600">
@@ -64,7 +64,7 @@ export const ThreadList = () => {
 
   return (
     <div className="flex flex-1">
-      <NestedSidebar data={docsData} />
+      {/* <NestedSidebar data={docsData} /> */}
 
       {/* TODO: 추후 컴포넌트화 + props로 카테고리 받아서 여러 대분류 카테고리를 한번에 표현, 또는 각 카테고리별로 표현할 수 있어야겠다요. */}
       <main className="max-w-4xl px-4 py-10 mx-auto w-full">
@@ -77,21 +77,21 @@ export const ThreadList = () => {
                 {selectedChapter && (
                   <span>
                     {" > "}
-                    {
+                    {/* {
                       dockerCategory?.children?.find(
                         (ch) => ch.id === selectedChapter
                       )?.name
-                    }
+                    } */}
                   </span>
                 )}
                 {selectedCategory && (
                   <span>
                     {" > "}
-                    {
+                    {/* {
                       flatDockerCategories.find(
                         (cat) => cat.id === selectedCategory
                       )?.name
-                    }
+                    } */}
                   </span>
                 )}
               </div>
@@ -129,7 +129,7 @@ export const ThreadList = () => {
             </div>
           </div>
 
-          {dockerCategory?.children && dockerCategory.children.length > 0 && (
+          {/* {dockerCategory?.children && dockerCategory.children.length > 0 && (
             <div>
               <h3 className="text-sm font-medium text-gray-700 mb-2">
                 📖 챕터별 주제
@@ -153,9 +153,9 @@ export const ThreadList = () => {
                 ))}
               </div>
             </div>
-          )}
+          )} */}
 
-          {selectedChapter && dockerCategory?.children && (
+          {/* {selectedChapter && dockerCategory?.children && (
             <div>
               <h3 className="text-sm font-medium text-gray-700 mb-2">
                 📝 세부 내용
@@ -178,7 +178,7 @@ export const ThreadList = () => {
                   ))}
               </div>
             </div>
-          )}
+          )} */}
         </div>
 
         <div className="space-y-6">

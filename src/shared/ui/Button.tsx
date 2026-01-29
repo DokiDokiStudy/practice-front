@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
+import { MouseEvent, MouseEventHandler, ReactNode } from "react";
 
 export interface ButtonProps {
   children: ReactNode;
   color?: string;
   size?: string;
-  onClick?: () => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   loading?: boolean;
@@ -48,7 +48,7 @@ export function Button({
   return (
     <button
       type={type}
-      onClick={onClick}
+      onClick={(event: MouseEvent<HTMLButtonElement>) => onClick?.(event)}
       disabled={disabled || loading}
       className={`
         inline-flex items-center justify-center gap-2

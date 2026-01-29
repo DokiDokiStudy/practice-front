@@ -1,13 +1,28 @@
+import { Comment } from "@/entities/comment";
+import { BoardComment } from "@/pages/board/boardComment/ui/BoardComment";
+
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
 interface PostDetailProps {
+  postId: number;
   title: string;
   author: string;
   date: string;
   content: string;
+  comments: Comment[];
 }
 
-export function PostDetail({ title, author, date, content }: PostDetailProps) {
+export function PostDetail({
+  postId,
+  title,
+  author,
+  date,
+  content,
+  comments,
+}: PostDetailProps) {
   return (
-    <div className="space-y-4">
+    <>
       <div>
         <span className="text-gray-500">제목</span>
         <h3 className="text-xl font-semibold mt-1">{title}</h3>
@@ -18,9 +33,12 @@ export function PostDetail({ title, author, date, content }: PostDetailProps) {
         <span>{date}</span>
       </div>
 
-      <div className="bg-[#fffde7] p-6 rounded-xl text-gray-800 max-h-[300px] overflow-y-auto whitespace-pre-line min-h-[200px]">
-        {content}
+      <div className="bg-[#fffde7] p-6 rounded-xl text-gray-800 flex-1 min-h-0 overflow-y-auto max-w-none">
+        <div className="text-gray-800 prose prose-sm max-w-none">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+        </div>
+        <BoardComment postId={postId} comments={comments} />
       </div>
-    </div>
+    </>
   );
 }

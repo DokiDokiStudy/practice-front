@@ -1,4 +1,4 @@
-export * from "./ThreadDetailPage";
-export * from "./ThreadEditPage";
-export * from "./ThreadWritePage";
-export * from "./ThreadListPage";
+export { ThreadListPage } from "./ThreadListPage";
+export { ThreadDetailPage } from "./ThreadDetailPage";
+export { ThreadEditPage } from "./ThreadEditPage";
+export { ThreadWritePage } from "./ThreadWritePage";

@@ -1,7 +1,7 @@
 export interface Step {
   id: string;
   title: string;
-  content?: string;
+  content: string;
 }
 
 export interface Chapter {
@@ -10,15 +10,14 @@ export interface Chapter {
   steps: Step[];
 }
 
-export interface DocsSection {
+export interface DocsCategory {
   id: string;
   title: string;
   chapters: Chapter[];
 }
 
-export interface Category {
+export interface DocsCategoryNew {
   id: string;
   name: string;
-  parentId: string | null;
-  groupId: string | null;
+  children: DocsCategoryNew[];
 }

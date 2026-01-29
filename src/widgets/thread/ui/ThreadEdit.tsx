@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { NestedSidebar } from "@/shared/ui";
+// import { NestedSidebar } from "@/shared/ui";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Save } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import { fetchCategories } from "@/entities/category";
+// import { fetchCategories } from "@/entities/category";
 import { useUpdateThread } from "@/features/thread/model/useThreads";
 import { useAuth } from "@/shared/lib/auth";
-import { docsData } from "@/features/docs";
+// import { docsData } from "@/features/docs";
 import { useThread } from "@/widgets/thread/model";
 import { ThreadError, ThreadLoading } from "@/widgets/thread/ui";
 
@@ -30,7 +30,7 @@ export const ThreadEdit = () => {
   // 카테고리 데이터 가져오기
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
-    queryFn: fetchCategories,
+    // queryFn: fetchCategories,
     placeholderData: [],
   });
 
@@ -105,7 +105,7 @@ export const ThreadEdit = () => {
     return (
       <div className="flex flex-col min-h-screen">
         <div className="flex flex-1">
-          <NestedSidebar data={docsData} />
+          {/* <NestedSidebar data={docsData} /> */}
           <main className="max-w-4xl px-4 py-10 mx-auto w-full">
             <div className="flex justify-center items-center h-64">
               <div className="text-lg text-red-600">
@@ -124,7 +124,7 @@ export const ThreadEdit = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex flex-1">
-        <NestedSidebar data={docsData} />
+        {/* <NestedSidebar data={docsData} /> */}
 
         <main className="max-w-4xl px-4 py-10 mx-auto w-full">
           {/* 헤더 */}

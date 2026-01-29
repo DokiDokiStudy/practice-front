@@ -1,6 +1,11 @@
 import { BoardDetailPage } from "@/pages/board";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useMatchRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/board/$id")({
-  component: BoardDetailPage,
+  component: () => {
+    const matchRoute = useMatchRoute();
+    const isEditPage = matchRoute({ to: "/board/$id/edit" });
+
+    return isEditPage ? <Outlet /> : <BoardDetailPage />;
+  },
 });
